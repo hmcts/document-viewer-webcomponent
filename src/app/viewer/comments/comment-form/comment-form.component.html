@@ -1,0 +1,30 @@
+  <div [hidden]="!selectedAnnotationId">
+    <form (ngSubmit)="onSubmit()" #commentForm="ngForm" class="comment-list-form">
+        <!-- {{diagnostic}} -->
+        <input 
+          type="hidden" 
+          class="form-control" 
+          id="author" 
+          required
+          [(ngModel)]="model.author" name="author"
+          value={{authorId}}>
+
+        <textarea 
+          type="hidden" 
+          class="form-control" id="comment"
+          required
+          [(ngModel)]="model.comment" name="comment"></textarea>
+
+          <input 
+            type="hidden" 
+            class="form-control" 
+            id="annotationId"
+            required
+            [(ngModel)]="model.annotationId" name="annotationId"
+            value={{selectedAnnotationId}}>
+
+ 
+      <button type="submit" class="btn btn-success" [disabled]="!commentForm.form.valid">Submit</button>
+ 
+    </form>
+  </div>

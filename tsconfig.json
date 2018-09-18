@@ -16,6 +16,14 @@
     "lib": [
       "es2017",
       "dom"
-    ]
+    ],
+    "paths": {
+      "pdfannotator": [
+        "dist/pdfannotator"
+      ],
+      "pdfannotator/*": [
+        "dist/pdfannotator/*"
+      ]
+    }
   }
 }

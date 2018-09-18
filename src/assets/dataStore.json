@@ -1,0 +1,35 @@
+[
+    {
+        "type":"highlight","color":"FFFF00","rectangles":
+        [
+            {
+                "y":188.85636867437145,
+                "x":93.48291382753759,
+                "width":14.738246372767856,
+                "height":11.619946472626879
+            },{
+                "y":188.85636867437145,
+                "x":108.29630686824483,
+                "width":72.81434482201597,
+                "height":11.619946472626879
+            }
+        ],
+        "class":"Annotation","uuid":"f2400dd4-3aea-4eb2-9449-efdc7b1cd688","page":1},
+            {
+                "type":"highlight","color":"FFFF00","rectangles":
+                [
+                    {
+                        "y":188.85636867437145,
+                        "x":89.79836370711935,
+                        "width":18.67611533717105,
+                        "height":11.619946472626879
+                    }
+                ],
+                "class":"Annotation","uuid":"9962df2e-b6a3-4e16-b495-10691f816163","page":1
+            },{
+                "class":"Comment",
+                "uuid":"8690ddf5-1e97-4e42-a22f-e4e72da4806d",
+                "annotation":"f2400dd4-3aea-4eb2-9449-efdc7b1cd688",
+                "content":"This is another comment"
+                }
+]

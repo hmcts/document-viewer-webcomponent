@@ -1,0 +1,16 @@
+<div id="content-wrapper" 
+  #contentWrapper 
+  detect-scroll 
+  (onScroll)="handlePdfScroll($event)"
+  (click)="getClickedPage($event)"
+  >
+  <div id="viewer" class="pdfViewer"></div>
+</div>
+
+<app-comments 
+  [pageNumber]="pageNumber"
+  ></app-comments>
+  
+<app-toolbar
+  [(tool)]="tool"
+  ></app-toolbar>

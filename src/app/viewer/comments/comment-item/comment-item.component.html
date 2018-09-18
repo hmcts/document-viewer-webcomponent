@@ -1,0 +1,41 @@
+<form class="comment-list-item" 
+  (ngSubmit)="onSubmit()" #commentItem="ngForm" 
+  (click)="handleCommentClick($event)">
+
+  <label>Author: {{comment.author}}</label>
+  <br>
+  <label ng-controller="datCtrl">Created: {{ comment.createdDate | date }}</label>
+  <label *ngIf="comment.modifiedDate != null" ng-controller="datCtrl">Modified: {{ comment.modifiedDate | date }}</label>
+  <input 
+    type="hidden" 
+    id="author" 
+    required
+    [ngModel]="comment.author" name="author"
+    value={{comment.author}}>
+
+  <textarea 
+    type="text" 
+    class="form-control" id="comment"
+    required
+    #commentTextField
+    [ngModel]="comment.content" name="comment"
+    value="comment.content"></textarea>
+
+  <input 
+    type="hidden" 
+    id="annotationId"
+    required
+    [ngModel]="comment.annotation" name="annotationId"
+    >
+
+  <input 
+    type="hidden" 
+    id="commentId"
+    required
+    [ngModel]="comment.uuid" name="commentId">
+
+  <div>
+    <button type="submit" class="btn btn-success" [disabled]="!commentItem.form.valid">✓</button>
+    <button class="comment-button" (click)="handleDeleteComment($event, comment.uuid, comment.annotation)">×</button>
+  </div>
+</form>

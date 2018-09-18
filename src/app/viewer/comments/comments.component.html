@@ -1,0 +1,21 @@
+<div id="comment-wrapper">
+  <h4 id="comment-header">Page {{pageNumber}}</h4>
+  <div class="comment-list">
+    <div class="comment-list-container" 
+      #commentList
+      >
+      
+      <app-comment-item 
+        *ngFor="let comment of comments" 
+        [comment]="comment"
+        (commentSubmitted)='showAllComments()'
+        (commentSelected)='addHighlightedCommentStyle($event)'></app-comment-item>
+    
+
+    <app-comment-form 
+      (commentSubmitted)='readComments($event)'
+      [authorId]="authorId" 
+      [selectedAnnotationId]="selectedAnnotationId"></app-comment-form>
+    </div>
+  </div>
+</div>
