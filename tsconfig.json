@@ -23,6 +23,12 @@
       ],
       "pdfannotator/*": [
         "dist/pdfannotator/*"
+      ],
+      "annotation-ui-lib": [
+        "dist/annotation-ui-lib"
+      ],
+      "annotation-ui-lib/*": [
+        "dist/annotation-ui-lib/*"
       ]
     }
   }

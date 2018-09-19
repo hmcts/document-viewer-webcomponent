@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, OnChanges, ViewChild, Renderer2, ElementRef, ChangeDetectorRef, SimpleChanges } from '@angular/core';
 import { AnnotationService } from '../services/annotation.service';
 
-declare const PDFAnnotate: any;
+let PDFAnnotate = require('../assets/shared/pdf-annotate.js');
 
 @Component({
   selector: 'app-comments',

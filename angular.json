@@ -23,12 +23,12 @@
               "src/assets"
             ],
             "styles": [
+              "dist/annotation-ui-lib/assets/_theme.scss",
               "src/styles.css"
             ],
             "scripts": [
-              "src/assets/shared/pdf.js",
-              "src/assets/shared/pdf_viewer.js",
-              "src/assets/shared/pdf-annotate.js"
+              "dist/annotation-ui-lib/assets/shared/pdf.js",
+              "dist/annotation-ui-lib/assets/shared/pdf_viewer.js"
             ]
           },
           "configurations": {
@@ -126,38 +126,38 @@
         }
       }
     },
-    "pdfannotator": {
-      "root": "projects/pdfannotator",
-      "sourceRoot": "projects/pdfannotator/src",
+    "annotation-ui-lib": {
+      "root": "projects/annotation-ui-lib",
+      "sourceRoot": "projects/annotation-ui-lib/src",
       "projectType": "library",
-      "prefix": "lib",
+      "prefix": "aui",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
           "options": {
-            "tsConfig": "projects/pdfannotator/tsconfig.lib.json",
-            "project": "projects/pdfannotator/ng-package.json"
+            "tsConfig": "projects/annotation-ui-lib/tsconfig.lib.json",
+            "project": "projects/annotation-ui-lib/ng-package.json"
           },
           "configurations": {
             "production": {
-              "project": "projects/pdfannotator/ng-package.prod.json"
+              "project": "projects/annotation-ui-lib/ng-package.prod.json"
             }
           }
         },
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "main": "projects/pdfannotator/src/test.ts",
-            "tsConfig": "projects/pdfannotator/tsconfig.spec.json",
-            "karmaConfig": "projects/pdfannotator/karma.conf.js"
+            "main": "projects/annotation-ui-lib/src/test.ts",
+            "tsConfig": "projects/annotation-ui-lib/tsconfig.spec.json",
+            "karmaConfig": "projects/annotation-ui-lib/karma.conf.js"
           }
         },
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "projects/pdfannotator/tsconfig.lib.json",
-              "projects/pdfannotator/tsconfig.spec.json"
+              "projects/annotation-ui-lib/tsconfig.lib.json",
+              "projects/annotation-ui-lib/tsconfig.spec.json"
             ],
             "exclude": [
               "**/node_modules/**"

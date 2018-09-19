@@ -2,9 +2,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
-import { AnnotationsModule } from './viewer/annotations.module';
 import { RouterModule, Routes } from '@angular/router';
-import { ViewerComponent } from './viewer/viewer/viewer.component';
+import { AnnotationUiLibModule, ViewerComponent } from 'annotation-ui-lib';
 
 const appRoutes: Routes = [
   { path: '',  component: ViewerComponent }
@@ -17,7 +16,7 @@ const appRoutes: Routes = [
   ],
   imports: [
     BrowserModule,
-    AnnotationsModule,
+    AnnotationUiLibModule,
     RouterModule.forRoot(
       appRoutes
     )

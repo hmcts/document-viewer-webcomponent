@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'lib-pdfannotator',
+  selector: 'aui-annotation-ui-lib',
   template: `
     <p>
-      pdfannotator works!
+      annotation-ui-lib works!
     </p>
   `,
   styles: []
 })
-export class PdfannotatorComponent implements OnInit {
+export class AnnotationUiLibComponent implements OnInit {
 
   constructor() { }
 

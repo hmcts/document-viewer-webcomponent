@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PdfannotatorComponent } from './pdfannotator.component';
+import { AnnotationUiLibComponent } from './annotation-ui-lib.component';
 
-describe('PdfannotatorComponent', () => {
-  let component: PdfannotatorComponent;
-  let fixture: ComponentFixture<PdfannotatorComponent>;
+describe('AnnotationUiLibComponent', () => {
+  let component: AnnotationUiLibComponent;
+  let fixture: ComponentFixture<AnnotationUiLibComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PdfannotatorComponent ]
+      declarations: [ AnnotationUiLibComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(PdfannotatorComponent);
+    fixture = TestBed.createComponent(AnnotationUiLibComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

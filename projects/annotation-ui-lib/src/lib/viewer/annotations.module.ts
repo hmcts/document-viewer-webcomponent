@@ -11,7 +11,6 @@ import { CommentItemComponent } from "./comments/comment-item/comment-item.compo
 import { CommentFormComponent } from "./comments/comment-form/comment-form.component";
 import { AnnotationStoreService } from "./services/annotation-store.service";
 
-
 @NgModule(
     {
         declarations: [
@@ -25,6 +24,7 @@ import { AnnotationStoreService } from "./services/annotation-store.service";
             CommonModule,
             FormsModule,
             ScrollEventModule,
+            pdfjs
         ],
         exports: [
             ViewerComponent

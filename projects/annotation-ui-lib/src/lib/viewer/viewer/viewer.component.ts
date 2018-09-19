@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter, ViewChild, ElementRef, Inject, OnChanges} from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, Inject, OnChanges} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ScrollEvent } from 'ngx-scroll-event';
 import { DOCUMENT } from '@angular/common';

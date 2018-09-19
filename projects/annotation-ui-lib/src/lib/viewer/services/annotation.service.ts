@@ -3,8 +3,8 @@ import { AnnotationStoreService } from './annotation-store.service';
 import { Comment } from '../comments/comment';
 import { NgForm } from '@angular/forms';
 
-declare var PDFJS: any;
-declare var PDFAnnotate: any;
+declare const PDFJS: any;
+let PDFAnnotate = require('../assets/shared/pdf-annotate.js');
 
 @Injectable()
 export class AnnotationService implements OnInit{
@@ -15,17 +15,17 @@ export class AnnotationService implements OnInit{
   private RENDER_OPTIONS: { documentId: string, pdfDocument: any, scale: any, rotate: number };	
   pdfPages: number;
 
-  constructor(private annotationStoreService: AnnotationStoreService) { 
+  constructor(private annotationStoreService: AnnotationStoreService) {
+    
     PDFAnnotate.setStoreAdapter(new PDFAnnotate.LocalStoreAdapter());
 
-    // PDFJS.disableWorker = true;
-    PDFJS.workerSrc = '/assets/shared/pdf.worker.js';
+    PDFJS.workerSrc = '/node_modules/annotation-ui-lib/assets/shared/pdf.worker.js';
+    
     this.PAGE_HEIGHT = void 0;
     this.UI = PDFAnnotate.UI;
   }
 
   ngOnInit() {
-    
   }
 
   setRenderOptions(RENDER_OPTIONS: { documentId: string; pdfDocument: null; scale: number; rotate: number; }): any {
