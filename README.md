@@ -1,26 +1,53 @@
-# AnnotationUi
+# Annotation UI
+
+## Instructions to add this library to your own angular app
+https://www.npmjs.com/package/hmcts-annotation-ui-lib
+
 Import AnnotationUiLibModule from annotation-ui-lib in your app.module.ts and declare it in your NgModule imports.
 
+For example:
+```
+import { AnnotationUiLibModule, ViewerComponent} from 'hmcts-annotation-ui-lib';
+
+@NgModule({
+  imports: [
+    ...
+    AnnotationUiLibModule
+  ]
+})
+```
+
 Reference the followings scripts in your angular.json.
-            "scripts": [
-              "node_modules/annotation-ui-lib/assets/shared/pdf.js",
-              "node_modules/annotation-ui-lib/assets/shared/pdf_viewer.js",
-              "node_modules/annotation-ui-lib/assets/shared/pdf-annotate.js"
-            ]
+```
+"scripts": [
+  "node_modules/annotation-ui-lib/assets/shared/pdf.js",
+  "node_modules/annotation-ui-lib/assets/shared/pdf_viewer.js",
+  "node_modules/annotation-ui-lib/assets/shared/pdf-annotate.js"
+]
+```
 
 And styles
-            "styles": [
-              "node_modules/annotation-ui-lib/assets/_theme.scss",
-              "src/styles.css"
-            ],
+```
+"styles": [
+  "node_modules/annotation-ui-lib/assets/_theme.scss",
+  "src/styles.css"
+],
+```
 
-Entry point is the ViewerComponent component and the selector is <app-viewer>. 
+Entry point is the ViewerComponent component. For example:
+```
+const appRoutes: Routes = [
+  { path: '',  component: ViewerComponent }
+]; 
+```
 
-Bind a URL to the PDF you want to annotate to the ViewerComponent.
+Make sure to pass a query parameter for the PDF location when you navigate to the component. For example:
+Copy your PDF into the root assets folder and reference it like http://localhost:4200?url=/assets/example.pdf
+
 
 ## Development server
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+Run `ng serve` for a dev server. Navigate to `http://localhost:4200/?url=/assets/example.pdf`. The app will automatically reload if you change any of the source files.
 
 ## Code scaffolding
 
