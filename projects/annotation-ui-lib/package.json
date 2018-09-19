@@ -3,7 +3,7 @@
   "version": "0.0.2",
   "description": "PDF Viewer and ability to highlight text with and comment tracking",
   "keywords" :["Angular","PDF", "Annotation"],
-  "homepage" :"https://medium.com/@palmer_todd/the-angular-library-series-publishing-ce24bb673275",
+  "homepage" :"https://github.com/hmcts/annotation-ui",
   "license" : "SEE LICENSE IN LICENSE",
   "repository": {
     "type" : "git",

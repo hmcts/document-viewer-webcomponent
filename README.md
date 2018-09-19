@@ -20,17 +20,18 @@ import { AnnotationUiLibModule, ViewerComponent} from 'hmcts-annotation-ui-lib';
 Reference the followings scripts in your angular.json.
 ```
 "scripts": [
-  "node_modules/annotation-ui-lib/assets/shared/pdf.js",
-  "node_modules/annotation-ui-lib/assets/shared/pdf_viewer.js",
-  "node_modules/annotation-ui-lib/assets/shared/pdf-annotate.js"
+    "node_modules/hmcts-annotation-ui-lib/assets/shared/pdf.js",
+    "node_modules/hmcts-annotation-ui-lib/assets/shared/pdf_viewer.js",
+    "node_modules/hmcts-annotation-ui-lib/assets/shared/pdf-annotate.js",
+    ...
 ]
 ```
 
 And styles
 ```
 "styles": [
-  "node_modules/annotation-ui-lib/assets/_theme.scss",
-  "src/styles.css"
+  "node_modules/hmcts-annotation-ui-lib/_theme.scss",
+  ...
 ],
 ```
 
@@ -48,10 +49,6 @@ Copy your PDF into the root assets folder and reference it like http://localhost
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/?url=/assets/example.pdf`. The app will automatically reload if you change any of the source files.
-
-## Code scaffolding
-
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
 
 ## Build
 
