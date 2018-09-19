@@ -22,7 +22,7 @@ export class AnnotationService implements OnInit{
     
     PDFAnnotate.setStoreAdapter(new PDFAnnotate.LocalStoreAdapter());
 
-    PDFJS.workerSrc = '/node_modules/annotation-ui-lib/assets/shared/pdf.worker.js';
+    PDFJS.workerSrc = '/node_modules/hmcts-annotation-ui-lib/assets/shared/pdf.worker.js';
     
     this.PAGE_HEIGHT = void 0;
     this.UI = PDFAnnotate.UI;
