@@ -1,8 +1,8 @@
 import { Injectable, OnInit } from '@angular/core';
-import { AnnotationStoreService } from './annotation-store.service';
-import { Comment } from '../comments/comment';
 import { NgForm } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
+import { AnnotationStoreService } from './annotation-store.service';
+import { Comment } from '../comments/comment';
 
 declare const PDFJS: any;
 declare const PDFAnnotate: any;

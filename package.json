@@ -27,6 +27,7 @@
     "@angular/platform-browser": "^6.1.0",
     "@angular/platform-browser-dynamic": "^6.1.0",
     "@angular/router": "^6.1.0",
+    "@types/lodash": "^4.14.116",
     "core-js": "^2.5.4",
     "ngx-scroll-event": "^1.0.8",
     "rxjs": "^6.0.0",

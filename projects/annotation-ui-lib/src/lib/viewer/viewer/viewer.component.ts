@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, ElementRef, Inject, OnChanges } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ScrollEvent } from 'ngx-scroll-event';
 import { DOCUMENT } from '@angular/common';
+import { ScrollEvent } from 'ngx-scroll-event';
 import { AnnotationService } from '../services/annotation.service';
 
 @Component({
