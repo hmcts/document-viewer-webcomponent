@@ -1,5 +1,5 @@
-import { Component, OnInit, ViewChild, ElementRef, Inject, OnChanges} from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component, OnInit, ViewChild, ElementRef, Inject, OnChanges } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ScrollEvent } from 'ngx-scroll-event';
 import { DOCUMENT } from '@angular/common';
 import { AnnotationService } from '../services/annotation.service';
@@ -23,22 +23,28 @@ export class ViewerComponent implements OnInit, OnChanges {
 
   constructor(
     private annotationService: AnnotationService, 
-    private route: ActivatedRoute, 
+    private route: ActivatedRoute,
+    private router: Router, 
     @Inject(DOCUMENT) private document: any) {
 
-		this.route.queryParams.subscribe(params => {
-			this.url = params.url;
-			this.annotate = params.annotate === 'true';
+		this.route.queryParams.subscribe(
+      params => {
+        if (params.url) {
+          this.url = params.url;
+        }else {
+          let error = "Please provide a url for your PDF. For debugging, copy your PDF into the root assets folder and reference it like http://localhost:4200?url=/assets/example.pdf.";
+          this.router.navigate(['error', error],  {relativeTo: this.route});
+        }
     });
   }
 
   ngOnInit() {
     this.annotationService.setRenderOptions({
-      documentId: '/assets/example.pdf',
+      documentId: this.url,
       pdfDocument: null,
       scale: parseFloat("1.33"),
-      rotate: parseInt(localStorage.getItem('/assets/example.pdf' + '/rotate'), 10) || 0
-      });
+      rotate: parseInt(localStorage.getItem(this.url + '/rotate'), 10) || 0
+    });
 
     this.renderedPages = {};
     this.annotationService.render();

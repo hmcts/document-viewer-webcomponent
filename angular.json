@@ -28,7 +28,8 @@
             ],
             "scripts": [
               "dist/annotation-ui-lib/assets/shared/pdf.js",
-              "dist/annotation-ui-lib/assets/shared/pdf_viewer.js"
+              "dist/annotation-ui-lib/assets/shared/pdf_viewer.js",
+              "dist/annotation-ui-lib/assets/shared/pdf-annotate.js"
             ]
           },
           "configurations": {

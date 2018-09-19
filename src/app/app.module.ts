@@ -3,12 +3,11 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { RouterModule, Routes } from '@angular/router';
-import { AnnotationUiLibModule, ViewerComponent } from 'annotation-ui-lib';
+import { AnnotationUiLibModule, ViewerComponent } from '../../projects/annotation-ui-lib/src/public_api';
 
 const appRoutes: Routes = [
   { path: '',  component: ViewerComponent }
 ];
-
 
 @NgModule({
   declarations: [

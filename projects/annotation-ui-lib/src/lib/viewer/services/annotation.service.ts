@@ -2,9 +2,10 @@ import { Injectable, OnInit } from '@angular/core';
 import { AnnotationStoreService } from './annotation-store.service';
 import { Comment } from '../comments/comment';
 import { NgForm } from '@angular/forms';
+import { Router, ActivatedRoute } from '@angular/router';
 
 declare const PDFJS: any;
-let PDFAnnotate = require('../assets/shared/pdf-annotate.js');
+declare const PDFAnnotate: any;
 
 @Injectable()
 export class AnnotationService implements OnInit{
@@ -15,7 +16,9 @@ export class AnnotationService implements OnInit{
   private RENDER_OPTIONS: { documentId: string, pdfDocument: any, scale: any, rotate: number };	
   pdfPages: number;
 
-  constructor(private annotationStoreService: AnnotationStoreService) {
+  constructor(private annotationStoreService: AnnotationStoreService,
+    private router: Router,
+    private route: ActivatedRoute) {
     
     PDFAnnotate.setStoreAdapter(new PDFAnnotate.LocalStoreAdapter());
 
@@ -55,7 +58,12 @@ export class AnnotationService implements OnInit{
           const annotations = _ref2[1];
           this.PAGE_HEIGHT = pdfPage.getViewport(this.RENDER_OPTIONS.scale, this.RENDER_OPTIONS.rotate);
       });
-    });
+    }).catch(
+      (error) => {
+        let message = "Unable to render your supplied PDF. " + this.RENDER_OPTIONS.documentId + ". Error is: " + error;
+        this.router.navigate(['error', message], {relativeTo: this.route});
+      }
+    );
   }
 
   renderPage(visiblePageNum: number) {

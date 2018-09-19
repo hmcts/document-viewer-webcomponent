@@ -9,12 +9,23 @@ import { ToolbarComponent } from './viewer/toolbar/toolbar.component';
 import { AnnotationStoreService } from './viewer/services/annotation-store.service';
 import { ScrollEventModule } from 'ngx-scroll-event';
 import { FormsModule } from '@angular/forms';
+import { ErrorComponent } from './error/error.component';
+import { HttpClientModule } from '@angular/common/http';
+import { Routes, RouterModule } from '@angular/router';
+
+const appRoutes: Routes = [
+  { path: 'error/:error',  component: ErrorComponent }
+];
 
 @NgModule({
   imports: [
     CommonModule,
     ScrollEventModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule,
+    RouterModule.forChild(
+      appRoutes
+    )
   ],
   declarations: [
     AnnotationUiLibComponent, 
@@ -22,7 +33,8 @@ import { FormsModule } from '@angular/forms';
     CommentsComponent,
     CommentItemComponent,
     CommentFormComponent,
-    ToolbarComponent
+    ToolbarComponent,
+    ErrorComponent
   ],
   providers: [
     AnnotationStoreService

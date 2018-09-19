@@ -1,7 +1,6 @@
 import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { FormsModule } from "@angular/forms";
-import { Routes, RouterModule } from "@angular/router";
 
 import { ViewerComponent } from "./viewer/viewer.component";
 import { ScrollEventModule } from 'ngx-scroll-event';
@@ -23,8 +22,7 @@ import { AnnotationStoreService } from "./services/annotation-store.service";
         imports: [
             CommonModule,
             FormsModule,
-            ScrollEventModule,
-            pdfjs
+            ScrollEventModule
         ],
         exports: [
             ViewerComponent
