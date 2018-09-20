@@ -5,7 +5,7 @@
       #commentList
       >
       
-      <app-comment-item 
+      <app-comment-item [svg]="svg"
         *ngFor="let comment of comments" 
         [comment]="comment"
         (commentSubmitted)='showAllComments()'

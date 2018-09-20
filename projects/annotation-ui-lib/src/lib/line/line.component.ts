@@ -7,22 +7,33 @@ import { Component, OnInit, Input, ElementRef } from '@angular/core';
 })
 export class LineComponent implements OnInit {
 
-  @Input() svg;
+  svg;
   @Input() source: ElementRef;
-  @Input() target: HTMLElement;
-
+  @Input() targetAnnotation: string;
+  
   constructor() {
   }
 
   ngOnInit() {
   }
 
-  ngAfterViewInit() {
-    console.log(this.source);
-    console.log(this.target);
-    this.connectDivs(this.target, this.source, "blue", 0.2);
+  onClick() {
+    this.svg = document.querySelector('#pageContainer1 .annotationLayer');
+    this.getAnnotationElement(this.targetAnnotation);
   }
 
+  getAnnotationElement(linkedAnnotationId: string) {
+    const annotations = Array.from(document.querySelector('#pageContainer1 .annotationLayer').childNodes);
+    
+		annotations.forEach(annotation => {
+      const annotationId = (<HTMLInputElement>annotation).dataset.pdfAnnotateId;
+      
+			if (annotationId === linkedAnnotationId) {
+        this.connectDivs(annotation, this.source, "blue", 0.4);
+      }
+		});
+  }
+  
   findAbsolutePosition(htmlElement: any) {
     var x = <number>htmlElement.offsetLeft;
     var y = <number>htmlElement.offsetTop;
@@ -38,40 +49,29 @@ export class LineComponent implements OnInit {
     };
   }
 
-  connectDivs(target, source, color, tension) {
+  convertCoords(x,y, target): {x: number, y:number} {
 
-    var leftPos = this.findAbsolutePosition(target);
-    var x1 = leftPos.x;
-    var y1 = leftPos.y;
-    x1 += target.offsetWidth;
-    y1 += (target.offsetHeight / 2);
-  
-    console.log(leftPos);
-
-    var rightPos = this.findAbsolutePosition(source);
-    var x2 = rightPos.x;
-    var y2 = rightPos.y;
-    y2 += (source.offsetHeight / 2);
-  
-    console.log(rightPos);
+    var offset = this.svg.getBoundingClientRect();
+    var matrix = target.getScreenCTM();
     
-    // var width=x2-x1;
-    // var height = y2-y1;
-  
-    // this.drawCircle(x1, y1, 3, color);
-    // this.drawCircle(x2, y2, 3, color);
-    this.drawCurvedLine(x1, y1, x2, y2, color, tension);
+    return {
+      x: (matrix.a * x) + (matrix.c * y) + matrix.e - offset.left,
+      y: (matrix.b * x) + (matrix.d * y) + matrix.f - offset.top
+    };
   }
 
+  connectDivs(target, source, color, tension) {
 
-//   drawCircle(x, y, radius, color) {
-// 	    var shape = document.createElementNS("http://www.w3.org/2000/svg", "circle");
-//     shape.setAttributeNS(null, "cx", x);
-//     shape.setAttributeNS(null, "cy", y);
-//     shape.setAttributeNS(null, "r",  radius);
-//     shape.setAttributeNS(null, "fill", color);
-//     this.svg.appendChild(shape);
-// }
+    var bBox = target.getBBox();
+    var absoluteCoords = this.convertCoords(bBox.x + bBox.width, bBox.y, target);
+
+    var pos = this.findAbsolutePosition(source);
+    const contentYOffset = 167;
+    var x2 = pos.x;
+    var y2 = pos.y - contentYOffset;
+    
+    this.drawCurvedLine(absoluteCoords.x, absoluteCoords.y, x2, y2, color, tension);
+  }
 
   drawCurvedLine(x1, y1: number, x2: number, y2, color, tension) {
     var shape = document.createElementNS("http://www.w3.org/2000/svg", 

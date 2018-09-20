@@ -4,8 +4,9 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { RouterModule, Routes } from '@angular/router';
 import { AnnotationUiLibModule, ViewerComponent } from '../../projects/annotation-ui-lib/src/public_api';
-import { ProgressBarComponent } from './progress-bar/progress-bar.component';
 import { LineComponent } from './line/line.component';
+import { CommentListComponent } from './comment-list/comment-list.component';
+import { CommentItemComponent } from './comment-item/comment-item.component';
 
 const appRoutes: Routes = [
   { path: '',  component: ViewerComponent }
@@ -14,17 +15,20 @@ const appRoutes: Routes = [
 @NgModule({
   declarations: [
     AppComponent,
-    ProgressBarComponent,
-    LineComponent
+    LineComponent,
+    CommentListComponent,
+    CommentItemComponent,
+    
   ],
   imports: [
     BrowserModule,
     AnnotationUiLibModule,
     RouterModule.forRoot(
       appRoutes
-    )
+    ),
+    
   ],
-  providers: [],
+  providers: [  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

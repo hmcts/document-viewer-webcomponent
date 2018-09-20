@@ -17,6 +17,8 @@ export class CommentsComponent implements OnInit, OnChanges {
   authorId:string;
   @Input() pageNumber: number;
   
+  @Input() svg;
+
   @ViewChild("commentList") commentList: ElementRef;
   @ViewChild("commentForm") commentForm: ElementRef;
   @ViewChild("commentText") commentText: ElementRef;
@@ -33,6 +35,7 @@ export class CommentsComponent implements OnInit, OnChanges {
 	};
 
 	ngAfterViewInit() {
+		
 		PDFAnnotate.UI.addEventListener('annotation:click', this.handleAnnotationClick.bind(this));
 		PDFAnnotate.UI.addEventListener('annotation:blur', this.handleAnnotationBlur.bind(this));
 	}
@@ -109,7 +112,6 @@ export class CommentsComponent implements OnInit, OnChanges {
 
 	addHighlightedCommentStyle(linkedAnnotationId) {
 		const annotations = Array.from(document.querySelector('#pageContainer1 .annotationLayer').childNodes);
-
 		annotations.forEach(annotation => {
 			this.render.removeClass(annotation,"comment-selected");
 			const annotationId = (<HTMLInputElement>annotation).dataset.pdfAnnotateId;

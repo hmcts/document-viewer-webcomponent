@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef, Inject, OnChanges } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, Inject, OnChanges, AfterContentInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DOCUMENT } from '@angular/common';
 import { ScrollEvent } from 'ngx-scroll-event';
@@ -11,13 +11,14 @@ import { AnnotationService } from '../services/annotation.service';
   providers: [AnnotationService]
 })
 
-export class ViewerComponent implements OnInit, OnChanges {
+export class ViewerComponent implements OnInit, OnChanges, AfterContentInit {
   renderedPages: {};
 	url: string;
 	annotate: boolean;
   lastViewedPage: number;
   pageNumber: number;
   tool: String;
+  svg;
 
   @ViewChild("contentWrapper") contentWrapper: ElementRef;
 
@@ -52,7 +53,15 @@ export class ViewerComponent implements OnInit, OnChanges {
     this.lastViewedPage = 1;
     this.pageNumber = 1;
     this.tool = 'cursor';
+
+    
   }
+
+  ngAfterContentInit() {
+    // console.log("Viewer" + this.annotationService.annotations);
+    // this.createSVG();
+  }
+
 
   ngOnChanges() {
   }
@@ -88,4 +97,18 @@ export class ViewerComponent implements OnInit, OnChanges {
       }
     }
   }
+
+  createSVG() {
+    this.svg = this.document.createElementNS("http://www.w3.org/2000/svg", 
+                                   "svg");
+    this.svg.setAttribute('id', 'svg-canvas');
+    this.svg.setAttribute('style', 'position:absolute;top:0px;left:0px; cursor: none;');
+    this.svg.setAttribute('width', this.document.body.clientWidth);
+    // TODO make this height dynamic
+    this.svg.setAttribute('height', "1000px");
+    this.svg.setAttributeNS("http://www.w3.org/2000/xmlns/", 
+                       "xmlns:xlink", 
+                       "http://www.w3.org/1999/xlink");
+    this.document.body.appendChild(this.svg);
+}
 }

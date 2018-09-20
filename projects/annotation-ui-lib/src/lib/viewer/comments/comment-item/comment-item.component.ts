@@ -1,18 +1,25 @@
-import { Component, OnInit, Input, Output, EventEmitter, Renderer2, ElementRef, ViewChild } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, Renderer2, ElementRef, ViewChild, Inject, AfterViewInit } from '@angular/core';
 import { AnnotationService } from '../../services/annotation.service';
 import { Comment } from '../comment';
 import { NgForm } from '@angular/forms';
+import { DOCUMENT } from '@angular/common';
+import { element } from 'protractor';
 
 @Component({
   selector: 'app-comment-item',
   templateUrl: './comment-item.component.html',
   styleUrls: ['./comment-item.component.scss']
 })
-export class CommentItemComponent implements OnInit {
+export class CommentItemComponent implements OnInit, AfterViewInit {
 
   @Input() comment;
   @Output() commentSubmitted: EventEmitter<string> = new EventEmitter<string>();
   @Output() commentSelected: EventEmitter<String> = new EventEmitter<String>();
+
+  // Draw line from here to annotation
+  @Input() svg;
+  @ViewChild("source") source: ElementRef;
+  targetAnnotation: string;
 
   @ViewChild("commentTextField") commentTextField: ElementRef;
   @ViewChild("annotationIdField") annotationIdField: ElementRef;
@@ -20,15 +27,17 @@ export class CommentItemComponent implements OnInit {
 
   model = new Comment(null, null, null, null, null, null);
 
-  constructor(private annotationService: AnnotationService, private render: Renderer2) { }
+  constructor(
+    private annotationService: AnnotationService, 
+    private render: Renderer2) { }
 
   ngOnInit() {
   }
 
-  // handleEditComment() {
-	// 	alert("did something");
-  // }
-  
+  ngAfterViewInit() {
+    this.targetAnnotation = this.comment.annotation;
+  }
+
   onSubmit() {  
     let comment: Comment;
     comment = this.annotationService.convertFormToComment(this.commentItem);
