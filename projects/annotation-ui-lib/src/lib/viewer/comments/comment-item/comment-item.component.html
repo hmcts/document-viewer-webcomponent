@@ -1,12 +1,16 @@
 <div #source>
-  <form class="comment-list-item" 
+  <form 
+    *ngIf="selectedAnnotationId == annotation.uuid || !selectedAnnotationId" 
+    class="comment-list-item" 
     (ngSubmit)="onSubmit()" #commentItem="ngForm" 
     (click)="handleCommentClick($event)">
+    <div class="comment-meta">
+      <label>{{comment.author}}</label>
+      <br>
+      <label ng-controller="datCtrl">Created On: {{ comment.createdDate | date: 'd/M/y HH:mm' }}</label>
+      <label *ngIf="comment.modifiedDate != null" ng-controller="datCtrl">Modified: {{ comment.modifiedDate | date }}</label>
+    </div>
 
-    <label>Author: {{comment.author}}</label>
-    <br>
-    <label ng-controller="datCtrl">Created: {{ comment.createdDate | date }}</label>
-    <label *ngIf="comment.modifiedDate != null" ng-controller="datCtrl">Modified: {{ comment.modifiedDate | date }}</label>
     <input 
       type="hidden" 
       id="author" 
@@ -15,6 +19,7 @@
       value={{comment.author}}>
 
     <textarea 
+      (focus)="onFocus()"
       type="text" 
       class="form-control" id="comment"
       required
@@ -22,24 +27,24 @@
       [ngModel]="comment.content" name="comment"
       value="comment.content"></textarea>
 
-    <input 
-      type="hidden" 
-      #annotationIdField
-      required
-      [ngModel]="comment.annotation" name="annotationId"
-      >
+      <input 
+        type="hidden" 
+        #annotationIdField
+        required
+        [ngModel]="comment.annotation" name="annotationId"
+        >
 
-    <input 
-      type="hidden" 
-      id="commentId"
-      required
-      [ngModel]="comment.uuid" name="commentId">
+      <input 
+        type="hidden" 
+        id="commentId"
+        required
+        [ngModel]="comment.uuid" name="commentId">
 
-    <div>
-      <button type="submit" class="btn btn-success" [disabled]="!commentItem.form.valid">✓</button>
-      <button class="comment-button" (click)="handleDeleteComment($event, comment.uuid, comment.annotation)">×</button>
-    </div>
+      <div *ngIf="focused">
+          <button type="submit" class="btn btn-success" [disabled]="!commentItem.form.valid">✓</button>
+          <button class="btn" (click)="handleDeleteComment($event, comment.uuid, comment.annotation)">×</button>
+      </div>
+
+    <app-line [source]="source" [targetAnnotation]="targetAnnotation"></app-line>
   </form>
-
-<app-line [source]="source" [targetAnnotation]="targetAnnotation"></app-line>
 </div>

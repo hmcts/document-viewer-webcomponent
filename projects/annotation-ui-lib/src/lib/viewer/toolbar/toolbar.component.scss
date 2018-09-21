@@ -1,17 +1,12 @@
-body {
-    font-family: sans-serif;
-    margin: 40px 0;
-  }
-  * {
-    box-sizing: border-box;
-  }
   
   .toolbar {
     background-color: #eaeaea;
     border-bottom: 1px solid #d0d0d0;
     height: 35px;
-    position: relative;
-    width: 100%;
+    position: absolute;
+    top: 127px;
+    width: 966px;
+    left: 384px;
     padding: 0 5px;
     text-shadow: 1px 1px 0 #fff;
     z-index: 100;

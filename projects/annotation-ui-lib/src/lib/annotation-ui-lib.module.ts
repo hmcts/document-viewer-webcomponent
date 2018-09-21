@@ -12,6 +12,7 @@ import { CommentFormComponent } from './viewer/comments/comment-form/comment-for
 import { ToolbarComponent } from './viewer/toolbar/toolbar.component';
 import { AnnotationStoreService } from './viewer/services/annotation-store.service';
 import { ErrorComponent } from './error/error.component';
+import { AnnotationService } from './viewer/services/annotation.service';
 import { LineComponent } from './line/line.component';
 
 const appRoutes: Routes = [
@@ -39,7 +40,8 @@ const appRoutes: Routes = [
     LineComponent
   ],
   providers: [
-    AnnotationStoreService
+    AnnotationStoreService,
+    AnnotationService
   ],
   exports: [
     AnnotationUiLibComponent,

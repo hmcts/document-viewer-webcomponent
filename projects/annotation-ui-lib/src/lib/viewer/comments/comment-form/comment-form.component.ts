@@ -1,7 +1,7 @@
 import { Component, ViewChild, Input, OnChanges, Output, EventEmitter } from '@angular/core';
-import { Comment } from '../comment';
 import { NgForm } from '@angular/forms';
-import { AnnotationService } from '../../services/annotation.service';
+import { Comment } from '../../../model/comment';
+import { AnnotationStoreService } from '../../services/annotation-store.service';
 
 
 @Component({
@@ -14,20 +14,19 @@ export class CommentFormComponent implements OnChanges {
   @ViewChild("commentForm") commentForm: NgForm;
 	
   @Input() selectedAnnotationId;
-  @Input() authorId;
 
   @Output() commentSubmitted: EventEmitter<string> = new EventEmitter<string>();
    
   model = new Comment(null, null, null, null, null, null);
-  constructor(private annotationService: AnnotationService) {
+  constructor(private annotationStoreService: AnnotationStoreService) {
   }
 
   ngOnChanges() {
-    this.model = new Comment(null, this.authorId, this.commentForm.value.comment, this.selectedAnnotationId, new Date(), null);
+    this.model = new Comment(null, null, this.commentForm.value.comment, this.selectedAnnotationId, new Date(), null);
   }
 
   onSubmit() {
-    this.annotationService.addComment(
+    this.annotationStoreService.addComment(
 			this.model,
       function() {});
       

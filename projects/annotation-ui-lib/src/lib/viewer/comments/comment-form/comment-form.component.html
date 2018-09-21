@@ -1,14 +1,6 @@
   <div [hidden]="!selectedAnnotationId">
     <form (ngSubmit)="onSubmit()" #commentForm="ngForm" class="comment-list-form">
         <!-- {{diagnostic}} -->
-        <input 
-          type="hidden" 
-          class="form-control" 
-          id="author" 
-          required
-          [(ngModel)]="model.author" name="author"
-          value={{authorId}}>
-
         <textarea 
           type="hidden" 
           class="form-control" id="comment"

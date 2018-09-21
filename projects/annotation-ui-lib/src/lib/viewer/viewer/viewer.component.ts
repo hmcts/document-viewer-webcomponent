@@ -8,7 +8,7 @@ import { AnnotationService } from '../services/annotation.service';
   selector: 'app-viewer',
   templateUrl: './viewer.component.html',
   styleUrls: ['./viewer.component.scss'],
-  providers: [AnnotationService]
+  providers: []
 })
 
 export class ViewerComponent implements OnInit, OnChanges, AfterContentInit {
@@ -16,7 +16,6 @@ export class ViewerComponent implements OnInit, OnChanges, AfterContentInit {
 	url: string;
 	annotate: boolean;
   lastViewedPage: number;
-  pageNumber: number;
   tool: String;
   svg;
 
@@ -51,7 +50,7 @@ export class ViewerComponent implements OnInit, OnChanges, AfterContentInit {
     this.annotationService.render();
 
     this.lastViewedPage = 1;
-    this.pageNumber = 1;
+    this.annotationService.setPageNumber(1);
     this.tool = 'cursor';
 
     
@@ -71,7 +70,7 @@ export class ViewerComponent implements OnInit, OnChanges, AfterContentInit {
     for (let step = 0; step < 5; step++) {
         const pageNumber = currentParent.parentNode.getAttribute('data-page-number');
         if (pageNumber != null) {
-          this.pageNumber = parseInt(pageNumber);
+          this.annotationService.setPageNumber(parseInt(pageNumber));
           break;
         };
       currentParent = currentParent.parentNode;
@@ -93,7 +92,7 @@ export class ViewerComponent implements OnInit, OnChanges, AfterContentInit {
     if (this.lastViewedPage != visiblePageNum) {
       this.lastViewedPage = visiblePageNum;
       if (!isNaN(visiblePageNum)) {
-        this.pageNumber = visiblePageNum;
+        this.annotationService.setPageNumber(visiblePageNum);
       }
     }
   }

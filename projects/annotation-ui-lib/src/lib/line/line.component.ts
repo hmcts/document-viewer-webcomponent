@@ -10,7 +10,8 @@ export class LineComponent implements OnInit {
   svg;
   @Input() source: ElementRef;
   @Input() targetAnnotation: string;
-  
+  shape;
+
   constructor() {
   }
 
@@ -23,15 +24,9 @@ export class LineComponent implements OnInit {
   }
 
   getAnnotationElement(linkedAnnotationId: string) {
-    const annotations = Array.from(document.querySelector('#pageContainer1 .annotationLayer').childNodes);
-    
-		annotations.forEach(annotation => {
-      const annotationId = (<HTMLInputElement>annotation).dataset.pdfAnnotateId;
-      
-			if (annotationId === linkedAnnotationId) {
-        this.connectDivs(annotation, this.source, "blue", 0.4);
-      }
-		});
+    const key = '#pdf-annotate-screenreader-' + linkedAnnotationId +'-end';
+    const highlightHtml = document.querySelector(key);
+    this.connectDivs(highlightHtml.parentElement, this.source, "blue", 0.4);
   }
   
   findAbsolutePosition(htmlElement: any) {
@@ -49,34 +44,44 @@ export class LineComponent implements OnInit {
     };
   }
 
-  convertCoords(x,y, target): {x: number, y:number} {
+  offset(el) {
+    var rect = el.getBoundingClientRect(),
+    scrollLeft = window.pageXOffset || document.documentElement.scrollLeft,
+    scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    return { top: rect.top + scrollTop, left: rect.left + scrollLeft }
+}
 
-    var offset = this.svg.getBoundingClientRect();
-    var matrix = target.getScreenCTM();
-    
-    return {
-      x: (matrix.a * x) + (matrix.c * y) + matrix.e - offset.left,
-      y: (matrix.b * x) + (matrix.d * y) + matrix.f - offset.top
-    };
-  }
+  connectDivs(target: HTMLElement, source, color, tension) {
 
-  connectDivs(target, source, color, tension) {
+    const scrollPos = document.querySelector('#content-wrapper').scrollTop;
+    console.log(scrollPos);
+    var pos2 = pos2;
+    var x1s = target.style.left;
+    let x1 = parseInt(x1s.slice(0, -2));
 
-    var bBox = target.getBBox();
-    var absoluteCoords = this.convertCoords(bBox.x + bBox.width, bBox.y, target);
+    var y1s = target.style.top;
+    let y1 = parseInt(y1s.slice(0, -2));
+    console.log("target cord: " + x1+ " : " + y1);
 
     var pos = this.findAbsolutePosition(source);
-    const contentYOffset = 167;
+    console.log("source cord: " + pos.x + " : " + pos.y);
+    const contentYOffset = 160;
     var x2 = pos.x;
-    var y2 = pos.y - contentYOffset;
-    
-    this.drawCurvedLine(absoluteCoords.x, absoluteCoords.y, x2, y2, color, tension);
+    var y2 = pos.y - contentYOffset  + scrollPos;
+    this.drawCurvedLine(x1, y1, x2, y2, color, tension);
   }
 
   drawCurvedLine(x1, y1: number, x2: number, y2, color, tension) {
-    var shape = document.createElementNS("http://www.w3.org/2000/svg", 
-                                         "path");{
+    console.log(x1, y1)
 
+    try {
+      this.svg.removeChild(this.shape);
+    }catch(e) {
+      console.log(e);
+    }
+      this.shape = document.createElementNS("http://www.w3.org/2000/svg", 
+                                         "path");
+    
     if (tension<0) {
         var delta = (y2-y1)*tension;
         var hx1=x1;
@@ -99,10 +104,10 @@ export class LineComponent implements OnInit {
                         + x2 + " " + y2;
     }
 
-    shape.setAttributeNS(null, "d", path);
-    shape.setAttributeNS(null, "fill", "none");
-    shape.setAttributeNS(null, "stroke", color);
-    this.svg.appendChild(shape);
-    }
+    this.shape.setAttributeNS(null, "d", path);
+    this.shape.setAttributeNS(null, "fill", "none");
+    this.shape.setAttributeNS(null, "stroke", color);
+    this.svg.appendChild(this.shape);
+    
   }
 }

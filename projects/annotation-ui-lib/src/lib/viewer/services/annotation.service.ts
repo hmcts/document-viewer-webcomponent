@@ -1,8 +1,8 @@
 import { Injectable, OnInit } from '@angular/core';
+import { Comment } from '../../model/comment';
 import { NgForm } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
-import { AnnotationStoreService } from './annotation-store.service';
-import { Comment } from '../comments/comment';
+import { Subject } from 'rxjs';
 
 declare const PDFJS: any;
 declare const PDFAnnotate: any;
@@ -14,9 +14,11 @@ export class AnnotationService implements OnInit{
   UI;
   comments;
   private RENDER_OPTIONS: { documentId: string, pdfDocument: any, scale: any, rotate: number };	
+  private pageNumber: Subject<number>;
+
   pdfPages: number;
 
-  constructor(private annotationStoreService: AnnotationStoreService,
+  constructor(
     private router: Router,
     private route: ActivatedRoute) {
     
@@ -26,9 +28,23 @@ export class AnnotationService implements OnInit{
     
     this.PAGE_HEIGHT = void 0;
     this.UI = PDFAnnotate.UI;
+    this.pageNumber = new Subject();
   }
 
   ngOnInit() {
+    
+  }
+
+  getPageNumber(): Subject<number> {
+    return this.pageNumber;
+  }
+  
+  setPageNumber(pageNumber: number) {
+    this.pageNumber.next(pageNumber);
+  }
+
+  getRenderOptions() {
+    return Object.assign({}, this.RENDER_OPTIONS);
   }
 
   setRenderOptions(RENDER_OPTIONS: { documentId: string; pdfDocument: null; scale: number; rotate: number; }): any {
@@ -70,36 +86,10 @@ export class AnnotationService implements OnInit{
     PDFAnnotate.UI.renderPage(visiblePageNum, this.RENDER_OPTIONS);	
   }
 
-  addComment(comment: Comment, callback ) {
-    PDFAnnotate.getStoreAdapter()
-		.addComment(this.RENDER_OPTIONS.documentId, comment.annotationId, comment.comment)
-		.then(callback);
-  }
-
-  getComments(annotationId: string, callback) {
-    PDFAnnotate.getStoreAdapter()
-    .getComments(this.RENDER_OPTIONS.documentId, annotationId)
-		.then(callback);
-  }
-
-  getAnnotations(pageNumber: number, callback) {
-    PDFAnnotate.getStoreAdapter()
-		.getAnnotations(this.RENDER_OPTIONS.documentId, pageNumber)
-		.then(callback);
-  }
-
   deleteComment(commentId: string, callback) {
     PDFAnnotate.getStoreAdapter()
     .deleteComment(this.RENDER_OPTIONS.documentId, commentId)
     .then(callback);
-  }
-
-  readComments(annotationId, callback) {
-		this.comments = [];
-		this.getComments(
-			annotationId, 
-			callback
-		);
   }
   
   editComment(comment: Comment, callback){

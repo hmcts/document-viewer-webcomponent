@@ -8,11 +8,16 @@
     <div id="viewer" class="pdfViewer"></div>
   </div>
 
-  <app-comments [svg]="svg"
-    [pageNumber]="pageNumber"
+  <app-comments
     ></app-comments>
     
   <app-toolbar
     [(tool)]="tool"
     ></app-toolbar>
 </div>
+
+<app-comments></app-comments>
+  
+<app-toolbar
+  [(tool)]="tool"
+  ></app-toolbar>

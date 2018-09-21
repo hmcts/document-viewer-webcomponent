@@ -1,29 +1,33 @@
-import { Component, OnInit, Input, Output, EventEmitter, Renderer2, ElementRef, ViewChild, Inject, AfterViewInit } from '@angular/core';
-import { AnnotationService } from '../../services/annotation.service';
-import { Comment } from '../comment';
+import { Component, OnInit, Input, Output, EventEmitter, Renderer2, ElementRef, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { DOCUMENT } from '@angular/common';
-import { element } from 'protractor';
+import { AnnotationService } from '../../services/annotation.service';
+import { Comment } from '../../../model/comment';
 
 @Component({
   selector: 'app-comment-item',
   templateUrl: './comment-item.component.html',
   styleUrls: ['./comment-item.component.scss']
 })
-export class CommentItemComponent implements OnInit, AfterViewInit {
+export class CommentItemComponent implements OnInit {
 
   @Input() comment;
-  @Output() commentSubmitted: EventEmitter<string> = new EventEmitter<string>();
+  @Input() selectedAnnotationId;
+  @Input() annotation;
+  
+  @Output() commentSubmitted: EventEmitter<any> = new EventEmitter<any>();
   @Output() commentSelected: EventEmitter<String> = new EventEmitter<String>();
 
-  // Draw line from here to annotation
-  @Input() svg;
-  @ViewChild("source") source: ElementRef;
-  targetAnnotation: string;
 
   @ViewChild("commentTextField") commentTextField: ElementRef;
   @ViewChild("annotationIdField") annotationIdField: ElementRef;
   @ViewChild("commentItem") commentItem: NgForm;
+
+
+  // Draw line from here to annotation
+  @ViewChild("sourceLine") source: ElementRef;
+  targetAnnotation: string;
+
+  focused: boolean;
 
   model = new Comment(null, null, null, null, null, null);
 
@@ -32,10 +36,12 @@ export class CommentItemComponent implements OnInit, AfterViewInit {
     private render: Renderer2) { }
 
   ngOnInit() {
-  }
 
-  ngAfterViewInit() {
     this.targetAnnotation = this.comment.annotation;
+    this.focused = false;
+  }
+  
+  ngAfterViewInit() {
   }
 
   onSubmit() {  
@@ -47,15 +53,23 @@ export class CommentItemComponent implements OnInit, AfterViewInit {
       comment,
       function() {});
 
-    this.commentSubmitted.emit(comment.annotationId);
+    this.commentSubmitted.emit(this.annotation);
+  }
+
+  onFocus() {
+    this.focused = true;
+  }
+
+  onBlur() {
+    this.focused = false;
   }
 
 	handleDeleteComment(event, commentId, annotationId) {
 		this.annotationService.deleteComment(
 			commentId,
       function() {});
-      
-    this.commentSubmitted.emit(annotationId);
+
+      console.log("delete called");
   }
   
   handleCommentClick (event) {
