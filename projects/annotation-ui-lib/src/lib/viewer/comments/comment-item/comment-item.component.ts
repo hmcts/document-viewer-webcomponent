@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter, Renderer2, ElementRef, ViewChild } from '@angular/core';
 import { AnnotationService } from '../../services/annotation.service';
-import { Comment } from '../comment';
+import { Comment } from '../../../model/comment';
 import { NgForm } from '@angular/forms';
 
 @Component({
@@ -11,7 +11,10 @@ import { NgForm } from '@angular/forms';
 export class CommentItemComponent implements OnInit {
 
   @Input() comment;
-  @Output() commentSubmitted: EventEmitter<string> = new EventEmitter<string>();
+  @Input() selectedAnnotationId;
+  @Input() annotation;
+  
+  @Output() commentSubmitted: EventEmitter<any> = new EventEmitter<any>();
   @Output() commentSelected: EventEmitter<String> = new EventEmitter<String>();
 
   @ViewChild("commentTextField") commentTextField: ElementRef;
@@ -38,7 +41,7 @@ export class CommentItemComponent implements OnInit {
       comment,
       function() {});
 
-    this.commentSubmitted.emit(comment.annotationId);
+    this.commentSubmitted.emit(this.annotation);
   }
 
 	handleDeleteComment(event, commentId, annotationId) {

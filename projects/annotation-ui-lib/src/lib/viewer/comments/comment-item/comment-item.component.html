@@ -1,4 +1,5 @@
-<form class="comment-list-item" 
+<form *ngIf="selectedAnnotationId == annotation.uuid || !selectedAnnotationId" 
+  class="comment-list-item" 
   (ngSubmit)="onSubmit()" #commentItem="ngForm" 
   (click)="handleCommentClick($event)">
 
