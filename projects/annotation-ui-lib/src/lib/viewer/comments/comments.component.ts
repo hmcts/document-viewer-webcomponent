@@ -33,8 +33,8 @@ export class CommentsComponent implements OnInit, OnChanges {
 	};
 
 	ngAfterViewInit() {
+		document.querySelector('#viewer').addEventListener('click', this.handleAnnotationBlur.bind(this));
 		PDFAnnotate.UI.addEventListener('annotation:click', this.handleAnnotationClick.bind(this));
-		PDFAnnotate.UI.addEventListener('annotation:blur', this.handleAnnotationBlur.bind(this));
 	}
 
 	ngOnChanges(changes: SimpleChanges) {
@@ -43,26 +43,34 @@ export class CommentsComponent implements OnInit, OnChanges {
 
 	showAllComments() {
 		this.comments = [];
-		var self = this;
 		this.annotationService.getAnnotations(
 			this.pageNumber,
 			pageData => {
-			// function(pageData) {
-				pageData.annotations.forEach(function(annotation) {
-					self.readComments(annotation.uuid);
+				let annotations = pageData.annotations.slice();
+				annotations.sort(
+					function(a, b){
+						var keyA = a.rectangles[0].y,
+							keyB = b.rectangles[0].y;
+						if(keyA < keyB) return -1;
+						if(keyA > keyB) return 1;
+						return 0;
 				});
+				
+				annotations.forEach(
+					(annotation) => {
+						this.readComments(annotation.uuid);
+					}
+				);
 				this.ref.detectChanges();
-			// }.bind(self)
 			}
 		);
 	}
 
-	handleAnnotationBlur(target) {
-		if (this.supportsComments(target)) {
+
+	handleAnnotationBlur() {
 			this.selectedAnnotationId = null;
 			this.showAllComments();
 			this.addHighlightedCommentStyle(null);
-		}
 	}
 
 	supportsComments(target) {
@@ -77,6 +85,7 @@ export class CommentsComponent implements OnInit, OnChanges {
 			comments => {
 				comments.forEach(element => {
 					if(element !== undefined) {
+
 						element.createdDate = new Date();
 						element.author = this.authorId;
 						this.comments.push(element);	
@@ -91,7 +100,6 @@ export class CommentsComponent implements OnInit, OnChanges {
 		if (this.supportsComments(event)) {
 			this.comments = [];
 			this.commentFormActive = true;
-			// var documentId = this.render.parentNode(event).getAttribute('data-pdf-annotate-document');
 			this.annotationId = event.getAttribute('data-pdf-annotate-id');
 			this.selectedAnnotationId = event.getAttribute('data-pdf-annotate-id');
 			this.addHighlightedCommentStyle(this.annotationId);
@@ -108,7 +116,8 @@ export class CommentsComponent implements OnInit, OnChanges {
 	}
 
 	addHighlightedCommentStyle(linkedAnnotationId) {
-		const annotations = Array.from(document.querySelector('#pageContainer1 .annotationLayer').childNodes);
+		const idPageSelector = '#pageContainer' + this.pageNumber;
+		const annotations = Array.from(document.querySelector(idPageSelector+' .annotationLayer').childNodes);
 
 		annotations.forEach(annotation => {
 			this.render.removeClass(annotation,"comment-selected");
