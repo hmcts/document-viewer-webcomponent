@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, Renderer2, ElementRef, ChangeDetectorRef } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { AnnotationService } from '../services/annotation.service';
 import { AnnotationStoreService } from '../services/annotation-store.service';
-import { Subscription } from 'rxjs';
 
 declare const PDFAnnotate: any;
 
