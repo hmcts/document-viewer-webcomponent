@@ -3,11 +3,11 @@
   "version": "0.0.3",
   "description": "PDF Viewer and ability to highlight text with and comment tracking",
   "keywords" :["Angular","PDF", "Annotation"],
-  "homepage" :"https://github.com/hmcts/annotation-ui",
+  "homepage" :"https://github.com/hmcts/rpa-annotation-ui-demo",
   "license" : "SEE LICENSE IN LICENSE",
   "repository": {
     "type" : "git",
-    "url" : "https://github.com/hmcts/annotation-ui"
+    "url" : "https://github.com/hmcts/rpa-annotation-ui"
   },
   "peerDependencies": {
     "@angular/common": "^6.0.0-rc.0 || ^6.0.0",

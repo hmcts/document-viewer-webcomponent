@@ -5,16 +5,21 @@
       #commentList
       >
       
-      <app-comment-item 
-        *ngFor="let comment of comments" 
-        [comment]="comment"
-        (commentSubmitted)='showAllComments()'
-        (commentSelected)='addHighlightedCommentStyle($event)'></app-comment-item>
-    
+      <div *ngFor="let annotation of annotations" 
+          class="highlight-group">
+        <app-comment-item 
+          *ngFor="let comment of annotation.comments" 
+          [annotation]="annotation"
+          [comment]="comment"
+          [selectedAnnotationId]="selectedAnnotationId"
+          (commentSubmitted)='getAnnotationComments($event)'
+          (commentSelected)='addHighlightedCommentStyle($event)'></app-comment-item>
+          <br *ngIf="annotation.comments.length > 0">
+          
+      </div>
 
     <app-comment-form 
-      (commentSubmitted)='readComments($event)'
-      [authorId]="authorId" 
+      (commentSubmitted)='showAllComments()'
       [selectedAnnotationId]="selectedAnnotationId"></app-comment-form>
     </div>
   </div>

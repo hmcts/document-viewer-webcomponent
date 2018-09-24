@@ -3,6 +3,10 @@
 ## Instructions to add this library to your own angular app
 https://www.npmjs.com/package/hmcts-annotation-ui-lib
 
+Check demo app:
+https://github.com/hmcts/rpa-annotation-ui-demo
+
+
 Import AnnotationUiLibModule from annotation-ui-lib in your app.module.ts and declare it in your NgModule imports.
 
 For example:

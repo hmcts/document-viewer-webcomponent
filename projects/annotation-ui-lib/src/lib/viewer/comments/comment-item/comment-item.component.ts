@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter, Renderer2, ElementRef, ViewChild } from '@angular/core';
-import { AnnotationService } from '../../services/annotation.service';
-import { Comment } from '../comment';
 import { NgForm } from '@angular/forms';
+import { AnnotationService } from '../../services/annotation.service';
+import { Comment } from '../../../model/comment';
 
 @Component({
   selector: 'app-comment-item',
@@ -11,23 +11,25 @@ import { NgForm } from '@angular/forms';
 export class CommentItemComponent implements OnInit {
 
   @Input() comment;
-  @Output() commentSubmitted: EventEmitter<string> = new EventEmitter<string>();
+  @Input() selectedAnnotationId;
+  @Input() annotation;
+  
+  @Output() commentSubmitted: EventEmitter<any> = new EventEmitter<any>();
   @Output() commentSelected: EventEmitter<String> = new EventEmitter<String>();
 
   @ViewChild("commentTextField") commentTextField: ElementRef;
   @ViewChild("annotationIdField") annotationIdField: ElementRef;
   @ViewChild("commentItem") commentItem: NgForm;
 
+  focused: boolean;
+
   model = new Comment(null, null, null, null, null, null);
 
   constructor(private annotationService: AnnotationService, private render: Renderer2) { }
 
   ngOnInit() {
+    this.focused = false;
   }
-
-  // handleEditComment() {
-	// 	alert("did something");
-  // }
   
   onSubmit() {  
     let comment: Comment;
@@ -38,15 +40,23 @@ export class CommentItemComponent implements OnInit {
       comment,
       function() {});
 
-    this.commentSubmitted.emit(comment.annotationId);
+    this.commentSubmitted.emit(this.annotation);
+  }
+
+  onFocus() {
+    this.focused = true;
+  }
+
+  onBlur() {
+    setTimeout(() => {this.focused = false}, 200);
   }
 
 	handleDeleteComment(event, commentId, annotationId) {
 		this.annotationService.deleteComment(
 			commentId,
       function() {});
-      
-    this.commentSubmitted.emit(annotationId);
+
+      console.log("delete called");
   }
   
   handleCommentClick (event) {
