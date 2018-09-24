@@ -23,13 +23,13 @@
               "src/assets"
             ],
             "styles": [
-              "dist/annotation-ui-lib/assets/_theme.scss",
+              "projects/annotation-ui-lib/src/assets/_theme.scss",
               "src/styles.css"
             ],
             "scripts": [
-              "dist/annotation-ui-lib/assets/shared/pdf.js",
-              "dist/annotation-ui-lib/assets/shared/pdf_viewer.js",
-              "dist/annotation-ui-lib/assets/shared/pdf-annotate.js"
+              "projects/annotation-ui-lib/src/assets/shared/pdf.js",
+              "projects/annotation-ui-lib/src/assets/shared/pdf_viewer.js",
+              "projects/annotation-ui-lib/src/assets/shared/pdf-annotate.js"
             ]
           },
           "configurations": {
