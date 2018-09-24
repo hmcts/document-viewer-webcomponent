@@ -1,23 +1,44 @@
-.comment-button {
-    height:20px;
-    width:20px;
-    font-size: 13px;
-    padding:0px;
-}
-.comment-list-item input {
-    margin:0;
-    // width: 95%;
-    height: 50px;
-}
-
-.comment-list-form textarea{
-    width:100%;
-    font-size:12px;
-}
-.comment-list-form input{
-    height: 50px;
-    font-size:12px;
-    text-align: left; 
-    vertical-align: top;
-}
-
+#comment-wrapper {
+    position: absolute;
+    margin-right: 386px;
+    top: 157px;
+    right: 0;
+    bottom: 0;
+    overflow: auto;
+    width: 200px;
+    background: #eaeaea;
+    border-left: 1px solid #d0d0d0;
+  }
+  #comment-wrapper h4 {
+    margin: 10px;
+    padding-top:5px;
+  }
+  #comment-wrapper .comment-list {
+    font-size: 12px;
+    position: absolute;
+    top: 38px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
+  #comment-wrapper .comment-list-item {
+    border-bottom: 1px solid #d0d0d0;
+  }
+  #comment-wrapper .comment-list-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 47px;
+    overflow: auto;
+  }
+  #comment-wrapper .comment-list-form {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 10px;
+  }
+  #comment-wrapper .comment-list-form input {
+    width: 100%;
+  }

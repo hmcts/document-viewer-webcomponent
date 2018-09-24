@@ -12,6 +12,7 @@ import { FormsModule } from '@angular/forms';
 import { ErrorComponent } from './error/error.component';
 import { HttpClientModule } from '@angular/common/http';
 import { Routes, RouterModule } from '@angular/router';
+import { AnnotationService } from './viewer/services/annotation.service';
 
 const appRoutes: Routes = [
   { path: 'error/:error',  component: ErrorComponent }
@@ -37,7 +38,8 @@ const appRoutes: Routes = [
     ErrorComponent
   ],
   providers: [
-    AnnotationStoreService
+    AnnotationStoreService,
+    AnnotationService
   ],
   exports: [
     AnnotationUiLibComponent,
