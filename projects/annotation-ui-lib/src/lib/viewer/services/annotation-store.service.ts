@@ -11,15 +11,17 @@ export class AnnotationStoreService {
   constructor(private http: HttpClient,
               private annotationService: AnnotationService) { }
 
+  annotationSetId: number;
 
   getAnnotationSetByDocumentId(documentId: string): Observable<Object> {
-    return this.http.get(this.getAnnotationApiUrlWithParams(documentId));
+    return this.http.get('http://localhost:3000/api/annotation/annotation-sets/' +documentId);
   }
   
-
-  getAnnotationApiUrlWithParams(documentId: string) {
-
-    return 'http://localhost:3000/api/annotation/annotation-sets/' +documentId;
+  addAnnotationToDocument() {
+    const annotationBody = {
+      
+    }
+    return this.http.post('http://localhost:3000/api/annotation/annotations', annotationBody);
   }
 
 
