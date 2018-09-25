@@ -27,15 +27,17 @@ export class CommentsComponent implements OnInit {
 		private annotationService: AnnotationService,
 		private render: Renderer2, 
 		private ref: ChangeDetectorRef) { 
-			this.subscription = this.annotationService.getPageNumber().subscribe(
-				pageNumber => {
-					this.pageNumber = pageNumber;
-					this.showAllComments();
-				}
-			);
+			
 	}
 
-  	ngOnInit() {};
+  	ngOnInit() {
+		this.subscription = this.annotationService.getPageNumber().subscribe(
+			pageNumber => {
+				this.pageNumber = pageNumber;
+				this.showAllComments();
+			}
+		);
+	  };
 
 	ngAfterViewInit() {
 		document.querySelector('#viewer').addEventListener('click', this.handleAnnotationBlur.bind(this));
@@ -43,7 +45,7 @@ export class CommentsComponent implements OnInit {
 	}
 
 	ngOnDestroy() {
-		this.subscription.unsubscribe();
+		// this.subscription.unsubscribe();
 	}
 
 	showAllComments() {

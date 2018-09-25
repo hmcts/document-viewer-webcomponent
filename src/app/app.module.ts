@@ -3,15 +3,22 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { RouterModule, Routes } from '@angular/router';
-import { AnnotationUiLibModule, ViewerComponent } from '../../projects/annotation-ui-lib/src/public_api';
+import { AnnotationUiLibModule, ViewerComponent, AppResolverComponent } from '../../projects/annotation-ui-lib/src/public_api';
 
 const appRoutes: Routes = [
-  { path: '',  component: ViewerComponent }
+  { 
+    path: '',  
+    component: ViewerComponent,
+    resolve: {
+      annotationData: AppResolverComponent
+    } 
+  }
 ];
 
 @NgModule({
   declarations: [
     AppComponent
+    
   ],
   imports: [
     BrowserModule,
@@ -20,7 +27,7 @@ const appRoutes: Routes = [
       appRoutes
     )
   ],
-  providers: [],
+  providers: [AppResolverComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

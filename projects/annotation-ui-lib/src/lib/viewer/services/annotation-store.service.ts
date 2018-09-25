@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Comment } from '../../model/comment';
 import { AnnotationService } from './annotation.service';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 declare const PDFAnnotate: any;
 
 @Injectable()

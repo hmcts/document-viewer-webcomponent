@@ -57,6 +57,13 @@ export class ViewerComponent implements OnInit, OnChanges, Viewer {
     //   }
     // );
 
+    // From resolver
+    this.route.data.subscribe((data) => {
+      this.annotationService.annotationData = data;
+      this.annotationService.preRun();
+    });
+
+
     this.annotationService.setRenderOptions({
       documentId: this.url,
       pdfDocument: null,

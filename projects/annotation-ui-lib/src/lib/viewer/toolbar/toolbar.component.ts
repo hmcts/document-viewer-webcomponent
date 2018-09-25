@@ -15,7 +15,7 @@ export class ToolbarComponent implements OnInit, OnChanges {
   @Input() tool: string;
   @Output() toolChange: EventEmitter<string> = new EventEmitter<string>();
 
-  constructor(private annotationService: AnnotationService,) {
+  constructor(private annotationService: AnnotationService) {
   }
 
   ngOnInit() {

@@ -3,13 +3,14 @@ import { Comment } from '../../model/comment';
 import { NgForm } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Observable, Subject } from 'rxjs';
-import { AnnotationStoreService } from './annotation-store.service';
+import { HttpClient } from '@angular/common/http';
+import { PdfAdapter } from '../../data/store-adapter';
 
 declare const PDFJS: any;
 declare const PDFAnnotate: any;
 
 @Injectable()
-export class AnnotationService implements OnInit{
+export class AnnotationService {
 
   PAGE_HEIGHT;
   UI;
@@ -17,69 +18,33 @@ export class AnnotationService implements OnInit{
   private RENDER_OPTIONS: { documentId: string, pdfDocument: any, scale: any, rotate: number };	
   private pageNumber: Subject<number>;
 
+  annotationData: any;
   pdfPages: number;
 
   constructor(
+    private http: HttpClient,
     private router: Router,
-    private route: ActivatedRoute) {
-    
-    PDFJS.workerSrc = '/node_modules/hmcts-annotation-ui-lib/assets/shared/pdf.worker.js';
-    let myStoreAdpater = new PDFAnnotate.StoreAdapter({
-
-      getAnnotations(documentId, pageNumber) {
-        return new Promise( (resolve, reject) => {
-          this.http.get('http://localhost:3000/api/annotation/annotation-sets/' +documentId);
-          resolve([]);
-        });
-      },
-
-      getAnnotation(documentId, annotationId) {
-        return new Promise(function(resolve, reject){
-          resolve(null);
-        });
-      },
-
-      addAnnotation(documentId, pageNumber, annotation) {
-        return new Promise(function(resolve, reject){
-          resolve("added");
-        });
-      },
-
-      editAnnotation(documentId, pageNumber, annotation) {
-        return new Promise(function(resolve, reject){
-          resolve(null);
-        });
-      },
-
-      deleteAnnotation(documentId, annotationId) {
-        return new Promise(function(resolve, reject){
-          resolve(null);
-        });
-      },
-
-      addComment(documentId, annotationId, content) {
-        return new Promise(function(resolve, reject){
-          resolve(null);
-        });
-      },
-
-      deleteComment(documentId, commentId) {
-        return new Promise(function(resolve, reject){
-          resolve(null);
-        });
-      }
-    });
-
-    PDFAnnotate.setStoreAdapter(myStoreAdpater);
-    
-    this.PAGE_HEIGHT = void 0;
-    this.UI = PDFAnnotate.UI;
-    this.pageNumber = new Subject();
-
+    private route: ActivatedRoute,
+    private pdfAdapter: PdfAdapter) {
   }
 
-  ngOnInit() {    
+  
+  preRun() {
+      PDFJS.workerSrc = '/node_modules/hmcts-annotation-ui-lib/assets/shared/pdf.worker.js';
+
+      PDFAnnotate.setStoreAdapter(this.pdfAdapter.getStoreAdapter(this.annotationData));
+      // this.updateData("uuid");
+      
+      this.PAGE_HEIGHT = void 0;
+      this.UI = PDFAnnotate.UI;
+      this.pageNumber = new Subject();
   }
+
+  fetchData(documentId): string {
+    this.annotationData = JSON.stringify({"createdBy":"28","createdDate":"2018-09-24T14:04:45.281Z","lastModifiedBy":"28","lastModifiedDate":"2018-09-24T14:04:45.281Z","id":1202,"documentId":"uuid","annotations":[{"createdBy":"28","createdDate":"2018-09-24T13:54:06.014Z","lastModifiedBy":"28","lastModifiedDate":"2018-09-25T11:00:43.858Z","id":1351,"page":null,"x":null,"y":null,"width":null,"height":null,"annotationSetId":1202,"comments":[{"createdBy":"28","createdDate":"2018-09-24T13:54:06.019Z","lastModifiedBy":"28","lastModifiedDate":"2018-09-25T11:00:43.851Z","id":1401,"content":"2222","annotationId":1351}],"rectangles":[{"createdBy":"28","createdDate":"2018-09-24T11:26:39.275Z","lastModifiedBy":"28","lastModifiedDate":"2018-09-25T11:00:43.861Z","id":1053,"x":1,"y":null,"width":null,"height":null,"annotationId":1351}],"type":null}]});
+    return this.annotationData;
+    //return this.http.get('http://localhost:3000/api/annotation/annotation-sets/' + "uuid");
+  };
 
   getPageNumber(): Subject<number> {
     return this.pageNumber;
