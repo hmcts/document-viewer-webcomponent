@@ -1,12 +1,27 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { Comment } from '../../model/comment';
 import { AnnotationService } from './annotation.service';
+import { Observable } from 'rxjs';
 declare const PDFAnnotate: any;
 
 @Injectable()
 export class AnnotationStoreService {
 
-  constructor(private annotationService: AnnotationService) { }
+  constructor(private http: HttpClient,
+              private annotationService: AnnotationService) { }
+
+
+  getAnnotationSetByDocumentId(documentId: string): Observable<Object> {
+    return this.http.get(this.getAnnotationApiUrlWithParams(documentId));
+  }
+  
+
+  getAnnotationApiUrlWithParams(documentId: string) {
+
+    return 'http://localhost:3000/api/annotation/annotation-sets/' +documentId;
+  }
+
 
   getAnnotationById(annotationId: any): any {
 		var promise = new Promise((resolve, error) => {
