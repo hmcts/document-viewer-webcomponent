@@ -3,6 +3,7 @@ import { Comment } from '../../model/comment';
 import { NgForm } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Observable, Subject } from 'rxjs';
+import { AnnotationStoreService } from './annotation-store.service';
 
 declare const PDFJS: any;
 declare const PDFAnnotate: any;
@@ -22,17 +23,62 @@ export class AnnotationService implements OnInit{
     private router: Router,
     private route: ActivatedRoute) {
     
-    PDFAnnotate.setStoreAdapter(new PDFAnnotate.LocalStoreAdapter());
-
     PDFJS.workerSrc = '/node_modules/hmcts-annotation-ui-lib/assets/shared/pdf.worker.js';
+    let myStoreAdpater = new PDFAnnotate.StoreAdapter({
+
+      getAnnotations(documentId, pageNumber) {
+        return new Promise( (resolve, reject) => {
+          this.http.get('http://localhost:3000/api/annotation/annotation-sets/' +documentId);
+          resolve([]);
+        });
+      },
+
+      getAnnotation(documentId, annotationId) {
+        return new Promise(function(resolve, reject){
+          resolve(null);
+        });
+      },
+
+      addAnnotation(documentId, pageNumber, annotation) {
+        return new Promise(function(resolve, reject){
+          resolve("added");
+        });
+      },
+
+      editAnnotation(documentId, pageNumber, annotation) {
+        return new Promise(function(resolve, reject){
+          resolve(null);
+        });
+      },
+
+      deleteAnnotation(documentId, annotationId) {
+        return new Promise(function(resolve, reject){
+          resolve(null);
+        });
+      },
+
+      addComment(documentId, annotationId, content) {
+        return new Promise(function(resolve, reject){
+          resolve(null);
+        });
+      },
+
+      deleteComment(documentId, commentId) {
+        return new Promise(function(resolve, reject){
+          resolve(null);
+        });
+      }
+    });
+
+    PDFAnnotate.setStoreAdapter(myStoreAdpater);
     
     this.PAGE_HEIGHT = void 0;
     this.UI = PDFAnnotate.UI;
     this.pageNumber = new Subject();
+
   }
 
-  ngOnInit() {
-    
+  ngOnInit() {    
   }
 
   getPageNumber(): Subject<number> {
