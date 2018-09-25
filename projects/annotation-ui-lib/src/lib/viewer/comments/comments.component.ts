@@ -37,6 +37,7 @@ export class CommentsComponent implements OnInit {
 				this.showAllComments();
 			}
 		);
+		this.pageNumber = 1;
 	  };
 
 	ngAfterViewInit() {
@@ -51,6 +52,7 @@ export class CommentsComponent implements OnInit {
 	showAllComments() {
 		this.annotationStoreService.getAnnotationsForPage(this.pageNumber).then(
 			(pageData: any) => {
+				
 				let annotations = pageData.annotations.slice();
 				this.sortByY(annotations);
 				
@@ -76,7 +78,6 @@ export class CommentsComponent implements OnInit {
 	getAnnotationCommentsById(annotationId) {
 		this.annotationStoreService.getAnnotationById(annotationId).then(
 			annotation => {
-				console.log("update is called");
 				this.annotations = this.getAnnotationComments(annotation);
 			}
 		);

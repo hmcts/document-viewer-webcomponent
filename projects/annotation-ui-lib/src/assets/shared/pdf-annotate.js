@@ -2567,7 +2567,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * Initialize the event handlers for keeping screen reader hints synced with data
 	 */
 	function initEventHandlers() {
+
 	  (0, _event.addEventListener)('annotation:add', function (documentId, pageNumber, annotation) {
+
 	    reorderAnnotationsByType(documentId, pageNumber, annotation.type);
 	  });
 	  (0, _event.addEventListener)('annotation:edit', function (documentId, annotationId, annotation) {
