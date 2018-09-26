@@ -15,6 +15,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { AnnotationService } from './viewer/services/annotation.service';
 import { AppResolverComponent } from './app-resolver/app-resolver.component';
 import { PdfAdapter } from './data/store-adapter';
+import { Mapper } from './data/mapper';
 
 const appRoutes: Routes = [
   { path: 'error/:error',  component: ErrorComponent }
@@ -43,7 +44,8 @@ const appRoutes: Routes = [
   providers: [
     AnnotationService,
     AnnotationStoreService,
-    PdfAdapter
+    PdfAdapter,
+    Mapper
   ],
   exports: [
     AnnotationUiLibComponent,

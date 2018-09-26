@@ -6,15 +6,19 @@ declare const PDFAnnotate: any;
 
 export class PdfAdapter {
     data: any;
+    commentData: any;
 
     setStoreData(data) {
-        this.data = data;
+        console.log(data.annotations);
+        this.data = data.annotations;
+        this.commentData = data.comments;
     }
 
     updateAnnotations(documentId, annotations) {
         const newAnnotation = annotations[annotations.length-1];
         console.log(newAnnotation);
         // this.data.push(newAnnotation);
+        // console.log(this.data);
         // PDFAnnotate.setStoreAdapter(this.getStoreAdapter());
     }
 
@@ -22,11 +26,15 @@ export class PdfAdapter {
         return this.data || [];
     }
 
+    _getComments(documentId) {
+        return this.commentData || [];
+    }
+
     getStoreAdapter() {
         
         let getAnnotations = (documentId, pageNumber) => {
             return new Promise((resolve, reject) => {
-                console.log(this.data);
+                // console.log(this.data);
                 var annotations = this._getAnnotations(documentId).filter(function (i) {
                     return i.page === pageNumber && i.class === 'Annotation';
                   });
@@ -40,8 +48,9 @@ export class PdfAdapter {
 
         let getComments = (documentId, annotationId) => {
             return new Promise((resolve, reject) => {
-                resolve(this._getAnnotations(documentId).filter(function (i) {
-                    return i.class === 'Comment' && i.annotation === annotationId;
+                resolve(this._getComments(documentId).filter(function (i) {
+                    // return i.class === 'Comment' && i.annotation === annotationId;
+                    return i.annotationId === annotationId;
                   }));
             });
         };

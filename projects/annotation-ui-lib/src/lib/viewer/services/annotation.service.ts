@@ -5,6 +5,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Observable, Subject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { PdfAdapter } from '../../data/store-adapter';
+import { Mapper } from '../../data/mapper';
 
 declare const PDFJS: any;
 declare const PDFAnnotate: any;
@@ -25,7 +26,8 @@ export class AnnotationService {
     private http: HttpClient,
     private router: Router,
     private route: ActivatedRoute,
-    private pdfAdapter: PdfAdapter) {
+    private pdfAdapter: PdfAdapter,
+    private mapper: Mapper) {
       
     }
   
@@ -45,11 +47,110 @@ export class AnnotationService {
   }
 
   fetchData(documentId) {
-    this.annotationData = [{"type":"highlight","color":"FFFF00","rectangles":[{"y":188.85636867437145,"x":93.48291382753759,"width":14.738269318315318,"height":11.619946472626879},{"y":188.85636867437145,"x":108.29630686824483,"width":72.81434482201597,"height":11.619946472626879}],"class":"Annotation","uuid":"c831162f-89ec-4890-ad8e-a57af0f0d2b7","page":1},{"class":"Comment","uuid":"5bb12ea4-2259-4612-83ba-7f69a9079643","annotation":"c831162f-89ec-4890-ad8e-a57af0f0d2b7","content":"A comment here"},{"type":"highlight","color":"FFFF00","rectangles":[{"y":204.88721804511277,"x":115.25849077038298,"width":92.24449673989662,"height":11.619946472626879}],"class":"Annotation","uuid":"9bac4cdc-0823-48be-9a19-f3550c437417","page":1}];
-    // this.annotationData = JSON.stringify({"createdBy":"28","createdDate":"2018-09-24T14:04:45.281Z","lastModifiedBy":"28","lastModifiedDate":"2018-09-24T14:04:45.281Z","id":1202,"documentId":"uuid","annotations":[{"createdBy":"28","createdDate":"2018-09-24T13:54:06.014Z","lastModifiedBy":"28","lastModifiedDate":"2018-09-25T11:00:43.858Z","id":1351,"page":null,"x":null,"y":null,"width":null,"height":null,"annotationSetId":1202,"comments":[{"createdBy":"28","createdDate":"2018-09-24T13:54:06.019Z","lastModifiedBy":"28","lastModifiedDate":"2018-09-25T11:00:43.851Z","id":1401,"content":"2222","annotationId":1351}],"rectangles":[{"createdBy":"28","createdDate":"2018-09-24T11:26:39.275Z","lastModifiedBy":"28","lastModifiedDate":"2018-09-25T11:00:43.861Z","id":1053,"x":1,"y":null,"width":null,"height":null,"annotationId":1351}],"type":null}]});
+    // this.annotationData = [{"type":"highlight","color":"FFFF00","rectangles":[{"y":188.85636867437145,"x":93.48291382753759,"width":14.738269318315318,"height":11.619946472626879},{"y":188.85636867437145,"x":108.29630686824483,"width":72.81434482201597,"height":11.619946472626879}],"class":"Annotation","uuid":"c831162f-89ec-4890-ad8e-a57af0f0d2b7","page":1},{"class":"Comment","uuid":"5bb12ea4-2259-4612-83ba-7f69a9079643","annotation":"c831162f-89ec-4890-ad8e-a57af0f0d2b7","content":"A comment here"},{"type":"highlight","color":"FFFF00","rectangles":[{"y":204.88721804511277,"x":115.25849077038298,"width":92.24449673989662,"height":11.619946472626879}],"class":"Annotation","uuid":"9bac4cdc-0823-48be-9a19-f3550c437417","page":1}];
+    this.annotationData = {
+      "createdBy": null,
+      "createdDate": null,
+      "lastModifiedBy": null,
+      "lastModifiedDate": null,
+      "id": 1202,
+      "documentId": "uuid2",
+      "annotations": [
+        {
+          "createdBy": null,
+          "createdDate": null,
+          "lastModifiedBy": null,
+          "lastModifiedDate": null,
+          "class": "Annotation",
+          "uuid": "c831162f-89ec-4890-ad8e-a57af0f0d2b7",
+          "page": 1,
+          "x": null,
+          "y": null,
+          "width": null,
+          "height": null,
+          "annotationSetId": null,
+          "rectangles": [
+            {
+              "createdBy": null,
+              "createdDate": null,
+              "lastModifiedBy": null,
+              "lastModifiedDate": null,
+              "id": null,
+              "x": 93.48291382753759,
+              "y": 188.85636867437145,
+              "width": 14.738269318315318,
+              "height": 11.619946472626879
+            },
+            {
+              "createdBy": null,
+              "createdDate": null,
+              "lastModifiedBy": null,
+              "lastModifiedDate": null,
+              "id": null,
+              "x": 108.29630686824483,
+              "y": 188.85636867437145,
+              "width": 72.81434482201597,
+              "height": 11.619946472626879
+            }
+          ],
+          "type": "highlight",
+          "color": "FFFF00"
+        },
+        {
+          "createdBy": null,
+          "createdDate": null,
+          "lastModifiedBy": null,
+          "lastModifiedDate": null,
+          "class": "Annotation",
+          "uuid": "9bac4cdc-0823-48be-9a19-f3550c437417",
+          "page": 1,
+          "x": null,
+          "y": null,
+          "width": null,
+          "height": null,
+          "annotationSetId": null,
+          "rectangles": [
+            {
+              "createdBy": null,
+              "createdDate": null,
+              "lastModifiedBy": null,
+              "lastModifiedDate": null,
+              "id": null,
+              "x": 115.25849077038298,
+              "y": 204.88721804511277,
+              "width": 92.24449673989662,
+              "height": 11.619946472626879
+            }
+          ],
+          "type": "highlight",
+          "color": "FFFF00"
+        }
+      ],
+      "comments": [
+        {
+          "class": "Comment",
+          "createdBy": null,
+          "createdDate": null,
+          "lastModifiedBy": null,
+          "lastModifiedDate": null,
+          "id": "5bb12ea4-2259-4612-83ba-7f69a9079643",
+          "annotationId": "c831162f-89ec-4890-ad8e-a57af0f0d2b7",
+          "content": "A comment here"
+        }
+      ]
+    };
+    
     return this.annotationData;
     //return this.http.get('http://localhost:3000/api/annotation/annotation-sets/' + "uuid");
   };
+
+  saveData() {
+    let sendToAPi = this.mapper.mapToApi(this.annotationData);
+    // sendToAPi.documentId = this.RENDER_OPTIONS.documentId;
+    sendToAPi.documentId = "uuid2";
+    console.log(JSON.stringify(sendToAPi));
+  }
+
 
   getPageNumber(): Subject<number> {
     return this.pageNumber;

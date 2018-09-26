@@ -3,42 +3,42 @@ export class DataFormat {
     public createdDate: string;
     public lastModifiedBy: string;
     public lastModifiedDate: string;
-    public id: number;
+    public id: string;
     public documentId: string;
     public annotations: [{
         createdBy: string,
         createdDate: string,
         lastModifiedBy: string,
         lastModifiedDate: string,
-        id: number, 
+        id: string, 
         page: number,
         x: number,
         y: number,
         width: number,
         height: number,
-        annotationSetId: number
+        annotationSetId: number,
+        comments: [{
+            createdBy: string,
+            createdDate: string,
+            lastModifiedBy: string,
+            lastModifiedDate: string,
+            id: string, 
+            content: string,
+            annotationId: number
+        }],
+        rectangles: [{
+            createdBy: string,
+            createdDate: string,
+            lastModifiedBy: string,
+            lastModifiedDate: string,
+            id: string, 
+            x: number,
+            y: number,
+            width: number,
+            height: number,
+            annotationSetId: number
+        }],
+        type: any
         }
     ];
-    public comments: [{
-        createdBy: string,
-        createdDate: string,
-        lastModifiedBy: string,
-        lastModifiedDate: string,
-        id: number, 
-        content: string,
-        annotationId: number
-    }];
-    public rectangles: [{
-        createdBy: string,
-        createdDate: string,
-        lastModifiedBy: string,
-        lastModifiedDate: string,
-        id: number, 
-        x: number,
-        y: number,
-        width: number,
-        height: number,
-        annotationSetId: number
-    }];
-    public type: any
 }
