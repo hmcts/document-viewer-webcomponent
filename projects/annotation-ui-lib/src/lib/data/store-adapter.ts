@@ -1,17 +1,19 @@
-import { DataFormat } from "./api-data";
-import { Subject } from "rxjs";
 import { v4 as uuid } from 'uuid';
 
 declare const PDFAnnotate: any;
 
 export class PdfAdapter {
     data: any;
-    commentData: any;
+    commentData: any[];
 
     setStoreData(data) {
-        console.log(data.annotations);
         this.data = data.annotations;
-        this.commentData = data.comments;
+        this.commentData = [];
+        this.data.forEach(annotation => {
+            annotation.comments.forEach(comment => {
+                this.commentData.push(comment);
+            }); 
+        });
     }
 
     updateAnnotations(documentId, annotations) {
@@ -20,6 +22,11 @@ export class PdfAdapter {
         // this.data.push(newAnnotation);
         // console.log(this.data);
         // PDFAnnotate.setStoreAdapter(this.getStoreAdapter());
+    }
+
+    updateComments(documentId, comment) {
+        this.commentData.push(comment);
+        console.log(this.commentData);
     }
 
     _getAnnotations(documentId) {
@@ -49,7 +56,6 @@ export class PdfAdapter {
         let getComments = (documentId, annotationId) => {
             return new Promise((resolve, reject) => {
                 resolve(this._getComments(documentId).filter(function (i) {
-                    // return i.class === 'Comment' && i.annotation === annotationId;
                     return i.annotationId === annotationId;
                   }));
             });
@@ -93,15 +99,15 @@ export class PdfAdapter {
                 var comment = {
                     class: 'Comment',
                     uuid: uuid(),
-                    annotation: annotationId,
+                    annotationId: annotationId,
                     content: content
                   };
-        
-                  var annotations = this._getAnnotations(documentId);
-                  annotations.push(comment);
-                  this.updateAnnotations(documentId, annotations);
-        
-                  resolve(comment);
+
+ 
+                this.updateComments(documentId, comment);
+                        // this.updateAnnotations(documentId, comment);
+                resolve(comment);
+                    
             });
         };
 
