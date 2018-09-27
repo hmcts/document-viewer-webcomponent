@@ -13,18 +13,6 @@ export class AnnotationStoreService {
 
   annotationSetId: number;
 
-  getAnnotationSetByDocumentId(documentId: string): Observable<Object> {
-    return this.http.get('http://localhost:3000/api/annotation/annotation-sets/' +documentId);
-  }
-  
-  addAnnotationToDocument() {
-    const annotationBody = {
-      
-    }
-    return this.http.post('http://localhost:3000/api/annotation/annotations', annotationBody);
-  }
-
-
   getAnnotationById(annotationId: any): any {
 		var promise = new Promise((resolve, error) => {
       this.getAnnotation(
@@ -85,7 +73,7 @@ export class AnnotationStoreService {
 
   addComment(comment: Comment, callback ) {
     PDFAnnotate.getStoreAdapter()
-		.addComment(this.annotationService.getRenderOptions().documentId, comment.annotationId, comment.comment)
+		.addComment(this.annotationService.getRenderOptions().documentId, comment.annotationId, comment.content)
 		.then(callback);
   }
 

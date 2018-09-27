@@ -23,7 +23,7 @@ export class CommentItemComponent implements OnInit {
 
   focused: boolean;
 
-  model = new Comment(null, null, null, null, null, null);
+  model = new Comment(null, null, null, null, null, null, null);
 
   constructor(private annotationService: AnnotationService, private render: Renderer2) { }
 
@@ -33,8 +33,8 @@ export class CommentItemComponent implements OnInit {
   
   onSubmit() {  
     let comment: Comment;
-    comment = this.annotationService.convertFormToComment(this.commentItem);
-    comment.modifiedDate = new Date();
+    comment = this.convertFormToComment(this.commentItem);
+    comment.lastModifiedDate = new Date();
 
     this.annotationService.editComment(
       comment,
@@ -49,6 +49,18 @@ export class CommentItemComponent implements OnInit {
 
   onBlur() {
     setTimeout(() => {this.focused = false}, 200);
+  }
+
+  convertFormToComment(commentForm: NgForm) {
+    return new Comment(
+      commentForm.value.commentId, 
+      commentForm.value.createdBy, 
+      null,
+      commentForm.value.content, 
+      commentForm.value.annotationId,
+      null,
+      null
+      );
   }
 
 	handleDeleteComment(event, commentId, annotationId) {
