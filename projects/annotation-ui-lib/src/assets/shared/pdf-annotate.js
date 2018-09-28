@@ -1662,7 +1662,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  // Skip appending/transforming if node doesn't exist.
 	  if (child) {
 	    // Set attributes
-	    child.setAttribute('data-pdf-annotate-id', annotation.uuid);
+	    child.setAttribute('data-pdf-annotate-id', annotation.id);
 	    child.setAttribute('data-pdf-annotate-type', annotation.type);
 	    child.setAttribute('aria-hidden', true);
 	
@@ -2197,16 +2197,16 @@ return /******/ (function(modules) { // webpackBootstrap
 	      var first = rects[0];
 	      var last = rects[rects.length - 1];
 	
-	      (0, _insertElementWithinElement2.default)((0, _createScreenReaderOnly2.default)('Begin ' + annotation.type + ' annotation ' + num, annotation.uuid), first.x, first.y, annotation.page, true);
+	      (0, _insertElementWithinElement2.default)((0, _createScreenReaderOnly2.default)('Begin ' + annotation.type + ' annotation ' + num, annotation.id), first.x, first.y, annotation.page, true);
 	
-	      (0, _insertElementWithinElement2.default)((0, _createScreenReaderOnly2.default)('End ' + annotation.type + ' annotation ' + num, annotation.uuid + '-end'), last.x + last.width, last.y, annotation.page, false);
+	      (0, _insertElementWithinElement2.default)((0, _createScreenReaderOnly2.default)('End ' + annotation.type + ' annotation ' + num, annotation.id + '-end'), last.x + last.width, last.y, annotation.page, false);
 	      break;
 	
 	    case 'textbox':
 	    case 'point':
 	      var text = annotation.type === 'textbox' ? ' (content: ' + annotation.content + ')' : '';
 	
-	      (0, _insertElementWithinChildren2.default)((0, _createScreenReaderOnly2.default)(annotation.type + ' annotation ' + num + text, annotation.uuid), annotation.x, annotation.y, annotation.page);
+	      (0, _insertElementWithinChildren2.default)((0, _createScreenReaderOnly2.default)(annotation.type + ' annotation ' + num + text, annotation.id), annotation.x, annotation.y, annotation.page);
 	      break;
 	
 	    case 'drawing':
@@ -2214,13 +2214,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	      var x = typeof annotation.x !== 'undefined' ? annotation.x : annotation.lines[0][0];
 	      var y = typeof annotation.y !== 'undefined' ? annotation.y : annotation.lines[0][1];
 	
-	      (0, _insertElementWithinChildren2.default)((0, _createScreenReaderOnly2.default)('Unlabeled drawing', annotation.uuid), x, y, annotation.page);
+	      (0, _insertElementWithinChildren2.default)((0, _createScreenReaderOnly2.default)('Unlabeled drawing', annotation.id), x, y, annotation.page);
 	      break;
 	  }
 	
 	  // Include comments in screen reader hint
 	  if (COMMENT_TYPES.includes(annotation.type)) {
-	    (0, _renderScreenReaderComments2.default)(annotation.documentId, annotation.uuid);
+	    (0, _renderScreenReaderComments2.default)(annotation.documentId, annotation.id);
 	  }
 	}
 	module.exports = exports['default'];
@@ -2521,7 +2521,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  var list = document.querySelector('#pdf-annotate-screenreader-' + comment.annotation + ' ol');
 	  if (list) {
 	    var item = document.createElement('li');
-	    item.setAttribute('id', 'pdf-annotate-screenreader-comment-' + comment.uuid);
+	    item.setAttribute('id', 'pdf-annotate-screenreader-comment-' + comment.id);
 	    item.appendChild(document.createTextNode('' + comment.content));
 	    list.appendChild(item);
 	  }
@@ -2594,7 +2594,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    });
 	  }).then(function (annotations) {
 	    annotations.forEach(function (a) {
-	      removeAnnotation(documentId, a.uuid);
+	      removeAnnotation(documentId, a.id);
 	    });
 	
 	    return annotations;
@@ -3395,7 +3395,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      }));
 	
 	      _PDFJSAnnotate2.default.getStoreAdapter().addAnnotation(documentId, pageNumber, annotation).then(function (annotation) {
-	        _PDFJSAnnotate2.default.getStoreAdapter().addComment(documentId, annotation.uuid, content);
+	        _PDFJSAnnotate2.default.getStoreAdapter().addComment(documentId, annotation.id, content);
 	
 	        (0, _appendChild2.default)(svg, annotation);
 	      });

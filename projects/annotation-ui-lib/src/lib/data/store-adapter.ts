@@ -43,7 +43,7 @@ export class PdfAdapter {
             return new Promise((resolve, reject) => {
                 // console.log(this.data);
                 var annotations = this._getAnnotations(documentId).filter(function (i) {
-                    return i.page === pageNumber && i.class === 'Annotation';
+                    return i.page === pageNumber;
                   });
                 resolve({
                     documentId: documentId,
@@ -71,7 +71,7 @@ export class PdfAdapter {
             return new Promise((resolve, reject) => {
 
                 annotation.class = 'Annotation';
-                annotation.uuid = uuid();
+                annotation.id = uuid();
                 annotation.page = pageNumber;
       
                 var annotations = this._getAnnotations(documentId);
@@ -98,7 +98,7 @@ export class PdfAdapter {
             return new Promise((resolve, reject) => {
                 var comment = {
                     class: 'Comment',
-                    uuid: uuid(),
+                    id: uuid(),
                     annotationId: annotationId,
                     content: content,
                     createdDate: new Date(),
