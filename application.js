@@ -12,9 +12,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 
-// app.get('/oauth2/callback', apiRoute);
-// app.get('/logout', apiRoute);
-
 app.use(serviceTokenMiddleware);
 app.use('/api', apiRoute);
 

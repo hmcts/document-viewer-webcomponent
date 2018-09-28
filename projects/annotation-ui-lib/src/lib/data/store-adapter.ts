@@ -5,6 +5,7 @@ declare const PDFAnnotate: any;
 export class PdfAdapter {
     data: any;
     commentData: any[];
+    annotationSetId: number;
 
     setStoreData(data) {
         this.data = data.annotations;
@@ -14,6 +15,7 @@ export class PdfAdapter {
                 this.commentData.push(comment);
             }); 
         });
+        this.annotationSetId = data.id;
     }
 
     updateAnnotations(documentId, annotations) {
@@ -30,6 +32,7 @@ export class PdfAdapter {
     }
 
     _getAnnotations(documentId) {
+        console.log(this.data)
         return this.data || [];
     }
 
@@ -69,12 +72,11 @@ export class PdfAdapter {
 
         let addAnnotation = (documentId, pageNumber, annotation) => {
             return new Promise((resolve, reject) => {
-
-                annotation.class = 'Annotation';
                 annotation.id = uuid();
                 annotation.page = pageNumber;
-      
-                var annotations = this._getAnnotations(documentId);
+                annotation.annotationSetId = this.annotationSetId;
+                
+                let annotations = this._getAnnotations(documentId);
                 annotations.push(annotation);
                 this.updateAnnotations(documentId, annotations);
       
