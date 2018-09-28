@@ -5,4 +5,4 @@
 export * from './lib/annotation-ui-lib.component';
 export * from './lib/annotation-ui-lib.module';
 export * from './lib/viewer/viewer/viewer.component';
-export * from './lib/app-resolver/app-resolver.component';
+export * from './lib/annotation-resolver/annotation-resolver';

@@ -48,7 +48,10 @@ export class CommentItemComponent implements OnInit {
   }
 
   onBlur() {
-    setTimeout(() => {this.focused = false}, 200);
+    setTimeout(() => {
+      this.removeCommentSelectedStyle();
+      this.focused = false;
+    }, 200);
   }
 
   convertFormToComment(commentForm: NgForm) {

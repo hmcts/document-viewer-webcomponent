@@ -1,8 +1,7 @@
-import { Injectable, OnInit } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Comment } from '../../model/comment';
-import { NgForm } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Observable, Subject } from 'rxjs';
+import { Subject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { PdfAdapter } from '../../data/store-adapter';
 
@@ -56,8 +55,7 @@ export class AnnotationService {
     //       "createdDate": null,
     //       "lastModifiedBy": null,
     //       "lastModifiedDate": null,
-    //       "class": "Annotation",
-    //       "uuid": "c831162f-89ec-4890-ad8e-a57af0f0d2b7",
+    //       "id": "c831162f-89ec-4890-ad8e-a57af0f0d2b7",
     //       "page": 1,
     //       "x": null,
     //       "y": null,
@@ -66,7 +64,6 @@ export class AnnotationService {
     //       "annotationSetId": null,
     //       "comments": [
     //         {
-    //           "class": "Comment",
     //           "createdBy": null,
     //           "createdDate": null,
     //           "lastModifiedBy": null,
@@ -103,36 +100,35 @@ export class AnnotationService {
     //       "type": "highlight",
     //       "color": "FFFF00"
     //     },
-    //     {
-    //       "createdBy": null,
-    //       "createdDate": null,
-    //       "lastModifiedBy": null,
-    //       "lastModifiedDate": null,
-    //       "class": "Annotation",
-    //       "uuid": "9bac4cdc-0823-48be-9a19-f3550c437417",
-    //       "page": 1,
-    //       "x": null,
-    //       "y": null,
-    //       "width": null,
-    //       "height": null,
-    //       "annotationSetId": null,
-    //       "comments": [],
-    //       "rectangles": [
-    //         {
-    //           "createdBy": null,
-    //           "createdDate": null,
-    //           "lastModifiedBy": null,
-    //           "lastModifiedDate": null,
-    //           "id": null,
-    //           "x": 115.25849077038298,
-    //           "y": 204.88721804511277,
-    //           "width": 92.24449673989662,
-    //           "height": 11.619946472626879
-    //         }
-    //       ],
-    //       "type": "highlight",
-    //       "color": "FFFF00"
-    //     }
+        // {
+        //   "createdBy": null,
+        //   "createdDate": null,
+        //   "lastModifiedBy": null,
+        //   "lastModifiedDate": null,
+        //   "id": "9bac4cdc-0823-48be-9a19-f3550c437417",
+        //   "page": 1,
+        //   "x": null,
+        //   "y": null,
+        //   "width": null,
+        //   "height": null,
+        //   "annotationSetId": null,
+        //   "comments": [],
+        //   "rectangles": [
+        //     {
+        //       "createdBy": null,
+        //       "createdDate": null,
+        //       "lastModifiedBy": null,
+        //       "lastModifiedDate": null,
+        //       "id": null,
+        //       "x": 115.25849077038298,
+        //       "y": 204.88721804511277,
+        //       "width": 92.24449673989662,
+        //       "height": 11.619946472626879
+        //     }
+        //   ],
+        //   "type": "highlight",
+        //   "color": "FFFF00"
+        // }
     //   ]
     // };
     
@@ -209,7 +205,7 @@ export class AnnotationService {
     let jsonAnnotations = JSON.parse(annotations);
 
     jsonAnnotations.forEach(element => {
-      if (element.uuid === comment.id){
+      if (element.id === comment.id){
         element.content = comment.content;
       }
     });

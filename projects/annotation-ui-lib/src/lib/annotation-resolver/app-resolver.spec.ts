@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AppResolverComponent } from './app-resolver.component';
+import { AnnotationResolver } from './annotation-resolver';
 
 describe('AppResolverComponent', () => {
-  let component: AppResolverComponent;
-  let fixture: ComponentFixture<AppResolverComponent>;
+  let component: AnnotationResolver;
+  let fixture: ComponentFixture<AnnotationResolver>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AppResolverComponent ]
+      declarations: [ AnnotationResolver ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(AppResolverComponent);
+    fixture = TestBed.createComponent(AnnotationResolver);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

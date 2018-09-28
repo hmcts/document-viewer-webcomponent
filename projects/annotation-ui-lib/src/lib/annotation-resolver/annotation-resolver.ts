@@ -6,10 +6,9 @@ import { AnnotationService } from '../viewer/services/annotation.service';
 
 @Component({
   selector: 'aui-app-resolver',
-  templateUrl: './app-resolver.component.html',
-  styleUrls: ['./app-resolver.component.css']
+  template: ''
 })
-export class AppResolverComponent implements Resolve<any> {
+export class AnnotationResolver implements Resolve<any> {
 
   constructor(private annotationService: AnnotationService) { }
 

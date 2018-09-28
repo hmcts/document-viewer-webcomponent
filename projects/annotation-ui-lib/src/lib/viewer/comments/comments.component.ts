@@ -85,7 +85,7 @@ export class CommentsComponent implements OnInit {
 
 	getAnnotationComments(annotation) {
 		annotation.comments = [];
-		this.annotationStoreService.getCommentsForAnnotation(annotation.uuid).then(
+		this.annotationStoreService.getCommentsForAnnotation(annotation.id).then(
 			comments => {
 				annotation.comments = comments;
 			}
@@ -118,7 +118,6 @@ export class CommentsComponent implements OnInit {
 		annotations.forEach(annotation => {
 			this.render.removeClass(annotation,"comment-selected");
 			const annotationId = (<HTMLInputElement>annotation).dataset.pdfAnnotateId;
-
 			if (annotationId === linkedAnnotationId) {
 				this.render.addClass(annotation, "comment-selected");
 			}

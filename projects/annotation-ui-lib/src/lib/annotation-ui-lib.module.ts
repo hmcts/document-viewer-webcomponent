@@ -13,7 +13,7 @@ import { ErrorComponent } from './error/error.component';
 import { HttpClientModule } from '@angular/common/http';
 import { Routes, RouterModule } from '@angular/router';
 import { AnnotationService } from './viewer/services/annotation.service';
-import { AppResolverComponent } from './app-resolver/app-resolver.component';
+import { AnnotationResolver } from './annotation-resolver/annotation-resolver';
 import { PdfAdapter } from './data/store-adapter';
 
 const appRoutes: Routes = [
@@ -38,7 +38,7 @@ const appRoutes: Routes = [
     CommentFormComponent,
     ToolbarComponent,
     ErrorComponent,
-    AppResolverComponent
+    AnnotationResolver
   ],
   providers: [
     AnnotationService,

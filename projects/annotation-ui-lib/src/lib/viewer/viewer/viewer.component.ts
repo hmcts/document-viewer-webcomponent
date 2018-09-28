@@ -45,18 +45,6 @@ export class ViewerComponent implements OnInit, OnChanges, Viewer {
   }
 
   ngOnInit() {
-    // this.annotationStoreService.getAnnotationSetByDocumentId("uuid").subscribe(
-    //   res => {
-    //     console.log(res);
-    //   }
-    // );
-
-    // this.annotationStoreService.addAnnotationToDocument().subscribe(
-    //   res => {
-    //     console.log(res);
-    //   }
-    // );
-
     // From resolver
     this.route.data.subscribe((data) => {
       this.annotationService.annotationData = data;
