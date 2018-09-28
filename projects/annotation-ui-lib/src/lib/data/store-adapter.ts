@@ -18,21 +18,11 @@ export class PdfAdapter {
         this.annotationSetId = data.id;
     }
 
-    updateAnnotations(documentId, annotations) {
-        const newAnnotation = annotations[annotations.length-1];
-        console.log(newAnnotation);
-        // this.data.push(newAnnotation);
-        // console.log(this.data);
-        // PDFAnnotate.setStoreAdapter(this.getStoreAdapter());
-    }
-
     updateComments(documentId, comment) {
         this.commentData.push(comment);
-        console.log(this.commentData);
     }
 
     _getAnnotations(documentId) {
-        console.log(this.data)
         return this.data || [];
     }
 
@@ -75,10 +65,9 @@ export class PdfAdapter {
                 annotation.id = uuid();
                 annotation.page = pageNumber;
                 annotation.annotationSetId = this.annotationSetId;
-                
+
                 let annotations = this._getAnnotations(documentId);
                 annotations.push(annotation);
-                this.updateAnnotations(documentId, annotations);
       
                 resolve(annotation);
             });

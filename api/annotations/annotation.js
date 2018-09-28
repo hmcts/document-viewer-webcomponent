@@ -51,7 +51,6 @@ module.exports = app => {
 
     router.post('/annotations', (req, res, next) => {
         const options = getOptions(req);
-
         addAnnotation(options)
             .then(response => {
                 res.setHeader('Access-Control-Allow-Origin', '*');

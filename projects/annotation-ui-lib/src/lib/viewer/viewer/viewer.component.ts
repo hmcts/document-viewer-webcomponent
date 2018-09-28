@@ -3,7 +3,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ScrollEvent } from 'ngx-scroll-event';
 import { DOCUMENT } from '@angular/common';
 import { AnnotationService } from '../services/annotation.service';
-import { AnnotationStoreService } from '../services/annotation-store.service';
 import { Viewer } from '../../viewer';
 
 @Component({
@@ -27,8 +26,7 @@ export class ViewerComponent implements OnInit, OnChanges, Viewer {
 
   @ViewChild("contentWrapper") contentWrapper: ElementRef;
 
-  constructor(private annotationStoreService: AnnotationStoreService,
-              private annotationService: AnnotationService, 
+  constructor(private annotationService: AnnotationService, 
               private route: ActivatedRoute,
               private router: Router, 
               @Inject(DOCUMENT) private document: any) {

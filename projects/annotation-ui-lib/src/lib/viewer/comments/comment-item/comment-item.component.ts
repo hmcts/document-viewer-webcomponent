@@ -77,7 +77,6 @@ export class CommentItemComponent implements OnInit {
   handleCommentClick (event) {
 		this.removeCommentSelectedStyle();
     this.render.addClass(this.commentTextField.nativeElement, "comment-selected");
-    this.annotationService.saveData();
     this.commentSelected.emit(this.commentItem.value.annotationId);
   }
 

@@ -44,6 +44,10 @@ export class ToolbarComponent implements OnInit, OnChanges {
     this.toolChange.emit(this.tool);
   }
 
+  onSaveClick() {
+    this.annotationService.saveData();
+  }
+
   // handleScaleChange(event: Event) {
   //   this.setScale(this.zoomTool.nativeElement.value)
   // }
