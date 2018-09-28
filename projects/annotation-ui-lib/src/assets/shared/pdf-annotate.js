@@ -318,7 +318,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	    value: function __addComment(documentId, annotationId, content) {
 	      (0, _abstractFunction2.default)('addComment');
 	    }
-	  }, {
+		},{
+	    key: '__editComment',
+	    value: function __editComment(documentId, comment) {
+	      (0, _abstractFunction2.default)('editComment');
+	    }
+	  },
+		{
 	    key: '__deleteComment',
 	
 	
@@ -404,7 +410,22 @@ return /******/ (function(modules) { // webpackBootstrap
 	        });
 	      };
 	    }
-	  }, {
+		}, 
+		{
+	    key: 'editComment',
+	    get: function get() {
+	      return this.__editComment;
+	    },
+	    set: function set(fn) {
+	      this.__editComment = function editComment(documentId, comment) {
+	        return fn.apply(undefined, arguments).then(function (comment) {
+	          (0, _event.fireEvent)('comment:edit', documentId, comment);
+	          return comment;
+	        });
+	      };
+	    }
+		}, 
+		{
 	    key: 'deleteComment',
 	    get: function get() {
 	      return this.__deleteComment;
@@ -2576,7 +2597,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	    reorderAnnotationsByType(documentId, annotation.page, annotation.type);
 	  });
 	  (0, _event.addEventListener)('annotation:delete', removeAnnotation);
-	  (0, _event.addEventListener)('comment:add', insertComment);
+		(0, _event.addEventListener)('comment:add', insertComment);
+		(0, _event.addEventListener)('comment:edit', editComment);
 	  (0, _event.addEventListener)('comment:delete', removeComment);
 	}
 	
@@ -2636,7 +2658,17 @@ return /******/ (function(modules) { // webpackBootstrap
 	    (0, _insertScreenReaderComment2.default)(comment);
 	  });
 	}
-	
+
+		/**
+	 * Insert a screen reader hint for a comment
+	 *
+	 * @param {String} documentId The ID of the document
+	 * @param {Object} comment The comment to insert a hint for
+	 */
+	function editComment(documentId, comment) {
+		
+	}
+
 	/**
 	 * Remove a screen reader hint for a comment
 	 *

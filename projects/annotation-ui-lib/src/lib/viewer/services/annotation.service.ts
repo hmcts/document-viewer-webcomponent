@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Comment } from '../../model/comment';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Subject, throwError, Observable } from 'rxjs';
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
+import { Subject, Observable } from 'rxjs';
 import { PdfAdapter } from '../../data/store-adapter';
-import { catchError, tap } from 'rxjs/operators';
 
 declare const PDFJS: any;
 declare const PDFAnnotate: any;
@@ -20,19 +19,17 @@ export class AnnotationService {
 
   annotationData: any;
   pdfPages: number;
+  documentData: any;
 
-  constructor(
-    private http: HttpClient,
-    private router: Router,
-    private route: ActivatedRoute,
-    private pdfAdapter: PdfAdapter) {
-      
-    }
+  constructor(private http: HttpClient,
+              private router: Router,
+              private route: ActivatedRoute,
+              private pdfAdapter: PdfAdapter) {}
   
   preRun() {
       PDFJS.workerSrc = '/node_modules/hmcts-annotation-ui-lib/assets/shared/pdf.worker.js';
 
-      this.pdfAdapter.setStoreData(this.annotationData.annotationData);
+      this.pdfAdapter.setStoreData(this.annotationData);
       PDFAnnotate.setStoreAdapter(this.pdfAdapter.getStoreAdapter());
 
       this.PAGE_HEIGHT = void 0;
@@ -47,9 +44,9 @@ export class AnnotationService {
   };
 
   saveData() {
-    this.annotationData.annotationData.annotations = this.pdfAdapter.data;
+    this.annotationData.annotations = this.pdfAdapter.data;
 
-    this.annotationData.annotationData.annotations.forEach(annotation => {
+    this.annotationData.annotations.forEach(annotation => {
       this.saveAnnotation(annotation).subscribe(
         response => console.log(response),
         error => console.log(error)
@@ -110,27 +107,6 @@ export class AnnotationService {
 
   renderPage(visiblePageNum: number) {
     PDFAnnotate.UI.renderPage(visiblePageNum, this.RENDER_OPTIONS);	
-  }
-
-  deleteComment(commentId: string, callback) {
-    PDFAnnotate.getStoreAdapter()
-    .deleteComment(this.RENDER_OPTIONS.documentId, commentId)
-    .then(callback);
-  }
-  
-  editComment(comment: Comment, callback){
-    const localKey = this.RENDER_OPTIONS.documentId + "/annotations";
-    const annotations = localStorage.getItem(localKey);
-    let jsonAnnotations = JSON.parse(annotations);
-
-    jsonAnnotations.forEach(element => {
-      if (element.id === comment.id){
-        element.content = comment.content;
-      }
-    });
-
-    localStorage.setItem(localKey, JSON.stringify(jsonAnnotations));
-    callback;
   }
 
   setHighlightTool() {

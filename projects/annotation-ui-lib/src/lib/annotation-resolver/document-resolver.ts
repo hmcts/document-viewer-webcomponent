@@ -1,18 +1,18 @@
 import { Component } from '@angular/core';
 import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { Observable } from 'rxjs';
-import { AnnotationService } from '../viewer/services/annotation.service';
+import { DocumentViewerService } from 'src/app/document-viewer.service';
 
 
 @Component({
-  selector: 'aui-annotation-resolver',
+  selector: 'aui-document-resolver',
   template: ''
 })
-export class AnnotationResolver implements Resolve<any> {
+export class DocumentResolver implements Resolve<any> {
 
-  constructor(private annotationService: AnnotationService) {}
+  constructor(private documentViewerService: DocumentViewerService) {}
 
   resolve(route: ActivatedRouteSnapshot, rstate: RouterStateSnapshot): Observable<any> | Promise<any> | any {
-    return this.annotationService.fetchData(route.params.url);
+    return this.documentViewerService.fetch(route.params.url);
   }
 }

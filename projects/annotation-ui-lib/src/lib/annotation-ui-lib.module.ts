@@ -14,6 +14,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { Routes, RouterModule } from '@angular/router';
 import { AnnotationService } from './viewer/services/annotation.service';
 import { AnnotationResolver } from './annotation-resolver/annotation-resolver';
+import { DocumentResolver } from './annotation-resolver/document-resolver';
 import { PdfAdapter } from './data/store-adapter';
 
 const appRoutes: Routes = [
@@ -38,7 +39,8 @@ const appRoutes: Routes = [
     CommentFormComponent,
     ToolbarComponent,
     ErrorComponent,
-    AnnotationResolver
+    AnnotationResolver,
+    DocumentResolver
   ],
   providers: [
     AnnotationService,

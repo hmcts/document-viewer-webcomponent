@@ -73,15 +73,10 @@ export class PdfAdapter {
             });
         };
 
-        let editAnnotation = (documentId, pageNumber, annotation) => {
-            return new Promise(function(resolve, reject) {
-                resolve(this.data.comments);
-            });
-        };
-
         let deleteAnnotation = (documentId, annotationId) => {
-            return new Promise(function(resolve, reject) {
-                resolve(this.data.comments);
+            return new Promise((resolve, reject) => {
+                this.data = this.remove(this.data, annotationId);
+                resolve(this.data);
             });
         };
 
@@ -94,18 +89,30 @@ export class PdfAdapter {
                     content: content,
                     createdDate: new Date(),
                     createdBy: null,
-                    
                   };
 
- 
                 this.updateComments(documentId, comment);
-                        // this.updateAnnotations(documentId, comment);
+                resolve(comment); 
+            });
+        };
+
+        let editComment = (documentId, comment) => {
+            return new Promise((resolve, reject) => {
+                var index = this.commentData.findIndex( c => c.id == comment.id);
+                this.commentData[index] = comment;
                 resolve(comment);
-                    
             });
         };
 
         let deleteComment = (documentId, commentId) => {
+            return new Promise((resolve, reject) => {
+                this.commentData = this.remove(this.commentData, commentId);
+                resolve(this.data.comments);
+            });
+        };
+
+        // Unused
+        let editAnnotation = (documentId, pageNumber, annotation) => {
             return new Promise(function(resolve, reject) {
                 resolve(this.data.comments);
             });
@@ -119,7 +126,12 @@ export class PdfAdapter {
             editAnnotation,
             deleteAnnotation,
             addComment,
+            editComment,
             deleteComment
         })
+    }
+
+    remove(array, element) {
+        return array.filter(e => e.id !== element);
     }
 }

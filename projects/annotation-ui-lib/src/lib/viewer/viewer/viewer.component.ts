@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, ElementRef, Inject, OnChanges } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ScrollEvent } from 'ngx-scroll-event';
 import { DOCUMENT } from '@angular/common';
+import { ScrollEvent } from 'ngx-scroll-event';
 import { AnnotationService } from '../services/annotation.service';
 import { Viewer } from '../../viewer';
 
@@ -45,10 +45,11 @@ export class ViewerComponent implements OnInit, OnChanges, Viewer {
   ngOnInit() {
     // From resolver
     this.route.data.subscribe((data) => {
-      this.annotationService.annotationData = data;
+      this.annotationService.documentData = data.documentData;
+      this.annotationService.annotationData = data.annotationData;
+      console.log(data);
       this.annotationService.preRun();
     });
-
 
     this.annotationService.setRenderOptions({
       documentId: this.url,
