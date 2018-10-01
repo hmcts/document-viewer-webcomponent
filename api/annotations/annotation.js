@@ -4,6 +4,7 @@ const generateRequest = require('../lib/request');
 
 
 function getAnnotionSet(uuid, options) {
+    console.log(options.headers);
     return generateRequest('GET', `${config.services.em_anno_api}/api/annotation-sets/filter?documentId=${uuid}`, options);
 }
 

@@ -7,20 +7,26 @@ import { AppComponent } from './app.component';
 import { AnnotationUiLibModule, ViewerComponent, AnnotationResolver, DocumentResolver} from '../../projects/hmcts-annotation-ui-lib/src/public_api';
 import { AuthModule } from './auth/auth.module';
 import { ConfigService } from './config.service';
+import { DmUploadComponent } from './dm-upload/dm-upload.component';
 
 const appRoutes: Routes = [
-  { path: '',  
+  { path: 'viewer',  
   component: ViewerComponent,
   resolve: {
     documentData: DocumentResolver,
     annotationData: AnnotationResolver
   } 
+ },
+ {
+   path: '',
+   component: DmUploadComponent
  }
 ];
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    DmUploadComponent
     
   ],
   imports: [

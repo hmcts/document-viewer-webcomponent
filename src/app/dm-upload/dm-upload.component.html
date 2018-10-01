@@ -1,0 +1,8 @@
+<form id="uploadForm" name="dmUploadForm">
+  <div class="form-group">
+    <label class="form-label" for="files">File:</label>
+    <input type="file" id="files" name="files" (change)="handleFileInput($event.target.files[0])"/>
+  </div>
+
+  <button class="button" type="button" (click)="uploadDocument()" data-hook="dm-upload__upload-button">Upload</button>
+</form>
