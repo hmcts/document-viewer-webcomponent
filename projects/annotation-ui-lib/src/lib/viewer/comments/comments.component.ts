@@ -22,22 +22,22 @@ export class CommentsComponent implements OnInit {
   @ViewChild("commentForm") commentForm: ElementRef;
   @ViewChild("commentText") commentText: ElementRef;
 
-  	constructor(
-		  private annotationStoreService: AnnotationStoreService,
-		private annotationService: AnnotationService,
-		private render: Renderer2, 
-		private ref: ChangeDetectorRef) { 
+  	constructor(private annotationStoreService: AnnotationStoreService,
+				private annotationService: AnnotationService,
+				private render: Renderer2, 
+				private ref: ChangeDetectorRef) { 
 			
 	}
 
   	ngOnInit() {
+		this.pageNumber = 1;
+		this.showAllComments();
+
 		this.subscription = this.annotationService.getPageNumber().subscribe(
 			pageNumber => {
 				this.pageNumber = pageNumber;
 				this.showAllComments();
-			}
-		);
-		this.pageNumber = 1;
+			});
 	  };
 
 	ngAfterViewInit() {
@@ -46,7 +46,7 @@ export class CommentsComponent implements OnInit {
 	}
 
 	ngOnDestroy() {
-		// this.subscription.unsubscribe();
+		this.subscription.unsubscribe();
 	}
 
 	showAllComments() {
@@ -60,8 +60,7 @@ export class CommentsComponent implements OnInit {
 					this.getAnnotationComments(element);
 				});
 				this.annotations = annotations;
-			}
-		);
+			});
 	}
 	
 	sortByY(annotations) {
@@ -79,8 +78,7 @@ export class CommentsComponent implements OnInit {
 		this.annotationStoreService.getAnnotationById(annotationId).then(
 			annotation => {
 				this.annotations = this.getAnnotationComments(annotation);
-			}
-		);
+			});
 	}
 
 	getAnnotationComments(annotation) {
@@ -88,8 +86,7 @@ export class CommentsComponent implements OnInit {
 		this.annotationStoreService.getCommentsForAnnotation(annotation.id).then(
 			comments => {
 				annotation.comments = comments;
-			}
-		);
+			});
 	}
 
 	handleAnnotationBlur() {
@@ -108,7 +105,7 @@ export class CommentsComponent implements OnInit {
 			this.selectedAnnotationId = event.getAttribute('data-pdf-annotate-id');
 			this.addHighlightedCommentStyle(this.selectedAnnotationId);
 			this.ref.detectChanges();
-		}
+		};
 	}
 
 	addHighlightedCommentStyle(linkedAnnotationId) {
@@ -120,7 +117,7 @@ export class CommentsComponent implements OnInit {
 			const annotationId = (<HTMLInputElement>annotation).dataset.pdfAnnotateId;
 			if (annotationId === linkedAnnotationId) {
 				this.render.addClass(annotation, "comment-selected");
-			}
-		})
+			};
+		});
 	}
 }

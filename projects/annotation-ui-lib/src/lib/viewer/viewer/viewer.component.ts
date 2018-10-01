@@ -67,7 +67,6 @@ export class ViewerComponent implements OnInit, OnChanges, Viewer {
   }
 
   ngOnChanges() {
-    
   }
 
   getClickedPage(event) {
