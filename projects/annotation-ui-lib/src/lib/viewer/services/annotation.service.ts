@@ -1,14 +1,15 @@
-import { Injectable, OnInit } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Comment } from '../../model/comment';
-import { NgForm } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Observable, Subject } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { Subject, Observable } from 'rxjs';
+import { PdfAdapter } from '../../data/store-adapter';
 
 declare const PDFJS: any;
 declare const PDFAnnotate: any;
 
 @Injectable()
-export class AnnotationService implements OnInit{
+export class AnnotationService {
 
   PAGE_HEIGHT;
   UI;
@@ -16,23 +17,45 @@ export class AnnotationService implements OnInit{
   private RENDER_OPTIONS: { documentId: string, pdfDocument: any, scale: any, rotate: number };	
   private pageNumber: Subject<number>;
 
+  annotationData: any;
   pdfPages: number;
+  documentData: any;
 
-  constructor(
-    private router: Router,
-    private route: ActivatedRoute) {
-    
-    PDFAnnotate.setStoreAdapter(new PDFAnnotate.LocalStoreAdapter());
+  constructor(private http: HttpClient,
+              private router: Router,
+              private route: ActivatedRoute,
+              private pdfAdapter: PdfAdapter) {}
+  
+  preRun() {
+      PDFJS.workerSrc = '/node_modules/hmcts-annotation-ui-lib/assets/shared/pdf.worker.js';
 
-    PDFJS.workerSrc = '/node_modules/hmcts-annotation-ui-lib/assets/shared/pdf.worker.js';
-    
-    this.PAGE_HEIGHT = void 0;
-    this.UI = PDFAnnotate.UI;
-    this.pageNumber = new Subject();
+      this.pdfAdapter.setStoreData(this.annotationData);
+      PDFAnnotate.setStoreAdapter(this.pdfAdapter.getStoreAdapter());
+
+      this.PAGE_HEIGHT = void 0;
+      this.UI = PDFAnnotate.UI;
+
+      this.pageNumber = new Subject();
+      this.pageNumber.next(1);
   }
 
-  ngOnInit() {
-    
+  fetchData(documentId) {
+    return this.http.get('http://localhost:3000/api/annotation/annotation-sets/' + "uuid2");
+  };
+
+  saveData() {
+    this.annotationData.annotations = this.pdfAdapter.data;
+
+    this.annotationData.annotations.forEach(annotation => {
+      this.saveAnnotation(annotation).subscribe(
+        response => console.log(response),
+        error => console.log(error)
+      );
+    });
+  }
+
+  saveAnnotation(annotation): Observable<any>{
+    return this.http.post('http://localhost:3000/api/annotation/annotations', annotation);
   }
 
   getPageNumber(): Subject<number> {
@@ -84,38 +107,6 @@ export class AnnotationService implements OnInit{
 
   renderPage(visiblePageNum: number) {
     PDFAnnotate.UI.renderPage(visiblePageNum, this.RENDER_OPTIONS);	
-  }
-
-  deleteComment(commentId: string, callback) {
-    PDFAnnotate.getStoreAdapter()
-    .deleteComment(this.RENDER_OPTIONS.documentId, commentId)
-    .then(callback);
-  }
-  
-  editComment(comment: Comment, callback){
-    const localKey = this.RENDER_OPTIONS.documentId + "/annotations";
-    const annotations = localStorage.getItem(localKey);
-    let jsonAnnotations = JSON.parse(annotations);
-
-    jsonAnnotations.forEach(element => {
-      if (element.uuid === comment.id){
-        element.content = comment.comment;
-      }
-    });
-
-    localStorage.setItem(localKey, JSON.stringify(jsonAnnotations));
-    callback;
-  }
-
-  convertFormToComment(commentForm: NgForm) {
-    return new Comment(
-      commentForm.value.commentId, 
-      commentForm.value.author, 
-      commentForm.value.comment, 
-      commentForm.value.annotationId,
-      null,
-      null
-      );
   }
 
   setHighlightTool() {

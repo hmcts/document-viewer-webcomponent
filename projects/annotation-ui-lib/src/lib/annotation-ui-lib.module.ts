@@ -13,6 +13,9 @@ import { ErrorComponent } from './error/error.component';
 import { HttpClientModule } from '@angular/common/http';
 import { Routes, RouterModule } from '@angular/router';
 import { AnnotationService } from './viewer/services/annotation.service';
+import { AnnotationResolver } from './annotation-resolver/annotation-resolver';
+import { DocumentResolver } from './annotation-resolver/document-resolver';
+import { PdfAdapter } from './data/store-adapter';
 
 const appRoutes: Routes = [
   { path: 'error/:error',  component: ErrorComponent }
@@ -35,11 +38,14 @@ const appRoutes: Routes = [
     CommentItemComponent,
     CommentFormComponent,
     ToolbarComponent,
-    ErrorComponent
+    ErrorComponent,
+    AnnotationResolver,
+    DocumentResolver
   ],
   providers: [
+    AnnotationService,
     AnnotationStoreService,
-    AnnotationService
+    PdfAdapter
   ],
   exports: [
     AnnotationUiLibComponent,

@@ -22,20 +22,23 @@ export class CommentsComponent implements OnInit {
   @ViewChild("commentForm") commentForm: ElementRef;
   @ViewChild("commentText") commentText: ElementRef;
 
-  	constructor(
-		  private annotationStoreService: AnnotationStoreService,
-		private annotationService: AnnotationService,
-		private render: Renderer2, 
-		private ref: ChangeDetectorRef) { 
-			this.subscription = this.annotationService.getPageNumber().subscribe(
-				pageNumber => {
-					this.pageNumber = pageNumber;
-					this.showAllComments();
-				}
-			);
+  	constructor(private annotationStoreService: AnnotationStoreService,
+				private annotationService: AnnotationService,
+				private render: Renderer2, 
+				private ref: ChangeDetectorRef) { 
+			
 	}
 
-  	ngOnInit() {};
+  	ngOnInit() {
+		this.pageNumber = 1;
+		this.showAllComments();
+
+		this.subscription = this.annotationService.getPageNumber().subscribe(
+			pageNumber => {
+				this.pageNumber = pageNumber;
+				this.showAllComments();
+			});
+	  };
 
 	ngAfterViewInit() {
 		document.querySelector('#viewer').addEventListener('click', this.handleAnnotationBlur.bind(this));
@@ -49,6 +52,7 @@ export class CommentsComponent implements OnInit {
 	showAllComments() {
 		this.annotationStoreService.getAnnotationsForPage(this.pageNumber).then(
 			(pageData: any) => {
+				
 				let annotations = pageData.annotations.slice();
 				this.sortByY(annotations);
 				
@@ -56,8 +60,7 @@ export class CommentsComponent implements OnInit {
 					this.getAnnotationComments(element);
 				});
 				this.annotations = annotations;
-			}
-		);
+			});
 	}
 	
 	sortByY(annotations) {
@@ -74,19 +77,16 @@ export class CommentsComponent implements OnInit {
 	getAnnotationCommentsById(annotationId) {
 		this.annotationStoreService.getAnnotationById(annotationId).then(
 			annotation => {
-				console.log("update is called");
 				this.annotations = this.getAnnotationComments(annotation);
-			}
-		);
+			});
 	}
 
 	getAnnotationComments(annotation) {
 		annotation.comments = [];
-		this.annotationStoreService.getCommentsForAnnotation(annotation.uuid).then(
+		this.annotationStoreService.getCommentsForAnnotation(annotation.id).then(
 			comments => {
 				annotation.comments = comments;
-			}
-		);
+			});
 	}
 
 	handleAnnotationBlur() {
@@ -105,7 +105,7 @@ export class CommentsComponent implements OnInit {
 			this.selectedAnnotationId = event.getAttribute('data-pdf-annotate-id');
 			this.addHighlightedCommentStyle(this.selectedAnnotationId);
 			this.ref.detectChanges();
-		}
+		};
 	}
 
 	addHighlightedCommentStyle(linkedAnnotationId) {
@@ -115,10 +115,9 @@ export class CommentsComponent implements OnInit {
 		annotations.forEach(annotation => {
 			this.render.removeClass(annotation,"comment-selected");
 			const annotationId = (<HTMLInputElement>annotation).dataset.pdfAnnotateId;
-
 			if (annotationId === linkedAnnotationId) {
 				this.render.addClass(annotation, "comment-selected");
-			}
-		})
+			};
+		});
 	}
 }

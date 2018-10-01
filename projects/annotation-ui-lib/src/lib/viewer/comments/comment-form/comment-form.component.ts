@@ -17,12 +17,12 @@ export class CommentFormComponent implements OnChanges {
 
   @Output() commentSubmitted: EventEmitter<string> = new EventEmitter<string>();
    
-  model = new Comment(null, null, null, null, null, null);
+  model = new Comment(null, null, null, null, null, null, null);
   constructor(private annotationStoreService: AnnotationStoreService) {
   }
 
   ngOnChanges() {
-    this.model = new Comment(null, null, this.commentForm.value.comment, this.selectedAnnotationId, new Date(), null);
+    this.model = new Comment(null, null, new Date(), this.commentForm.value.comment, this.selectedAnnotationId, null, null);
   }
 
   onSubmit() {
@@ -32,7 +32,7 @@ export class CommentFormComponent implements OnChanges {
       
     this.commentSubmitted.emit(this.model.annotationId);
     this.commentForm.reset();
-    this.model = new Comment(null, null, null, null, null, null);
+    this.model = new Comment(null, null, null, null, null, null, null);
   }
 
   get diagnostic() { return JSON.stringify(this.model); }

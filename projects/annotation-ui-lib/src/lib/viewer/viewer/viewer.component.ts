@@ -1,8 +1,9 @@
 import { Component, OnInit, ViewChild, ElementRef, Inject, OnChanges } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ScrollEvent } from 'ngx-scroll-event';
 import { DOCUMENT } from '@angular/common';
+import { ScrollEvent } from 'ngx-scroll-event';
 import { AnnotationService } from '../services/annotation.service';
+import { Viewer } from '../../viewer';
 
 @Component({
   selector: 'app-viewer',
@@ -11,20 +12,24 @@ import { AnnotationService } from '../services/annotation.service';
   providers: []
 })
 
-export class ViewerComponent implements OnInit, OnChanges {
+export class ViewerComponent implements OnInit, OnChanges, Viewer {
   renderedPages: {};
-	url: string;
+  url: string;
+  originalUrl: string;
 	annotate: boolean;
-  lastViewedPage: number;
+  page: number;
+  numPages: number;
+  pageChanged;
+  prevPage;
+  nextPage;
   tool: String;
 
   @ViewChild("contentWrapper") contentWrapper: ElementRef;
 
-  constructor(
-    private annotationService: AnnotationService, 
-    private route: ActivatedRoute,
-    private router: Router, 
-    @Inject(DOCUMENT) private document: any) {
+  constructor(private annotationService: AnnotationService, 
+              private route: ActivatedRoute,
+              private router: Router, 
+              @Inject(DOCUMENT) private document: any) {
 
 		this.route.queryParams.subscribe(
       params => {
@@ -38,6 +43,14 @@ export class ViewerComponent implements OnInit, OnChanges {
   }
 
   ngOnInit() {
+    // From resolver
+    this.route.data.subscribe((data) => {
+      this.annotationService.documentData = data.documentData;
+      this.annotationService.annotationData = data.annotationData;
+      console.log(data);
+      this.annotationService.preRun();
+    });
+
     this.annotationService.setRenderOptions({
       documentId: this.url,
       pdfDocument: null,
@@ -48,7 +61,7 @@ export class ViewerComponent implements OnInit, OnChanges {
     this.renderedPages = {};
     this.annotationService.render();
 
-    this.lastViewedPage = 1;
+    this.page = 1;
     this.annotationService.setPageNumber(1);
     this.tool = 'cursor';
   }
@@ -80,8 +93,8 @@ export class ViewerComponent implements OnInit, OnChanges {
         this.renderedPages[visiblePageNum] = true;
         setTimeout(this.annotationService.renderPage(visiblePageNum));
     }
-    if (this.lastViewedPage != visiblePageNum) {
-      this.lastViewedPage = visiblePageNum;
+    if (this.page != visiblePageNum) {
+      this.page = visiblePageNum;
       if (!isNaN(visiblePageNum)) {
         this.annotationService.setPageNumber(visiblePageNum);
       }

@@ -1,4 +1,4 @@
-<form *ngIf="selectedAnnotationId == annotation.uuid || !selectedAnnotationId" 
+<form *ngIf="selectedAnnotationId == annotation.id || !selectedAnnotationId" 
   class="comment-list-item" 
   (ngSubmit)="onSubmit()" #commentItem="ngForm" 
   (click)="handleCommentClick($event)">
@@ -30,17 +30,17 @@
     type="hidden" 
     id="annotationId"
     required
-    [ngModel]="comment.annotation" name="annotationId"
+    [ngModel]="comment.annotationId" name="annotationId"
     >
 
   <input 
     type="hidden" 
     id="commentId"
     required
-    [ngModel]="comment.uuid" name="commentId">
+    [ngModel]="comment.id" name="commentId">
 
     <div *ngIf="focused">
         <button type="submit" class="btn btn-success" [disabled]="!commentItem.form.valid">✓</button>
-        <button class="btn" (click)="handleDeleteComment($event, comment.uuid, comment.annotation)">×</button>
+        <button class="btn" (click)="handleDeleteComment($event, comment.id, comment.annotation)">×</button>
     </div>
 </form>

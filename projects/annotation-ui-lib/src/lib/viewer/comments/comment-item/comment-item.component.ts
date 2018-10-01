@@ -2,6 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter, Renderer2, ElementRef, 
 import { NgForm } from '@angular/forms';
 import { AnnotationService } from '../../services/annotation.service';
 import { Comment } from '../../../model/comment';
+import { AnnotationStoreService } from '../../services/annotation-store.service';
 
 @Component({
   selector: 'app-comment-item',
@@ -23,9 +24,11 @@ export class CommentItemComponent implements OnInit {
 
   focused: boolean;
 
-  model = new Comment(null, null, null, null, null, null);
+  model = new Comment(null, null, null, null, null, null, null);
 
-  constructor(private annotationService: AnnotationService, private render: Renderer2) { }
+  constructor(private annotationService: AnnotationService,
+              private annotationStoreService: AnnotationStoreService,
+              private render: Renderer2) { }
 
   ngOnInit() {
     this.focused = false;
@@ -33,10 +36,10 @@ export class CommentItemComponent implements OnInit {
   
   onSubmit() {  
     let comment: Comment;
-    comment = this.annotationService.convertFormToComment(this.commentItem);
-    comment.modifiedDate = new Date();
+    comment = this.convertFormToComment(this.commentItem);
+    comment.lastModifiedDate = new Date();
 
-    this.annotationService.editComment(
+    this.annotationStoreService.editComment(
       comment,
       function() {});
 
@@ -48,11 +51,26 @@ export class CommentItemComponent implements OnInit {
   }
 
   onBlur() {
-    setTimeout(() => {this.focused = false}, 200);
+    setTimeout(() => {
+      this.removeCommentSelectedStyle();
+      this.focused = false;
+    }, 200);
+  }
+
+  convertFormToComment(commentForm: NgForm) {
+    return new Comment(
+      commentForm.value.commentId, 
+      commentForm.value.createdBy, 
+      null,
+      commentForm.value.content, 
+      commentForm.value.annotationId,
+      null,
+      null
+      );
   }
 
 	handleDeleteComment(event, commentId, annotationId) {
-		this.annotationService.deleteComment(
+		this.annotationStoreService.deleteComment(
 			commentId,
       function() {});
 
@@ -62,7 +80,6 @@ export class CommentItemComponent implements OnInit {
   handleCommentClick (event) {
 		this.removeCommentSelectedStyle();
     this.render.addClass(this.commentTextField.nativeElement, "comment-selected");
-    
     this.commentSelected.emit(this.commentItem.value.annotationId);
   }
 
