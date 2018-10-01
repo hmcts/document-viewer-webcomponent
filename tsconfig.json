@@ -24,11 +24,11 @@
       "pdfannotator/*": [
         "dist/pdfannotator/*"
       ],
-      "annotation-ui-lib": [
-        "dist/annotation-ui-lib"
+      "hmcts-annotation-ui-lib": [
+        "dist/hmcts-annotation-ui-lib"
       ],
-      "annotation-ui-lib/*": [
-        "dist/annotation-ui-lib/*"
+      "hmcts-annotation-ui-lib/*": [
+        "dist/hmcts-annotation-ui-lib/*"
       ]
     }
   }

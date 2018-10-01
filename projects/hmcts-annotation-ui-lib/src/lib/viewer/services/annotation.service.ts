@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { Comment } from '../../model/comment';
 import { Router, ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { Subject, Observable } from 'rxjs';
 import { PdfAdapter } from '../../data/store-adapter';
+
 
 declare const PDFJS: any;
 declare const PDFAnnotate: any;
@@ -27,8 +27,6 @@ export class AnnotationService {
               private pdfAdapter: PdfAdapter) {}
   
   preRun() {
-      PDFJS.workerSrc = '/node_modules/hmcts-annotation-ui-lib/assets/shared/pdf.worker.js';
-
       this.pdfAdapter.setStoreData(this.annotationData);
       PDFAnnotate.setStoreAdapter(this.pdfAdapter.getStoreAdapter());
 
@@ -39,8 +37,8 @@ export class AnnotationService {
       this.pageNumber.next(1);
   }
 
-  fetchData(documentId) {
-    return this.http.get('http://localhost:3000/api/annotation/annotation-sets/' + "uuid2");
+  fetchData(documentId): Observable<any> {
+    return this.http.get('http://localhost:3000/api/annotation/annotation-sets/' + "uuid2")     
   };
 
   saveData() {
@@ -54,7 +52,7 @@ export class AnnotationService {
     });
   }
 
-  saveAnnotation(annotation): Observable<any>{
+  saveAnnotation(annotation): Observable<any> {
     return this.http.post('http://localhost:3000/api/annotation/annotations', annotation);
   }
 
@@ -75,6 +73,7 @@ export class AnnotationService {
   }
 
   render() {
+    PDFJS.workerSrc = '/dist/hmcts-annotation-ui-lib/assets/shared/pdf.worker.js';
     PDFJS.getDocument(this.RENDER_OPTIONS.documentId)
       .then(pdf => {
         this.RENDER_OPTIONS.pdfDocument = pdf;

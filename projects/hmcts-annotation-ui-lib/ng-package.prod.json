@@ -1,7 +1,6 @@
 {
   "$schema": "../../node_modules/ng-packagr/ng-package.schema.json",
-  "dest": "../../dist/annotation-ui-lib",
-  "deleteDestPath": false,
+  "dest": "../../dist/hmcts-annotation-ui-lib",
   "lib": {
     "entryFile": "src/public_api.ts"
   }

@@ -28,11 +28,4 @@ export class ConfigService {
     getBaseUrl(config) {
         return `${config.protocol}://${this.document.location.host}`;
     }
-
-    getAuthHeaders(config) {
-        return {
-            authorization: config.authorization,
-            serviceAuthorization: config.serviceAuthorization
-        }
-    }
 }

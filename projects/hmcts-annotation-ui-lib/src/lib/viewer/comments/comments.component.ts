@@ -46,7 +46,7 @@ export class CommentsComponent implements OnInit {
 	}
 
 	ngOnDestroy() {
-		this.subscription.unsubscribe();
+		//this.subscription.unsubscribe();
 	}
 
 	showAllComments() {

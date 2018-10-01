@@ -16,6 +16,7 @@ import { AnnotationService } from './viewer/services/annotation.service';
 import { AnnotationResolver } from './annotation-resolver/annotation-resolver';
 import { DocumentResolver } from './annotation-resolver/document-resolver';
 import { PdfAdapter } from './data/store-adapter';
+import { DocumentViewerService } from './data/document-viewer.service';
 
 const appRoutes: Routes = [
   { path: 'error/:error',  component: ErrorComponent }
@@ -43,6 +44,7 @@ const appRoutes: Routes = [
     DocumentResolver
   ],
   providers: [
+    DocumentViewerService,
     AnnotationService,
     AnnotationStoreService,
     PdfAdapter

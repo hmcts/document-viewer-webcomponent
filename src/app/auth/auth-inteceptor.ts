@@ -9,6 +9,7 @@ import {
 import { tap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { ConfigService } from '../config.service';
+import { environment } from '../../environments/environment';
 
 @Injectable({
     providedIn: 'root'
@@ -22,11 +23,10 @@ export class AuthInteceptor implements HttpInterceptor  {
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
         // Set Auth tokens in local.config.js 
-        const auth = this.configService.getAuthHeaders(this.configService.config);
         request = request.clone({
             setHeaders: {
-                ServiceAuthorization: auth.serviceAuthorization,
-                Authorization: auth.authorization
+                ServiceAuthorization: environment.serviceAuthorization,
+                Authorization: environment.authorization
             }
         });
 

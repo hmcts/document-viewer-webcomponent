@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { Observable } from 'rxjs';
-import { DocumentViewerService } from 'src/app/document-viewer.service';
+import { DocumentViewerService } from '../data/document-viewer.service';
 
 
 @Component({
