@@ -1,4 +1,21 @@
-# Annotation UI
+# Annotation UI 
+### Annotation code is in /projects/annotation-ui-lib
+## Running test application
+Spin up docker dependencies - ./docker/buildrun-docker-base.sh
+
+Start rpa-em-annotation-api - https://github.com/hmcts/rpa-em-annotation-api
+
+Get S2S JWT tokens - ./bin/idam/idam.sh and copy into /src/environment/environment.ts file
+
+npm run start-server
+
+npm run start-client
+
+Goto http://localhost:4200/?url=%2Fassets%2Fexample.pdf 
+
+## To build annotation library
+npm run package
+Distributable will be copied to /dist/hmcts-annotation-ui-lib
 
 ## Instructions to add this library to your own angular app
 https://www.npmjs.com/package/hmcts-annotation-ui-lib
@@ -16,7 +33,9 @@ import { AnnotationUiLibModule, ViewerComponent} from 'hmcts-annotation-ui-lib';
 @NgModule({
   imports: [
     ...
-    AnnotationUiLibModule
+    AnnotationUiLibModule,
+    AnnotationResolver, 
+    DocumentResolver, 
   ]
 })
 ```
@@ -42,7 +61,13 @@ And styles
 Entry point is the ViewerComponent component. For example:
 ```
 const appRoutes: Routes = [
-  { path: '',  component: ViewerComponent }
+  { path: '',  
+  component: ViewerComponent,
+  resolve: {
+    documentData: DocumentResolver,
+    annotationData: AnnotationResolver
+  } 
+ }
 ]; 
 ```
 
