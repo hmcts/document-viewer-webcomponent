@@ -8,7 +8,6 @@ import {
 } from '@angular/common/http';
 import { tap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
-import { ConfigService } from '../config.service';
 import { environment } from '../../environments/environment';
 
 @Injectable({
@@ -16,8 +15,7 @@ import { environment } from '../../environments/environment';
 })
 export class AuthInteceptor implements HttpInterceptor  {
 
-    constructor(public router: Router, 
-                private configService: ConfigService) {
+    constructor(public router: Router) {
     }
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
