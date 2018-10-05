@@ -1,3 +1,9 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<router-outlet></router-outlet>
+<!-- <router-outlet></router-outlet> -->
 
+<app-annotation-pdf-viewer
+    [annotate]="true"
+    [dmDocumentId]="myId"
+    [outputDmDocumentId]="null"
+    [url]="'http://localhost:4200/assets/example.pdf'"
+    [annotationSet]="annotationSet"
+></app-annotation-pdf-viewer>
