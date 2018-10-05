@@ -19,18 +19,17 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "src/tsconfig.app.json",
             "assets": [
-              {"glob": "**/*", "input": "projects/hmcts-annotation-ui-lib/src/assets/", "output": "./hmcts-annotation-ui-lib/assets/"},
               "src/favicon.ico",
               "src/assets"
             ],
             "styles": [
-              "dist/hmcts-annotation-ui-lib/assets/_theme.scss",
+              "projects/hmcts-annotation-ui-lib/src/assets/annotation-ui-theme.scss",
               "src/styles.css"
             ],
             "scripts": [
-              "dist/hmcts-annotation-ui-lib/assets/shared/pdf.js",
-              "dist/hmcts-annotation-ui-lib/assets/shared/pdf_viewer.js",
-              "dist/hmcts-annotation-ui-lib/assets/shared/pdf-annotate.js"
+              "projects/hmcts-annotation-ui-lib/src/assets/pdf.js",
+              "projects/hmcts-annotation-ui-lib/src/assets/pdf_viewer.js",
+              "projects/hmcts-annotation-ui-lib/src/assets/pdf-annotate.js"
             ]
           },
           "configurations": {
