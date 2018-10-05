@@ -16,9 +16,9 @@ export class ToolbarComponent implements OnInit, OnChanges {
   @ViewChild("pointerTool") pointerPool: ElementRef;
 
   @Input() dmDocumentId: string;
-  outputDocumentId: string;
   @Input() tool: string;
   @Output() toolChange: EventEmitter<string> = new EventEmitter<string>();
+  outputDocumentId: string;
 
   constructor(private pdfService: PdfService,
               private annotationStoreService: AnnotationStoreService,

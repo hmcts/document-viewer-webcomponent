@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse, HttpResponse } from '@angular/common/http';
+import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { PdfService } from './pdf.service';
 import { v4 as uuid } from 'uuid';
 import { Annotation, Comment, IAnnotation, IAnnotationSet } from './annotation-set.model';
+import { PdfService } from './pdf.service';
 import { PdfAdapter } from './pdf-adapter';
-import { ConfigService } from 'src/app/config.service';
+import { ApiHttpService } from './api-http.service';
 
 declare const PDFAnnotate: any;
 
@@ -14,9 +14,8 @@ declare const PDFAnnotate: any;
 export class AnnotationStoreService {
 
   constructor(private pdfAdapter: PdfAdapter,
-              private pdfService: PdfService,
-              private httpClient: HttpClient,
-              private configService: ConfigService) {   
+              private apiHttpService: ApiHttpService,
+              private pdfService: PdfService) {   
   }
 
   preLoad(annotationData: IAnnotationSet) {
@@ -28,9 +27,8 @@ export class AnnotationStoreService {
     }
   }
 
-  fetchData(dmDocumentId): Observable<HttpResponse<IAnnotationSet>> {
-    const url = `${this.configService.config.api_base_url}/api/em-anno/annotation-sets/${dmDocumentId}`;
-    return this.httpClient.get<IAnnotationSet>(url, { observe: 'response'}).pipe(
+  fetchData(baseUrl, dmDocumentId): Observable<HttpResponse<IAnnotationSet>> {
+    return this.apiHttpService.fetch(baseUrl, dmDocumentId).pipe(
           catchError((err) => { 
           if( err instanceof HttpErrorResponse ) {
               switch(err.status) {
@@ -38,12 +36,11 @@ export class AnnotationStoreService {
                       return Observable.throw(err.error);
                   }
                   case 404: {
-                      return this.httpClient.post<IAnnotationSet>(`${this.configService.config.api_base_url}/api/em-anno/annotation-sets`, 
-                      {
+                      const body = {
                         documentId: dmDocumentId, 
                         id: uuid()
-                      }, { observe: 'response'}
-                    );
+                      };
+                      return this.apiHttpService.createAnnotationSet(baseUrl, body);
                   }
                   case 500:{
                       return Observable.throw(new Error('Internal server error: ' + err));
@@ -52,16 +49,6 @@ export class AnnotationStoreService {
           };
     }));
   };
-
-  deleteAnnotationApi(annotation: Annotation): Observable<HttpResponse<IAnnotation>> {
-    const url = `${this.configService.config.api_base_url}/api/em-anno/annotations/${annotation.id}`;
-    return this.httpClient.delete<IAnnotation>(url, { observe: 'response' });
-  }
-
-  saveAnnotationApi(annotation: Annotation): Observable<HttpResponse<IAnnotation>> {
-    const url = `${this.configService.config.api_base_url}/api/em-anno/annotations`;
-    return this.httpClient.post<IAnnotation>(url, annotation, { observe: 'response' });
-  }
 
   saveData() {
     let loadedData: IAnnotationSet;
@@ -81,19 +68,20 @@ export class AnnotationStoreService {
     tempAnnotations = toKeepAnnotations;
 
     tempAnnotations.forEach((annotation: Annotation) => {
-      this.saveAnnotationApi(annotation).subscribe(
+      this.apiHttpService.saveAnnotation(annotation).subscribe(
         response => console.log(response),
         error => console.log(error)
       );
     });
 
     toRemoveAnnotations.forEach((annotation: Annotation) => {
-      this.deleteAnnotationApi(annotation).subscribe(
+      this.apiHttpService.deleteAnnotation(annotation).subscribe(
         response => console.log(response),
         error => console.log(error)
       );
     });
 
+    loadedData.annotations = toKeepAnnotations;
     this.pdfAdapter.annotationSet = loadedData;
   }
 
