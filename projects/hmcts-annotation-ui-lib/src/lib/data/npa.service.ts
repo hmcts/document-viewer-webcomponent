@@ -1,9 +1,8 @@
-
-import { HttpResponse} from "@angular/common/http";
-import { Injectable } from '@angular/core';
-import { Observable, Subject } from "rxjs";
-import { IDocumentTask } from "./document-task.model";
-import { ApiHttpService } from "./api-http.service";
+import {HttpResponse} from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import {Observable, Subject} from 'rxjs';
+import {IDocumentTask} from './document-task.model';
+import {ApiHttpService} from './api-http.service';
 
 @Injectable()
 export class NpaService {
@@ -16,7 +15,7 @@ export class NpaService {
         this.documentTask = new Subject<IDocumentTask>();
     }
 
-    exportPdf(dmDocumentId, outputDmDocumentId): Observable<HttpResponse<IDocumentTask>> {
+    exportPdf(dmDocumentId: string, outputDmDocumentId?: string): Observable<HttpResponse<IDocumentTask>> {
         return this.apiHttpService.documentTask(dmDocumentId, outputDmDocumentId);
     }
 }
