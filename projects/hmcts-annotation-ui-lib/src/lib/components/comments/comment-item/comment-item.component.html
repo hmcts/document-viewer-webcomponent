@@ -42,7 +42,7 @@
     required
     [ngModel]="comment.id" name="commentId">
 
-    <div>
+    <div [hidden]="hideButton">
         <button type="submit" class="btn btn-success">Save</button>
         <button class="btn" (click)="handleDeleteComment($event, comment.id)">Delete</button>
     </div>
