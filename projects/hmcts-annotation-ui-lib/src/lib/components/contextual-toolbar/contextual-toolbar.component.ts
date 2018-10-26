@@ -1,8 +1,9 @@
-import {Component, OnInit, ChangeDetectorRef, OnDestroy } from '@angular/core';
+import {Component, OnInit, ChangeDetectorRef, OnDestroy, Inject } from '@angular/core';
+import { DOCUMENT } from '@angular/platform-browser';
 import { Subscription } from 'rxjs';
-import {PdfService} from '../../data/pdf.service';
-import {AnnotationStoreService} from '../../data/annotation-store.service';
-import { Annotation } from '../../data/annotation-set.model';
+import { PdfService } from '../../data/pdf.service';
+import { AnnotationStoreService } from '../../data/annotation-store.service';
+import { Annotation, Comment } from '../../data/annotation-set.model';
 
 @Component({
   selector: 'app-contextual-toolbar',
@@ -12,18 +13,19 @@ import { Annotation } from '../../data/annotation-set.model';
 export class ContextualToolbarComponent implements OnInit, OnDestroy {
 
   toolPos: {left, top};
-  showToolbar: boolean;
+  isShowToolbar: boolean;
   showDelete: boolean;
-  annotationId: string;
-  annotationSavedSub: Subscription;
+  annotation: Annotation;
+  contextualToolBarOptions: Subscription;
 
   constructor(private pdfService: PdfService,
               private annotationStoreService: AnnotationStoreService,
-              private ref: ChangeDetectorRef) {
+              private ref: ChangeDetectorRef,
+              @Inject(DOCUMENT) private document: any) {
   }
 
   ngOnInit() {
-    this.annotationSavedSub = this.annotationStoreService.getAnnotationSaved().subscribe(
+    this.contextualToolBarOptions = this.annotationStoreService.getToolbarUpdate().subscribe(
       contextualOptions => {
         if (contextualOptions.annotation != null) {
           this.showToolBar(contextualOptions.annotation, contextualOptions.showDelete);
@@ -32,7 +34,7 @@ export class ContextualToolbarComponent implements OnInit, OnDestroy {
         }
       });
 
-    this.showToolbar = false;
+    this.isShowToolbar = false;
     this.toolPos = {
       left: 0,
       top: 0
@@ -41,17 +43,28 @@ export class ContextualToolbarComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.ref.detach();
-    if (this.annotationSavedSub) {
-      this.annotationSavedSub.unsubscribe();
+    if (this.contextualToolBarOptions) {
+      this.contextualToolBarOptions.unsubscribe();
     }
   }
 
-  showToolBar(annotation, showDelete) {
+  showToolBar(annotation: Annotation, showDelete?: boolean) {
     this.showDelete = showDelete;
-    const svgSelector = document.querySelector(`g[data-pdf-annotate-id="${annotation.id}"]`);
+
+    this.toolPos = this.getRelativePosition(annotation.id);
+    this.annotation = annotation;
+    this.isShowToolbar = true;
+
+    if (!this.ref['destroyed']) {
+      this.ref.detectChanges();
+    }
+  }
+
+  getRelativePosition(annotationId: string): {left: number; top: number} {
+    const svgSelector = this.document.querySelector(`g[data-pdf-annotate-id="${annotationId}"]`);
     const highlightRect = <DOMRect>svgSelector.getBoundingClientRect();
 
-    const wrapper = document.querySelector('#annotation-wrapper');
+    const wrapper = this.document.querySelector('#annotation-wrapper');
     const wrapperRect = <DOMRect>wrapper.getBoundingClientRect();
 
     const left = ((highlightRect.x - wrapperRect.left)
@@ -59,35 +72,34 @@ export class ContextualToolbarComponent implements OnInit, OnDestroy {
     const top = ((highlightRect.y - wrapperRect.top)
       - 59) - 5; // Minus height of toolbar + 5px
 
-    this.toolPos = {
+    return {
       left,
       top
     };
-
-    this.annotationId = annotation.id;
-    this.showToolbar = true;
-
-    if (!this.ref['destroyed']) {
-      this.ref.detectChanges();
-    }
   }
 
   hideToolBar() {
-    this.showToolbar = false;
+    this.isShowToolbar = false;
+    this.showDelete = false;
   }
 
-  handleCommentClick() {
-    this.pdfService.setAnnotationClicked(this.annotationId);
+  handleCommentBtnClick() {
+    if (this.annotation.comments.length === 0 ) {
+      this.annotationStoreService.addComment(new Comment(null, this.annotation.id, null, null, null, null, null, null, null));
+      this.annotationStoreService.setCommentFocusSubject(this.annotation, true);
+    } else {
+      this.annotationStoreService.setCommentFocusSubject(this.annotation, true);
+    }
     this.hideToolBar();
   }
 
-  handleHighlightClick() {
+  handleHighlightBtnClick() {
     this.pdfService.setAnnotationClicked(null);
     this.hideToolBar();
   }
 
-  handleDeleteClick() {
-    this.annotationStoreService.deleteAnnotationById(this.annotationId);
+  handleDeleteBtnClick() {
+    this.annotationStoreService.deleteAnnotationById(this.annotation.id);
     this.hideToolBar();
   }
 

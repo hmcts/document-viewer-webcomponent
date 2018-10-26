@@ -2,10 +2,14 @@ export interface IComment {
     id: string;
     annotationId: string;
     createdBy: string;
+    createdByDetails: {};
     createdDate: Date;
     lastModifiedBy: string;
+    lastModifiedByDetails: {};
     lastModifiedDate: Date;
     content: string;
+
+    isModified(): boolean;
 }
 
 export class Comment implements IComment {
@@ -13,10 +17,24 @@ export class Comment implements IComment {
         public id: string,
         public annotationId: string,
         public createdBy: string,
+        public createdByDetails: {},
         public createdDate: Date,
         public lastModifiedBy: string,
+        public lastModifiedByDetails: {},
         public lastModifiedDate: Date,
         public content: string) {
+    }
+
+    public isModified(): boolean {
+        if (this.createdDate === null) {
+            return false;
+        } else if (this.lastModifiedBy === null) {
+            return false;
+        } else if (this.createdDate === this.lastModifiedDate) {
+            return false;
+        } else {
+            return true;
+        }
     }
 }
 

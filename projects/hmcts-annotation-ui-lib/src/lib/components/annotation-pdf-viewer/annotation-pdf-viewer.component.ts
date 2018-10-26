@@ -2,10 +2,11 @@ import {Component, OnInit, ViewChild, ElementRef, Inject, Input} from '@angular/
 import {DOCUMENT} from '@angular/common';
 import {PdfService} from '../../data/pdf.service';
 import {AnnotationStoreService} from '../../data/annotation-store.service';
-import {IAnnotationSet} from '../../data/annotation-set.model';
+import {IAnnotationSet, Annotation} from '../../data/annotation-set.model';
 import {NpaService} from '../../data/npa.service';
 import {ApiHttpService} from '../../data/api-http.service';
 import { ContextualToolbarComponent } from '../contextual-toolbar/contextual-toolbar.component';
+import { Utils } from '../../data/utils';
 
 @Component({
     selector: 'app-annotation-pdf-viewer',
@@ -18,7 +19,7 @@ export class AnnotationPdfViewerComponent implements OnInit {
     @Input() annotate: boolean;
     @Input() dmDocumentId: string;
     @Input() outputDmDocumentId: string;
-    @Input() url = '';
+    @Input() url: string;
     @Input() annotationSet: IAnnotationSet;
     @Input() baseUrl: string;
 
@@ -33,6 +34,7 @@ export class AnnotationPdfViewerComponent implements OnInit {
                 private npaService: NpaService,
                 private apiHttpService: ApiHttpService,
                 private annotationStoreService: AnnotationStoreService,
+                private utils: Utils,
                 @Inject(DOCUMENT) private document: any) {
     }
 
@@ -48,7 +50,6 @@ export class AnnotationPdfViewerComponent implements OnInit {
 
         this.renderedPages = {};
         this.pdfService.render(this.viewerElementRef);
-
         this.pdfService.setHighlightTool();
         this.pdfService.getPageNumber().subscribe(page => this.page = page);
     }
@@ -63,26 +64,24 @@ export class AnnotationPdfViewerComponent implements OnInit {
         }
     }
 
-    getClickedPage(event) {
-        this.annotationStoreService.setCommentBtnSubject(null);
+    getClickedPage(event: any) {
+        if (!this.utils.clickIsHighlight(event)) {
+            this.annotationStoreService.setCommentBtnSubject(null);
+            this.annotationStoreService.setCommentFocusSubject(
+                new Annotation(null, null, null, null, null, null, null, null, null, null, null, null), null);
+        }
+
         let currentParent = event.target;
         for (let step = 0; step < 5; step++) {
             if (currentParent.parentNode != null) {
                 const pageNumber = currentParent.parentNode.getAttribute('data-page-number');
                 if (pageNumber != null) {
-                    this.pdfService.setPageNumber(parseInt(pageNumber));
+                    this.pdfService.setPageNumber(parseInt(pageNumber, null));
                     break;
                 }
                 currentParent = currentParent.parentNode;
             }
         }
-    }
-
-    isHighlightingText(event): boolean {
-        if (!event.view.getSelection().anchorNode) {
-            return false;
-        }
-        return event.view.getSelection().anchorNode.firstChild;
     }
 
     handlePdfScroll(event) {
@@ -95,7 +94,7 @@ export class AnnotationPdfViewerComponent implements OnInit {
         if (visiblePage && !this.renderedPages[visiblePageNum]) {
             // Prevent invoking UI.renderPage on the same page more than once.
             this.renderedPages[visiblePageNum] = true;
-            setTimeout(this.pdfService.renderPage(visiblePageNum));
+            setTimeout(() => this.pdfService.renderPage(visiblePageNum), 100);
         }
         if (this.page !== visiblePageNum) {
             this.page = visiblePageNum;

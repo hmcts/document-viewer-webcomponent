@@ -12,10 +12,14 @@ export class PdfAdapter {
     annotations: Annotation[];
     commentData: Comment[];
     annotationSetId: string;
-    annotationChangeSubject: Subject<{ type: String, annotation: Annotation }>;
+    private annotationChangeSubject: Subject<{ type: String, annotation: Annotation }>;
 
     constructor(private utils: Utils) {
         this.annotationChangeSubject = new Subject<{ type: String, annotation: Annotation }>();
+    }
+
+    getAnnotationChangeSubject(): Subject<{ type: String, annotation: Annotation }> {
+        return this.annotationChangeSubject;
     }
 
     setStoreData(annotationSet: AnnotationSet) {
@@ -119,12 +123,13 @@ export class PdfAdapter {
 
         const addComment = (documentId, annotationId, content) => {
             return new Promise((resolve, reject) => {
-                // let comment: Comment;
                 const comment = new Comment(
                     uuid(),
                     annotationId,
                     null,
+                    null,
                     new Date(),
+                    null,
                     null,
                     null,
                     content
@@ -132,8 +137,13 @@ export class PdfAdapter {
                 this.updateComments(documentId, comment);
                 const annotation: Annotation = this.findById(this.annotations, annotationId);
                 annotation.comments.push(comment);
-                this.annotationChangeSubject.next({'type': 'addComment', 'annotation': annotation});
-                resolve(comment);
+
+                if (content === null || content === '') {
+                    resolve(comment);
+                } else {
+                    this.annotationChangeSubject.next({'type': 'addComment', 'annotation': annotation});
+                    resolve(comment);
+                }
             });
         };
 

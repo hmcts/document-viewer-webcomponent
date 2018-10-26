@@ -60,4 +60,16 @@ export class Utils {
     }
 
     difference(a, b): number { return Math.abs(a - b); }
+
+    clickIsHighlight(event: MouseEvent): boolean {
+        const target = <HTMLElement> event.target;
+        const isHighlight = target.firstElementChild;
+        if (isHighlight == null) {
+            return false;
+        } else if (isHighlight.id.includes('pdf-annotate-screenreader')) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

@@ -1,6 +1,6 @@
 import {Injectable, OnDestroy} from '@angular/core';
 import {HttpErrorResponse, HttpResponse} from '@angular/common/http';
-import {Observable, Subscription, Subject} from 'rxjs';
+import {Observable, Subscription, Subject, BehaviorSubject} from 'rxjs';
 import {catchError} from 'rxjs/operators';
 import {v4 as uuid} from 'uuid';
 import {Annotation, Comment, IAnnotation, IAnnotationSet} from './annotation-set.model';
@@ -14,38 +14,50 @@ declare const PDFAnnotate: any;
 export class AnnotationStoreService implements OnDestroy {
 
     annotationChangeSubscription: Subscription;
-    commentBtnSubject: Subject<string>;
-    private annotationSavedSub: Subject<{annotation: Annotation, showDelete: boolean}>;
+    private commentBtnSubject: Subject<string>;
+    private commentFocusSubject: BehaviorSubject<{annotation: Annotation, showButton?: boolean}>;
+
+    private contextualToolBarOptions: Subject<{annotation: Annotation, showDelete: boolean}>;
 
     constructor(private pdfAdapter: PdfAdapter,
                 private apiHttpService: ApiHttpService,
                 private pdfService: PdfService) {
 
         this.commentBtnSubject = new Subject();
-        this.commentBtnSubject.next(null);
-        this.annotationSavedSub = new Subject();
-        this.annotationSavedSub.next(null);
-        this.annotationChangeSubscription = this.pdfAdapter.annotationChangeSubject.subscribe((e) => this.handleAnnotationEvent(e));
+        this.commentFocusSubject = new BehaviorSubject(
+            {annotation: new Annotation(null, null, null, null, null, null, null, null, null, null, null, null)});
+
+        this.contextualToolBarOptions = new Subject();
+        this.annotationChangeSubscription = this.pdfAdapter.getAnnotationChangeSubject().subscribe((e) => this.handleAnnotationEvent(e));
     }
 
-  getCommentBtnSubject(): Subject<string> {
-    return this.commentBtnSubject;
-  }
+    getCommentFocusSubject(): BehaviorSubject<{annotation: Annotation, showButton?: boolean}> {
+        return this.commentFocusSubject;
+    }
 
-  setCommentBtnSubject(commentId: string) {
-      this.commentBtnSubject.next(commentId);
-  }
+    setCommentFocusSubject(annotation: Annotation, showButton?: boolean) {
+        this.commentFocusSubject.next({annotation, showButton});
+    }
+
+    getCommentBtnSubject(): Subject<string> {
+        return this.commentBtnSubject;
+    }
+
+    setCommentBtnSubject(commentId: string) {
+        this.commentBtnSubject.next(commentId);
+    }
+
     setToolBarUpdate(annotation: Annotation, showDelete?: boolean) {
         const contextualOptions = {
             annotation,
             showDelete
         };
 
-        this.annotationSavedSub.next(contextualOptions);
+        this.contextualToolBarOptions.next(contextualOptions);
     }
 
-    getAnnotationSaved(): Subject<{annotation: Annotation, showDelete: boolean}> {
-        return this.annotationSavedSub;
+    getToolbarUpdate(): Subject<{annotation: Annotation, showDelete: boolean}> {
+        return this.contextualToolBarOptions;
     }
 
     preLoad(annotationData: IAnnotationSet) {
@@ -60,7 +72,7 @@ export class AnnotationStoreService implements OnDestroy {
     handleAnnotationEvent(e) {
         switch (e.type) {
             case 'addAnnotation': {
-                this.saveAnnotation(e.annotation);
+                this.saveAnnotation(e.annotation, true);
                 break;
             }
             case 'addComment': {
@@ -140,11 +152,13 @@ export class AnnotationStoreService implements OnDestroy {
         this.pdfAdapter.annotationSet = loadedData;
     }
 
-    saveAnnotation(annotation) {
+    saveAnnotation(annotation: Annotation, displayToolbar?: boolean) {
         this.apiHttpService.saveAnnotation(annotation).subscribe(
             response => {
                 console.log(response);
-                this.setToolBarUpdate(annotation);
+                if (displayToolbar) {
+                    this.setToolBarUpdate(annotation);
+                }
             },
             error => console.log(error)
         );
@@ -240,6 +254,8 @@ export class AnnotationStoreService implements OnDestroy {
     }
 
     ngOnDestroy() {
-        this.annotationChangeSubscription.unsubscribe();
+        if (this.annotationChangeSubscription) {
+            this.annotationChangeSubscription.unsubscribe();
+        }
     }
 }
