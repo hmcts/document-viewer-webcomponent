@@ -162,10 +162,13 @@
     cursor: pointer;
   }
   
+  .annotationLayer > g{
+    fill: #ffbf47;
+  }
   
   .annotationLayer .comment-selected {
-    fill: rgb(0, 100, 0);
-    fill-opacity: 0.2;
+    fill: #ffbf47;
+    fill-opacity: 0.5;
     
   }
   
