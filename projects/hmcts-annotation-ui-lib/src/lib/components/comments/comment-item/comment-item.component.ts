@@ -1,9 +1,22 @@
-import {Component, OnInit, Input, Output, EventEmitter, ViewChild, OnDestroy, ChangeDetectorRef, ElementRef} from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Input,
+  Output,
+  EventEmitter,
+  ViewChild,
+  OnDestroy,
+  ChangeDetectorRef,
+  ElementRef,
+  Inject
+} from '@angular/core';
 import {NgForm} from '@angular/forms';
 import { Subscription } from 'rxjs';
 import {Comment, Annotation} from '../../../data/annotation-set.model';
 import {AnnotationStoreService} from '../../../data/annotation-store.service';
 import { last, startWith } from 'rxjs/operators';
+import {DOCUMENT} from '@angular/platform-browser';
+import { PdfService } from '../../../data/pdf.service';
 
 @Component({
     selector: 'app-comment-item',
@@ -15,6 +28,7 @@ export class CommentItemComponent implements OnInit, OnDestroy {
     private commentBtnSub: Subscription;
     private commentFocusSub: Subscription;
     private hideButton: boolean;
+    private dataLoadedSubscription: Subscription;
 
     @Input() comment: Comment;
     @Input() annotation: Annotation;
@@ -28,9 +42,13 @@ export class CommentItemComponent implements OnInit, OnDestroy {
     private focused: boolean;
 
     model = new Comment(null, null, null, null, null, null, null, null, null);
+    commentPosTop;
+    zIndex;
 
     constructor(private annotationStoreService: AnnotationStoreService,
-                private ref: ChangeDetectorRef) {
+                private ref: ChangeDetectorRef,
+                @Inject(DOCUMENT) private document: any,
+                private pdfservice: PdfService) {
     }
 
     ngOnInit() {
@@ -59,6 +77,12 @@ export class CommentItemComponent implements OnInit, OnDestroy {
                 this.handleHideBtn();
                 }
           });
+        this.dataLoadedSubscription = this.pdfservice.getDataLoadedSub()
+            .subscribe((dataLoaded: boolean) => {
+              if (dataLoaded) {
+                this.commentPosTop = this.getRelativePosition(this.comment.annotationId);
+              }
+            });
     }
 
     ngOnDestroy() {
@@ -67,6 +91,9 @@ export class CommentItemComponent implements OnInit, OnDestroy {
         }
         if (this.commentBtnSub) {
             this.commentBtnSub.unsubscribe();
+        }
+        if (this.dataLoadedSubscription) {
+          this.dataLoadedSubscription.unsubscribe();
         }
     }
 
@@ -96,6 +123,7 @@ export class CommentItemComponent implements OnInit, OnDestroy {
                 this.ref.detectChanges();
             }
         }, 100);
+        this.zIndex=0;
     }
 
     convertFormToComment(commentForm: NgForm): Comment {
@@ -119,6 +147,7 @@ export class CommentItemComponent implements OnInit, OnDestroy {
     handleCommentClick() {
         this.annotationStoreService.setCommentBtnSubject(this.comment.id);
         this.commentSelected.emit(this.comment.annotationId);
+        this.zIndex=1;
     }
 
     handleShowBtn() {
@@ -131,5 +160,18 @@ export class CommentItemComponent implements OnInit, OnDestroy {
             this.focused = false;
             this.hideButton = true;
         }, 100);
+    }
+
+    getRelativePosition(annotationId: string): number {
+      const svgSelector = this.document.querySelector(`g[data-pdf-annotate-id="${annotationId}"]`);
+      const highlightRect = <DOMRect>svgSelector.getBoundingClientRect();
+
+      const wrapper = this.document.querySelector('#annotation-wrapper');
+      const wrapperRect = <DOMRect>wrapper.getBoundingClientRect();
+
+      const top = ((highlightRect.y - wrapperRect.top)
+        - 59) - 5; // Minus height of toolbar + 5px
+
+      return top;
     }
 }
