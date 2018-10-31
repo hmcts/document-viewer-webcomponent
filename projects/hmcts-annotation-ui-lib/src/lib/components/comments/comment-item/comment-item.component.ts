@@ -42,8 +42,8 @@ export class CommentItemComponent implements OnInit, OnDestroy {
     private focused: boolean;
 
     model = new Comment(null, null, null, null, null, null, null, null, null);
-    commentPosTop;
-    zIndex;
+    commentPosTop: number;
+    zIndex: number;
 
     constructor(private annotationStoreService: AnnotationStoreService,
                 private ref: ChangeDetectorRef,
@@ -123,7 +123,7 @@ export class CommentItemComponent implements OnInit, OnDestroy {
                 this.ref.detectChanges();
             }
         }, 100);
-        this.zIndex=0;
+        this.zIndex = 0;
     }
 
     convertFormToComment(commentForm: NgForm): Comment {
@@ -147,7 +147,7 @@ export class CommentItemComponent implements OnInit, OnDestroy {
     handleCommentClick() {
         this.annotationStoreService.setCommentBtnSubject(this.comment.id);
         this.commentSelected.emit(this.comment.annotationId);
-        this.zIndex=1;
+        this.zIndex = 1;
     }
 
     handleShowBtn() {
@@ -169,8 +169,7 @@ export class CommentItemComponent implements OnInit, OnDestroy {
       const wrapper = this.document.querySelector('#annotation-wrapper');
       const wrapperRect = <DOMRect>wrapper.getBoundingClientRect();
 
-      const top = ((highlightRect.y - wrapperRect.top)
-        - 59) - 5; // Minus height of toolbar + 5px
+      const top = ((highlightRect.y - wrapperRect.top) - 38);
 
       return top;
     }
