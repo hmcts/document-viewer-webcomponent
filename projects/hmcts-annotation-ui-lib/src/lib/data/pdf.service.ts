@@ -1,5 +1,5 @@
 import {ElementRef, Injectable} from '@angular/core';
-import {Subject} from 'rxjs';
+import {BehaviorSubject, Subject} from 'rxjs';
 
 declare const PDFJS: any;
 declare const PDFAnnotate: any;
@@ -13,14 +13,13 @@ export class PdfService {
     private RENDER_OPTIONS: { documentId: string, pdfDocument: any, scale: any, rotate: number };
     private pageNumber: Subject<number>;
     private annotationSub: Subject<string>;
-    private dataLoadedSubject: Subject<boolean>;
+    private dataLoadedSubject: BehaviorSubject<boolean>;
 
     pdfPages: number;
     viewerElementRef: ElementRef;
 
     constructor() {
-        this.dataLoadedSubject = new Subject();
-        this.dataLoadedSubject.next(false);
+        this.dataLoadedSubject = new BehaviorSubject(false);
     }
 
     preRun() {
@@ -34,7 +33,7 @@ export class PdfService {
         this.annotationSub.next(null);
     }
 
-    getDataLoadedSub(): Subject<boolean> {
+    getDataLoadedSub(): BehaviorSubject<boolean> {
         return this.dataLoadedSubject;
     }
 
@@ -82,11 +81,14 @@ export class PdfService {
                     const page = this.UI.createPage(i + 1);
                     viewer.appendChild(page);
                     setTimeout(() => {
-                        this.UI.renderPage(i + 1, this.RENDER_OPTIONS);
+                        this.UI.renderPage(i + 1, this.RENDER_OPTIONS).then(resolve => {
+                          if (i === NUM_PAGES - 1) {
+                            this.dataLoadedUpdate(true);
+                          }
+                        });
                     });
                 }
                 this.pdfPages = NUM_PAGES;
-                this.dataLoadedUpdate(true);
             }).catch(
             (error) => {
                 const errorMessage = new Error('Unable to render your supplied PDF. ' +
@@ -94,10 +96,6 @@ export class PdfService {
                 console.log(errorMessage);
             }
         );
-    }
-
-    renderPage(visiblePageNum: number) {
-        PDFAnnotate.UI.renderPage(visiblePageNum, this.RENDER_OPTIONS);
     }
 
     setHighlightTool() {

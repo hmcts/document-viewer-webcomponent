@@ -83,24 +83,4 @@ export class AnnotationPdfViewerComponent implements OnInit {
             }
         }
     }
-
-    handlePdfScroll(event) {
-        const element = event.srcElement as HTMLInputElement;
-        const visiblePageNum = Math.round(element.scrollTop / 1056) + 1; // Hardcoded page height as 1056
-
-        const visiblePage = this.document.querySelector('.page[data-page-number="' + visiblePageNum + '"][data-loaded="false"]');
-        this.contextualToolbar.hideToolBar();
-
-        if (visiblePage && !this.renderedPages[visiblePageNum]) {
-            // Prevent invoking UI.renderPage on the same page more than once.
-            this.renderedPages[visiblePageNum] = true;
-            setTimeout(() => this.pdfService.renderPage(visiblePageNum), 100);
-        }
-        if (this.page !== visiblePageNum) {
-            this.page = visiblePageNum;
-            if (!isNaN(visiblePageNum)) {
-                this.pdfService.setPageNumber(visiblePageNum);
-            }
-        }
-    }
 }

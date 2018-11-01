@@ -1,7 +1,9 @@
 <form
   class="comment-list-item" 
   (ngSubmit)="onSubmit()" #commentItem="ngForm" 
-  (click)="handleCommentClick($event)">
+  (click)="handleCommentClick($event)"
+  [style.top.px]="commentPosTop"
+  [style.z-index]="zIndex">
   <div class="comment-meta">
     <label *ngIf="comment.createdByDetails" class="comment-author">{{comment.createdByDetails.forename}} {{comment.createdByDetails.surname}}</label>
     <br>
