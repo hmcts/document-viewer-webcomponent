@@ -4,7 +4,8 @@ const generateRequest = require('../lib/request');
 
 
 function getDocument(uuid, options) {
-    return generateRequest('GET', `${config.services.dm_store_api}/api/annotation-sets/filter?documentId=${uuid}`, options);
+    console.log(`${config.services.dm_store_api}/documents/${uuid}/binary`);
+    return generateRequest('GET', `${config.services.dm_store_api}/documents/${uuid}/binary`, options);
 }
 
 function uploadDocument(options) {
@@ -24,7 +25,7 @@ function getOptions(req) {
 
 module.exports = app => {
     const router = express.Router({ mergeParams: true });
-    app.use('/dm', router);
+    app.use('/dm-store', router);
 
     router.post('/documents', (req, res, next) => {
         const options = getOptions(req);
@@ -40,14 +41,16 @@ module.exports = app => {
     });
 
 
-    router.get('/documents', (req, res, next) => {
+    router.get('/documents/:uuid', (req, res, next) => {
         const options = getOptions(req);
-        getDocument(options)
+        const uuid = req.params.uuid;
+        getDocument(uuid, options)
             .then(response => {
                 res.setHeader('Access-Control-Allow-Origin', '*');
                 res.status(200).send(JSON.stringify(response));
             })
             .catch(response => {
+                console.log(response.error || response);
                 res.status(response.error.status).send(response.error.message);
             });
     });
