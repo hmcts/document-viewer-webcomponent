@@ -27,9 +27,9 @@
               "src/styles.css"
             ],
             "scripts": [
-              "projects/hmcts-annotation-ui-lib/src/assets/pdf.js",
-              "projects/hmcts-annotation-ui-lib/src/assets/pdf_viewer.js",
-              "projects/hmcts-annotation-ui-lib/src/assets/pdf-annotate.js"
+              "projects/hmcts-annotation-ui-lib/src/assets/javascripts/pdf.js",
+              "projects/hmcts-annotation-ui-lib/src/assets/javascripts/pdf_viewer.js",
+              "projects/hmcts-annotation-ui-lib/src/assets/javascripts/pdf-annotate.js"
             ]
           },
           "configurations": {

@@ -1,0 +1,39 @@
+////////////////////////////////////////
+// comments.component.scss
+////////////////////////////////////////
+
+#comment-wrapper {
+    position: absolute;
+    height: 100%;
+    width: 380px;
+    margin-right:20px;
+    right: 0;
+    overflow: hidden;
+    // background: #eaeaea;
+    z-index: 0;
+    font-family: "nta", Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    font-size: 12px;
+}
+
+#comment-wrapper .comment-list {
+    font-size: 12px;
+    position: absolute;
+    top: 38px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+#comment-wrapper .comment-list-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 47px;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+////////////////////////////////////////
+////////////////////////////////////////

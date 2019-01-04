@@ -7,7 +7,7 @@ import { AuthModule } from './auth/auth.module';
 import { ConfigService } from './config.service';
 import { DmUploadComponent } from './dm-upload/dm-upload.component';
 
-import { HmctsAnnotationUiModule } from 'projects/hmcts-annotation-ui-lib/src/public_api';
+import { HmctsEmViewerUiModule } from 'projects/hmcts-annotation-ui-lib/src/public_api';
 
 @NgModule({
   declarations: [
@@ -18,10 +18,10 @@ import { HmctsAnnotationUiModule } from 'projects/hmcts-annotation-ui-lib/src/pu
     BrowserModule,
     HttpClientModule,
     AuthModule,
-    HmctsAnnotationUiModule
+    HmctsEmViewerUiModule
   ],
   providers: [
-    ConfigService, 
+    ConfigService,
     TransferState
   ],
   bootstrap: [AppComponent]
