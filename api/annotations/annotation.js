@@ -12,6 +12,11 @@ function createAnnotationSet(options) {
     return generateRequest('POST', `${config.services.em_anno_api}/api/annotation-sets/`, options)
 }
 
+function deleteAnnotation(uuid, options) {
+    return generateRequest('DELETE', `${config.services.em_anno_api}/api/annotations/${uuid}`, options)
+}
+
+
 function addAnnotation(options) {
     return generateRequest('POST', `${config.services.em_anno_api}/api/annotations`, options)
 }
@@ -69,19 +74,34 @@ module.exports = app => {
             });
     });
 
+    router.delete('/annotations/:uuid', (req, res, next) => {
+        const options = getOptions(req)
+        const uuid = req.params.uuid
 
-    router.post('/annotations', (req, res, next) => {
-        const options = getOptions(req);
-        addAnnotation(options)
+        deleteAnnotation(uuid, options)
             .then(response => {
-                res.setHeader('Access-Control-Allow-Origin', '*');
-                res.setHeader('content-type', 'application/json');
-                res.status(200).send(JSON.stringify(response));
+                res.setHeader('Access-Control-Allow-Origin', '*')
+                res.setHeader('content-type', 'application/json')
+                res.status(200).send(JSON.stringify(response))
             })
             .catch(response => {
-                res.status(response.error.status).send(response.error.message);
-            });
-    });
+                res.status(response.error.status).send(response.error.message)
+            })
+    })
+
+    router.post('/annotations', (req, res, next) => {
+        const options = getOptions(req)
+
+        addAnnotation(options)
+            .then(response => {
+                res.setHeader('Access-Control-Allow-Origin', '*')
+                res.setHeader('content-type', 'application/json')
+                res.status(200).send(JSON.stringify(response))
+            })
+            .catch(response => {
+                res.status(response.error.status).send(response.error.message)
+            })
+    })
 
     router.get('/info', (req, res, next) => {
         const uuid = req.params.uuid;
