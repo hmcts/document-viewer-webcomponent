@@ -4,6 +4,7 @@ import {DocumentViewerService} from './document-viewer.service';
 import { ViewerFactoryService } from '../viewers/viewer-factory.service';
 import { UrlFixerService } from '../data/url-fixer.service';
 import { EmLoggerService } from '../logging/em-logger.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
     selector: 'app-document-viewer',
@@ -21,7 +22,7 @@ export class DocumentViewerComponent implements OnChanges, OnInit {
     mimeType: string;
     docName: string;
     viewerComponent: any;
-    error: string;
+    error: HttpErrorResponse;
 
     constructor(private log: EmLoggerService,
                 private viewerFactoryService: ViewerFactoryService,

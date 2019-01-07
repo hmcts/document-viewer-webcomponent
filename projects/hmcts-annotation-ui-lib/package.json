@@ -13,9 +13,6 @@
     "@angular/common": "^6.0.0-rc.0 || ^6.0.0",
     "@angular/core": "^6.0.0-rc.0 || ^6.0.0",
     "@angular/forms": "^6.1.0",
-    "@ng-toolkit/universal": "^1.1.45",
-    "@types/jasmine": "~2.8.6",
-    "@types/jasminewd2": "~2.0.3",
-    "@types/node": "^8.9.5"
+    "@ng-toolkit/universal": "^1.1.45"
   }
 }

@@ -16,7 +16,7 @@ export class PdfAdapter {
 
     constructor(private log: EmLoggerService,
                 private utils: Utils,
-                @Inject(WINDOW) private window: Window) {
+                @Inject(WINDOW) private window) {
         this.annotationChangeSubject = new Subject<{ type: string, annotation: Annotation }>();
         log.setClass('PdfAdapter');
     }
