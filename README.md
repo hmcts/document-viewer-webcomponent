@@ -1,41 +1,34 @@
 # Annotation UI 
 ### Annotation code is in /projects/annotation-ui-lib
-## Running test application
-Spin up docker dependencies - ./docker/buildrun-docker-base.sh
+## Running development application
+Spin up ```docker dependencies - docker-compose -f docker-compose-dependencies.yml up```
+Upload a document to Document management. Save the documentId and copy into url property ```src/app/app.component.html```
+Get Auth JWT tokens - copy into ```/src/environment/environment.ts``` and ```api/middleware/auth``` insert jwtDecode('add-token-here') - A proper login page will be added soon.
 
-Start rpa-em-annotation-api - https://github.com/hmcts/rpa-em-annotation-api
-
-Get S2S JWT tokens - ./bin/idam/idam.sh and copy into /src/environment/environment.ts file
-
+npm install
 npm run start-server
-
 npm run start-client
 
-Goto http://localhost:4200/?url=%2Fassets%2Fexample.pdf 
+Goto http://localhost:4200 and the viewer should load the document.
 
 ## To build annotation library
 npm run package
 Distributable will be copied to /dist/hmcts-annotation-ui-lib
 
 ## Instructions to add this library to your own angular app
-https://www.npmjs.com/package/hmcts-annotation-ui-lib
-
 Check demo app:
 https://github.com/hmcts/rpa-annotation-ui-demo
 
-
-Import AnnotationUiLibModule from annotation-ui-lib in your app.module.ts and declare it in your NgModule imports.
+Import HmctsEmViewerUiModule and declare it in your NgModule imports.
 
 For example:
 ```
-import { AnnotationUiLibModule, ViewerComponent} from 'hmcts-annotation-ui-lib';
+import { HmctsEmViewerUiModule } from 'hmcts-annotation-ui-lib';
 
 @NgModule({
   imports: [
-    ...
-    AnnotationUiLibModule,
-    AnnotationResolver, 
-    DocumentResolver, 
+    ...,
+    HmctsEmViewerUiModule,
   ]
 })
 ```
@@ -43,9 +36,9 @@ import { AnnotationUiLibModule, ViewerComponent} from 'hmcts-annotation-ui-lib';
 Reference the followings scripts in your angular.json.
 ```
 "scripts": [
-    "node_modules/hmcts-annotation-ui-lib/assets/shared/pdf.js",
-    "node_modules/hmcts-annotation-ui-lib/assets/shared/pdf_viewer.js",
-    "node_modules/hmcts-annotation-ui-lib/assets/shared/pdf-annotate.js",
+    "node_modules/hmcts-annotation-ui-lib/assets/javascripts/pdf.js",
+    "node_modules/hmcts-annotation-ui-lib/assets/javascripts/pdf_viewer.js",
+    "node_modules/hmcts-annotation-ui-lib/assets/javascripts/pdf-annotate.js"
     ...
 ]
 ```
@@ -53,31 +46,17 @@ Reference the followings scripts in your angular.json.
 And styles
 ```
 "styles": [
-  "node_modules/hmcts-annotation-ui-lib/_theme.scss",
+  "node_modules/hmcts-annotation-ui-lib/assets/annotation-ui-theme.scss",
   ...
 ],
 ```
 
-Entry point is the ViewerComponent component. For example:
-```
-const appRoutes: Routes = [
-  { path: '',  
-  component: ViewerComponent,
-  resolve: {
-    documentData: DocumentResolver,
-    annotationData: AnnotationResolver
-  } 
- }
-]; 
-```
-
-Make sure to pass a query parameter for the PDF location when you navigate to the component. For example:
-Copy your PDF into the root assets folder and reference it like http://localhost:4200?url=/assets/example.pdf
+Copy pdf.worker.js into your assets folder too.
 
 
 ## Development server
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/?url=/assets/example.pdf`. The app will automatically reload if you change any of the source files.
+Run `ng serve` for a dev server. Navigate to `http://localhost:4200`. The app will automatically reload if you change any of the source files.
 
 ## Build
 

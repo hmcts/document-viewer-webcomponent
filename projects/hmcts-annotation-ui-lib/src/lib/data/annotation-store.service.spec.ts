@@ -270,7 +270,7 @@ describe('AnnotationStoreService', () => {
 
   describe('handleAnnotationEvent', () => {
     it('should call saveAnnotation for addAnnotation event', async(inject([AnnotationStoreService], (service: AnnotationStoreService) => {
-      spyOn(mockApiHttpService, 'saveAnnotation').and.returnValue(Observable.of({response: 'ok', error: 'not ok'}));
+      spyOn(mockApiHttpService, 'saveAnnotation').and.returnValue(of({response: 'ok', error: 'not ok'}));
 
       service.handleAnnotationEvent({type: 'addAnnotation', annotation: mockAnnotation});
       expect(mockApiHttpService.saveAnnotation).toHaveBeenCalled();
@@ -280,21 +280,21 @@ describe('AnnotationStoreService', () => {
     })));
 
     it('should call saveAnnotation for editComment event', async(inject([AnnotationStoreService], (service: AnnotationStoreService) => {
-      spyOn(mockApiHttpService, 'saveAnnotation').and.returnValue(Observable.of({response: 'ok', error: 'not ok'}));
+      spyOn(mockApiHttpService, 'saveAnnotation').and.returnValue(of({response: 'ok', error: 'not ok'}));
 
       service.handleAnnotationEvent({type: 'editComment', annotation: mockAnnotation});
       expect(mockApiHttpService.saveAnnotation).toHaveBeenCalled();
     })));
 
     it('should call saveAnnotation for deleteComment event', async(inject([AnnotationStoreService], (service: AnnotationStoreService) => {
-      spyOn(mockApiHttpService, 'saveAnnotation').and.returnValue(Observable.of({response: 'ok', error: 'not ok'}));
+      spyOn(mockApiHttpService, 'saveAnnotation').and.returnValue(of({response: 'ok', error: 'not ok'}));
 
       service.handleAnnotationEvent({type: 'deleteComment', annotation: mockAnnotation});
       expect(mockApiHttpService.saveAnnotation).toHaveBeenCalled();
     })));
 
     it('should call saveAnnotation for editAnnotation event', async(inject([AnnotationStoreService], (service: AnnotationStoreService) => {
-      spyOn(mockApiHttpService, 'saveAnnotation').and.returnValue(Observable.of({response: 'ok', error: 'not ok'}));
+      spyOn(mockApiHttpService, 'saveAnnotation').and.returnValue(of({response: 'ok', error: 'not ok'}));
 
       service.handleAnnotationEvent({type: 'editAnnotation', annotation: mockAnnotation});
       expect(mockApiHttpService.saveAnnotation).toHaveBeenCalled();
@@ -302,7 +302,7 @@ describe('AnnotationStoreService', () => {
 
     it('should call saveAnnotation for deleteAnnotation event',
       async(inject([AnnotationStoreService], (service: AnnotationStoreService) => {
-        spyOn(mockApiHttpService, 'deleteAnnotation').and.returnValue(Observable.of({response: 'ok', error: 'not ok'}));
+        spyOn(mockApiHttpService, 'deleteAnnotation').and.returnValue(of({response: 'ok', error: 'not ok'}));
 
         service.handleAnnotationEvent({type: 'deleteAnnotation', annotation: mockAnnotation});
         expect(mockApiHttpService.deleteAnnotation).toHaveBeenCalled();
@@ -313,7 +313,7 @@ describe('AnnotationStoreService', () => {
 
     it('should return annotationSet if successful', inject([AnnotationStoreService], (service: AnnotationStoreService) => {
       const mockResponse = new HttpResponse().clone({body: dummyAnnotationSet});
-      spyOn(mockApiHttpService, 'fetch').and.returnValue(Observable.of(mockResponse));
+      spyOn(mockApiHttpService, 'fetch').and.returnValue(of(mockResponse));
       service.fetchData('http://localhost:3000', 'documentId').subscribe(response => {
         expect(response.body).toBe(dummyAnnotationSet);
       });

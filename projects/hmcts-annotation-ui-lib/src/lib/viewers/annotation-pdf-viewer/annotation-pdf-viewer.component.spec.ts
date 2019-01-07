@@ -161,7 +161,7 @@ describe('AnnotationPdfViewerComponent', () => {
       spyOn(mockPdfService, 'preRun');
       spyOn(mockPdfRenderService, 'render');
       spyOn(mockPdfRenderService, 'setRenderOptions');
-      spyOn(mockPdfService, 'getPageNumber').and.returnValue(Observable.of(1));
+      spyOn(mockPdfService, 'getPageNumber').and.returnValue(of(1));
 
       component.ngOnInit();
       const renderOptions = new RenderOptions(component.url,

@@ -111,7 +111,7 @@ describe('CommentsComponent', () => {
 
   beforeEach(() => {
     spyOn(mockPdfService, 'getPageNumber')
-      .and.returnValue(Observable.of(1));
+      .and.returnValue(of(1));
 
     fixture = TestBed.createComponent(CommentsComponent);
     component = fixture.componentInstance;

@@ -7,7 +7,7 @@
 
 # dependencies
 /node_modules
-
+/reports
 /src/environments/environment.ts
 
 # IDEs and editors
