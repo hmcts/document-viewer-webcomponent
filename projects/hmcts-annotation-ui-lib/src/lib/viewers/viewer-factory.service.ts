@@ -49,7 +49,10 @@ export class ViewerFactoryService {
         componentRef.instance.dmDocumentId = ViewerFactoryService.getDocumentId(documentMetaData);
         componentRef.instance.outputDmDocumentId = null; // '4fbdde23-e9a7-4843-b6c0-24d5bf2140ab';
         componentRef.instance.baseUrl = baseUrl;
+
+        console.log(this.urlFixer.fixDm(documentMetaData._links.binary.href, baseUrl));
         componentRef.instance.url = this.urlFixer.fixDm(documentMetaData._links.binary.href, baseUrl);
+        // componentRef.instance.url = 'http://localhost:4603i/documents/51465475-b8bf-4304-a1c7-1fc32ae1d647/binary';
 
         return componentRef.instance;
     }

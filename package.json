@@ -30,6 +30,7 @@
     "@angular/platform-browser-dynamic": "^6.1.10",
     "@angular/router": "^6.1.10",
     "@ng-toolkit/universal": "^1.1.45",
+    "axios": "^0.18.0",
     "body-parser": "^1.18.3",
     "cookie-parser": "^1.4.3",
     "core-js": "^2.6.1",

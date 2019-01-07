@@ -48,6 +48,8 @@ export class DocumentViewerComponent implements OnChanges, OnInit {
             throw new Error('url is required argument');
         }
         this.documentViewerService.fetch(`${this.urlFixer.fixDm(this.url, this.baseUrl)}`).subscribe(resp => {
+
+            this.log.info(resp);
             if (resp && resp._links) {
                 this.docName = resp.originalDocumentName;
                 this.viewerComponent =

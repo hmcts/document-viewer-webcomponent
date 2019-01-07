@@ -64,7 +64,7 @@ services:
       - IDAM_TESTING_SUPPORT_ENABLED=true
       - LOGGING_LEVEL_UK_GOV_HMCTS_IDAM=DEBUG
       - IDAM_S2S_BASE_URI=http://service-auth-provider-app:8489
-      - S2S_NAMES_WHITELIST=em_npa_app,sscs,divorce,ccd,em_gw,ccd_gw
+      - S2S_NAMES_WHITELIST=jui_webapp,em_npa_app,sscs,divorce,ccd,em_gw,ccd_gw
       - http_proxy=
       - https_proxy=
       - no_proxy=
