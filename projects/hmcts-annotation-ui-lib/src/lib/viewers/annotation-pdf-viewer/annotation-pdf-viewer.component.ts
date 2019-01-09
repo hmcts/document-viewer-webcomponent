@@ -31,6 +31,7 @@ export class AnnotationPdfViewerComponent implements OnInit, AfterViewInit, OnDe
     @Input() url: string;
     @Input() annotationSet: IAnnotationSet;
     @Input() baseUrl: string;
+    @Input() pdfWorker: string;
 
     private page: number;
     private focusedAnnotationSubscription: Subscription;
@@ -58,7 +59,7 @@ export class AnnotationPdfViewerComponent implements OnInit, AfterViewInit, OnDe
     }
 
     ngOnInit() {
-        this.loadAnnotations(this.annotate);
+        this.loadAnnotations(this.annotate, this.pdfWorker);
         this.pdfService.preRun();
         this.pdfRenderService.setRenderOptions( new RenderOptions(
             this.url,
@@ -101,7 +102,8 @@ export class AnnotationPdfViewerComponent implements OnInit, AfterViewInit, OnDe
         }
     }
 
-    loadAnnotations(annotate: boolean) {
+    loadAnnotations(annotate: boolean, pdfWorker: string) {
+        this.pdfRenderService.pdfWorker = pdfWorker;
         if (annotate) {
             this.log.info('annotations are enabled');
             this.apiHttpService.setBaseUrl(this.baseUrl);

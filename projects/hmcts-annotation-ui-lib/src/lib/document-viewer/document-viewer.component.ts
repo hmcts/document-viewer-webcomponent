@@ -15,7 +15,7 @@ export class DocumentViewerComponent implements OnChanges, OnInit {
     @ViewChild(ViewerAnchorDirective) viewerAnchor: ViewerAnchorDirective;
     @Input() url = '';
     @Input() annotate: boolean;
-    @Input() page = 1;
+    @Input() pdfWorker: string;
     @Input() baseUrl: string;
 
     // todo make a class
@@ -31,9 +31,7 @@ export class DocumentViewerComponent implements OnChanges, OnInit {
         log.setClass('DocumentViewerComponent');
     }
 
-
     ngOnInit(): void {
-
     }
 
     ngOnChanges(changes: SimpleChanges) {
@@ -53,7 +51,8 @@ export class DocumentViewerComponent implements OnChanges, OnInit {
             if (resp && resp._links) {
                 this.docName = resp.originalDocumentName;
                 this.viewerComponent =
-                    this.viewerFactoryService.buildViewer(resp, this.annotate, this.viewerAnchor.viewContainerRef, this.baseUrl);
+                    this.viewerFactoryService.buildViewer(resp, this.annotate,
+                        this.viewerAnchor.viewContainerRef, this.baseUrl, this.pdfWorker);
             }
         }, err => {
             this.log.error('An error has occured while fetching document' + err);

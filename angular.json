@@ -20,7 +20,12 @@
             "tsConfig": "src/tsconfig.app.json",
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              {
+                "glob": "pdf.worker.js",
+                "input": "../dist/hmcts-annotation-ui-lib/assets/javascripts/",
+                "output": "./assets/"
+              }
             ],
             "styles": [
               "projects/hmcts-annotation-ui-lib/src/assets/annotation-ui-theme.scss",
@@ -28,6 +33,7 @@
             ],
             "scripts": [
               "projects/hmcts-annotation-ui-lib/src/assets/javascripts/pdf.js",
+              "projects/hmcts-annotation-ui-lib/src/assets/javascripts/pdf.worker.js",
               "projects/hmcts-annotation-ui-lib/src/assets/javascripts/pdf_viewer.js",
               "projects/hmcts-annotation-ui-lib/src/assets/javascripts/pdf-annotate.js"
             ]

@@ -1,5 +1,5 @@
 
-export class RenderOptions { 
+export class RenderOptions {
     documentId: string;
     pdfDocument: any;
     scale: any;

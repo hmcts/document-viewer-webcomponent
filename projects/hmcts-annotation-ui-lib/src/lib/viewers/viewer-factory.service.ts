@@ -38,7 +38,7 @@ export class ViewerFactoryService {
     }
 
     buildAnnotateUi(documentMetaData: any, viewContainerRef: ViewContainerRef, baseUrl: string,
-                    annotate: boolean, annotationSet: IAnnotationSet): ComponentRef<any>['instance'] {
+                    annotate: boolean, annotationSet: IAnnotationSet, pdfWorker: string): ComponentRef<any>['instance'] {
 
         viewContainerRef.clear();
         const componentFactory = this.componentFactoryResolver.resolveComponentFactory(AnnotationPdfViewerComponent);
@@ -49,6 +49,7 @@ export class ViewerFactoryService {
         componentRef.instance.dmDocumentId = ViewerFactoryService.getDocumentId(documentMetaData);
         componentRef.instance.outputDmDocumentId = null; // '4fbdde23-e9a7-4843-b6c0-24d5bf2140ab';
         componentRef.instance.baseUrl = baseUrl;
+        componentRef.instance.pdfWorker = pdfWorker;
 
         console.log(this.urlFixer.fixDm(documentMetaData._links.binary.href, baseUrl));
         componentRef.instance.url = this.urlFixer.fixDm(documentMetaData._links.binary.href, baseUrl);
@@ -57,17 +58,17 @@ export class ViewerFactoryService {
         return componentRef.instance;
     }
 
-    buildViewer(documentMetaData: any, annotate: boolean, viewContainerRef: ViewContainerRef, baseUrl: string) {
+    buildViewer(documentMetaData: any, annotate: boolean, viewContainerRef: ViewContainerRef, baseUrl: string, pdfWorker: string) {
         if (ViewerFactoryService.isPdf(documentMetaData.mimeType) && annotate) {
             this.log.info('Selected pdf viewer with annotations enabled');
             const dmDocumentId = ViewerFactoryService.getDocumentId(documentMetaData);
             this.annotationStoreService.fetchData(baseUrl, dmDocumentId).subscribe((response) => {
-                return this.buildAnnotateUi(documentMetaData, viewContainerRef, baseUrl, annotate, response.body);
+                return this.buildAnnotateUi(documentMetaData, viewContainerRef, baseUrl, annotate, response.body, pdfWorker);
             });
 
         } else if (ViewerFactoryService.isPdf(documentMetaData.mimeType) && !annotate) {
             this.log.info('Selected pdf viewer with annotations disabled');
-            return this.buildAnnotateUi(documentMetaData, viewContainerRef, baseUrl, annotate, null);
+            return this.buildAnnotateUi(documentMetaData, viewContainerRef, baseUrl, annotate, null, pdfWorker);
         } else if (ViewerFactoryService.isImage(documentMetaData.mimeType)) {
             this.log.info('Selected image viewer');
             const componentFactory = this.componentFactoryResolver.resolveComponentFactory(ImageViewerComponent);

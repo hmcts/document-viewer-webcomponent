@@ -17,7 +17,7 @@ Distributable will be copied to /dist/hmcts-annotation-ui-lib
 
 ## Instructions to add this library to your own angular app
 Check demo app:
-https://github.com/hmcts/rpa-annotation-ui-demo
+https://github.com/hmcts/rpa-em-show
 
 Import HmctsEmViewerUiModule and declare it in your NgModule imports.
 
@@ -32,7 +32,14 @@ import { HmctsEmViewerUiModule } from 'hmcts-annotation-ui-lib';
   ]
 })
 ```
-
+Import the assets to your angular.json
+```
+  {
+      "glob": "**/*",
+      "input": "node_modules/hmcts-annotation-ui-lib/assets",
+      "output": "/assets"
+  }
+```
 Reference the followings scripts in your angular.json.
 ```
 "scripts": [
@@ -53,6 +60,15 @@ And styles
 
 Copy pdf.worker.js into your assets folder too.
 
+Component entry point:
+```
+<app-document-viewer
+    [baseUrl]="'http://localhost:3000/api'"
+    [annotate]="true"
+    [pdfWorker]="'/public/javascripts/pdf-worker.js'"
+    [url]="'https://dm-store-aat.service.core-compute-aat.internal/documents/35f3714e-30e0-45d6-b4fb-08f51c271f8e'"
+></app-document-viewer>
+```
 
 ## Development server
 
