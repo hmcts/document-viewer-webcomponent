@@ -20,7 +20,7 @@ function getOptions(req) {
         headers: {
             'user-roles': 'caseworker',
             Authorization: `${req.auth.token}`,
-            ServiceAuthorization: req.headers.ServiceAuthorization,
+            ServiceAuthorization: req.headers.ServiceAuthorization
         },
         body: req.body
     };
