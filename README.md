@@ -1,7 +1,7 @@
 # Annotation UI 
 ### Annotation code is in /projects/annotation-ui-lib
 ## Running development application
-Spin up ```docker dependencies - docker-compose -f docker-compose-dependencies.yml up```
+Spin up ```docker dependencies docker-compose -f docker-compose-dependencies.yml up```
 Upload a document to Document management. Save the documentId and copy into url property ```src/app/app.component.html```
 Get Auth JWT tokens - copy into ```/src/environment/environment.ts``` and ```api/middleware/auth``` insert jwtDecode('add-token-here') - A proper login page will be added soon.
 
