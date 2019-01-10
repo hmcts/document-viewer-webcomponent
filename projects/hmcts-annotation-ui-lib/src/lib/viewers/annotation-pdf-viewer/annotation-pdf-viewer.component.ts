@@ -1,6 +1,6 @@
 import {Component, OnInit, ViewChild, ElementRef, Input, ChangeDetectorRef, Renderer2, OnDestroy, AfterViewInit, ComponentRef} from '@angular/core';
-import {PdfService} from '../../data/pdf.service';
 import { Subscription } from 'rxjs';
+import {PdfService} from '../../data/pdf.service';
 import {AnnotationStoreService} from '../../data/annotation-store.service';
 import {IAnnotationSet, Annotation} from '../../data/annotation-set.model';
 import {NpaService} from '../../data/npa.service';
@@ -20,8 +20,7 @@ import { RotationModel } from '../../model/rotation-factory.model';
 @Component({
     selector: 'app-annotation-pdf-viewer',
     templateUrl: './annotation-pdf-viewer.component.html',
-    styleUrls: ['./annotation-pdf-viewer.component.scss'],
-    providers: []
+    styleUrls: ['./annotation-pdf-viewer.component.scss']
 })
 export class AnnotationPdfViewerComponent implements OnInit, AfterViewInit, OnDestroy {
 
@@ -61,7 +60,7 @@ export class AnnotationPdfViewerComponent implements OnInit, AfterViewInit, OnDe
     ngOnInit() {
         this.loadAnnotations(this.annotate, this.pdfWorker);
         this.pdfService.preRun();
-        this.pdfRenderService.setRenderOptions( new RenderOptions(
+        this.pdfRenderService.setRenderOptions(new RenderOptions(
             this.url,
             null,
             parseFloat('1.33'),
@@ -130,11 +129,9 @@ export class AnnotationPdfViewerComponent implements OnInit, AfterViewInit, OnDe
     }
 
     unfocusAnnotation() {
-        this.annotationStoreService.setAnnotationFocusSubject(
-            new Annotation());
+        this.annotationStoreService.setAnnotationFocusSubject(new Annotation());
         this.annotationStoreService.setCommentBtnSubject(null);
-        this.annotationStoreService.setCommentFocusSubject(
-            new Annotation(), null);
+        this.annotationStoreService.setCommentFocusSubject(new Annotation(), null);
     }
 
     handleAnnotationClick(event) {

@@ -6,8 +6,7 @@ import { EmLoggerService } from '../../../logging/em-logger.service';
 @Component({
     selector: 'app-rotation-toolbar',
     templateUrl: './rotation.component.html',
-    styleUrls: ['./rotation.component.scss'],
-    providers: []
+    styleUrls: ['./rotation.component.scss']
 })
 export class RotationComponent {
     @Input() pageNumber: number;

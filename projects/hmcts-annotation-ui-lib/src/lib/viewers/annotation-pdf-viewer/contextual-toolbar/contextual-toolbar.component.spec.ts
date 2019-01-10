@@ -150,7 +150,7 @@ describe('ContextualToolbarComponent', () => {
 
   describe('handleCommentBtnClick', () => {
     it('should call mockAnnotationStoreService and hide the toolbar', fakeAsync(() => {
-        dummyAnnotation.comments = [];
+      dummyAnnotation.comments = [];
       component.annotation = dummyAnnotation;
       spyOn(mockAnnotationStoreService, 'setCommentFocusSubject');
       spyOn(mockAnnotationStoreService, 'addComment');

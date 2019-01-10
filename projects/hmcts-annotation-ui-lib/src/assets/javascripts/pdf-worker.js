@@ -2300,14 +2300,15 @@ function warn(msg) {
 
 // Deprecated API function -- display regardless of the PDFJS.verbosity setting.
 function deprecated(details) {
-  s
+  console.log('Deprecated API usage: ' + details);
 }
 
 // Fatal errors that should trigger the fallback UI and halt execution by
 // throwing an exception.
 function error(msg) {
   if (verbosity >= VERBOSITY_LEVELS.errors) {
-
+    console.log('Error: ' + msg);
+    console.log(backtrace());
   }
   throw new Error(msg);
 }

@@ -286,6 +286,8 @@ function deprecated(details) {
 // throwing an exception.
 function error(msg) {
   if (verbosity >= VERBOSITY_LEVELS.errors) {
+    console.log('Error: ' + msg);
+    console.log(backtrace());
   }
   throw new Error(msg);
 }

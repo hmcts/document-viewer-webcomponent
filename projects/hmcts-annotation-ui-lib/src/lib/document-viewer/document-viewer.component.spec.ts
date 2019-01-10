@@ -37,8 +37,8 @@ describe('DocumentViewerComponent', () => {
             providers: [
                 EmLoggerService,
                 { provide: TransferState, useFactory: () => mockTransferState},
-                { provide: DocumentViewerService, useValue: DocumentViewerServiceMock
-            }]
+                { provide: DocumentViewerService, useValue: DocumentViewerServiceMock}
+            ]
         });
 
         testingModule.compileComponents();

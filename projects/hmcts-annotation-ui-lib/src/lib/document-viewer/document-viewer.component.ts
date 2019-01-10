@@ -1,10 +1,10 @@
 import {Component, Input, OnChanges, OnInit, SimpleChanges, ViewChild} from '@angular/core';
+import { HttpErrorResponse } from '@angular/common/http';
 import {ViewerAnchorDirective} from './viewer-anchor.directive';
 import {DocumentViewerService} from './document-viewer.service';
 import { ViewerFactoryService } from '../viewers/viewer-factory.service';
 import { UrlFixerService } from '../data/url-fixer.service';
 import { EmLoggerService } from '../logging/em-logger.service';
-import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
     selector: 'app-document-viewer',
@@ -18,7 +18,6 @@ export class DocumentViewerComponent implements OnChanges, OnInit {
     @Input() pdfWorker: string;
     @Input() baseUrl: string;
 
-    // todo make a class
     mimeType: string;
     docName: string;
     viewerComponent: any;
