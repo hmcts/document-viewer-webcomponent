@@ -1,21 +1,19 @@
 # Annotation UI 
 ### Annotation code is in /projects/annotation-ui-lib
 ## Running development application
-Spin up ```docker dependencies docker-compose -f docker-compose-dependencies.yml up```
-Upload a document to Document management. Save the documentId and copy into url property ```src/app/app.component.html```
-Get Auth JWT tokens - copy into ```/src/environment/environment.ts``` and ```api/middleware/auth``` insert jwtDecode('add-token-here') - A proper login page will be added soon.
+Set environment variable to define if app connects to localhost or aat:
+### export APP_ENV=local
 
-npm install
-npm run start-server
-npm run start-client
+yarn install; export S2S_SECRET={{insert secret here}}; export IDAM_SECRET={{insert secret here}}; export APP_ENV=local; yarn start-dev-node;
+yarn install; export S2S_SECRET={{insert secret here}}; export IDAM_SECRET={{insert secret here}}; export APP_ENV=local; yarn start-dev-proxy;
 
-Goto http://localhost:4200 and the viewer should load the document.
+Goto http://localhost:3000 and the viewer should load the document.
 
 ## To build annotation library
 npm run package
 Distributable will be copied to /dist/hmcts-annotation-ui-lib
 
-## Instructions to add this library to your own angular app
+## Instructions to add this library to your another angular app
 Check demo app:
 https://github.com/hmcts/rpa-em-show
 

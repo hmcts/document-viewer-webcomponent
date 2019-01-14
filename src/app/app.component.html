@@ -1,8 +1,6 @@
-<!-- <router-outlet></router-outlet> -->
+<title>{{title}}</title>
 
-<app-document-viewer
-    [baseUrl]="'http://localhost:3001/api'"
-    [annotate]="true"
-    [pdfWorker]="'/node_modules/hmcts-annotation-ui-lib/assets/javascripts/pdf.worker.js'"
-    [url]="'http://localhost:4603/documents/a67afcf8-0399-42dd-bbec-486e445717c0'"
-></app-document-viewer>
+<a href="{{logoutLink}}">Sign out</a>
+<router-outlet></router-outlet>
+
+<div id="global-app-error" class="app-error hidden"></div>

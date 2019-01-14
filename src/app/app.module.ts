@@ -5,31 +5,23 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { AuthModule } from './auth/auth.module';
 import { ConfigService } from './config.service';
-import { DmUploadComponent } from './dm-upload/dm-upload.component';
-
 import { HmctsEmViewerUiModule } from 'projects/hmcts-annotation-ui-lib/src/public_api';
-import { RouterModule, Routes } from '@angular/router';
+import { RoutingModule } from './routing/routing.module';
+import { HmctsModule } from './hmcts/hmcts.module';
+import { GovukModule } from './govuk/govuk.module';
 
-const routes: Routes = [
-  {
-      path: '',
-      component: AppComponent,
-  }
-];
 @NgModule({
   declarations: [
-    AppComponent,
-    DmUploadComponent
+    AppComponent
   ],
   imports: [
-    RouterModule.forRoot(routes, {
-      scrollPositionRestoration: 'enabled',
-      anchorScrolling: 'enabled'
-    }),
     BrowserModule,
     HttpClientModule,
     AuthModule,
-    HmctsEmViewerUiModule
+    HmctsEmViewerUiModule,
+    HmctsModule,
+    GovukModule,
+    RoutingModule
   ],
   providers: [
     ConfigService,
