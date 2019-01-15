@@ -1,12 +1,12 @@
 import {application} from './application.config';
 
-import * as local from './environments/local.config';
+import * as local from './environments/aat.config';
 import * as aat from './environments/aat.config';
 import * as process from 'process';
 
 const configs = {
     local,
-    aat,
+    // aat,
     microservice: 'jui_webapp',
     idam_client: 'juiwebapp',
     oauth_callback_url: 'oauth2/callback',
