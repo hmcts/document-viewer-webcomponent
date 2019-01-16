@@ -1,39 +1,33 @@
-import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
+import {Injectable} from '@angular/core';
+import {Router} from '@angular/router';
+import 'rxjs/add/operator/do';
 import {
     HttpRequest,
     HttpHandler,
     HttpEvent,
-    HttpInterceptor
+    HttpInterceptor,
+    HttpErrorResponse
 } from '@angular/common/http';
-import { tap } from 'rxjs/operators';
-import { Observable } from 'rxjs';
-import { environment } from '../../environments/environment';
+import { Observable } from 'rxjs/Observable';
+import {AuthService} from './auth.service';
 
 @Injectable({
     providedIn: 'root'
 })
 export class AuthInteceptor implements HttpInterceptor  {
 
-    constructor(public router: Router) {
+    constructor(public router: Router, private authService: AuthService) {
     }
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-
-        // Set Auth tokens in local.config.js 
-        request = request.clone({
-            setHeaders: {
-                ServiceAuthorization: environment.serviceAuthorization,
-                Authorization: environment.authorization
-            }
-        });
-
-        return next.handle(request).pipe(
-            tap((event: HttpEvent<any>) => {
+        return next.handle(request).do((event: HttpEvent<any>) => {
             // Carry on
         }, (err: any) => {
-            console.log(err);
-            })
-        );
+            if (err instanceof HttpErrorResponse) {
+                if (err.status === 401) {
+                    this.authService.loginRedirect();
+                }
+            }
+        });
     }
 }

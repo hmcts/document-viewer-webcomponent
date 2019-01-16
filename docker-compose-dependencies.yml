@@ -1,0 +1,214 @@
+---
+version: '2.1'
+
+services:
+  service-auth-provider-app:
+    image: hmcts/service-auth-provider-app:latest
+    environment:
+      - MICROSERVICEKEYS_JUI_WEBAPP=AAAAAAAAAAAAAAAA
+      - MICROSERVICEKEYS_EM_GW=AAAAAAAAAAAAAAAA
+      - MICROSERVICEKEYS_CCD_DATA=AAAAAAAAAAAAAAAA
+      - MICROSERVICEKEYS_CCD_GW=AAAAAAAAAAAAAAAA
+      - MICROSERVICEKEYS_CCD_DEFINITION=AAAAAAAAAAAAAAAA
+      - MICROSERVICEKEYS_COH_COR=AAAAAAAAAAAAAAAA
+      - microserviceKeys_em_npa_app=AAAAAAAAAAAAAAAA
+      #      logging env vars
+      - REFORM_SERVICE_TYPE=java
+      - REFORM_SERVICE_NAME=service-auth-provider-app
+      - REFORM_TEAM=rpe
+      - REFORM_ENVIRONMENT=docker
+      #      healthcheck env vars
+      - PACKAGES_ENVIRONMENT=docker
+      - PACKAGES_PROJECT=rpe
+      - PACKAGES_NAME=service-auth-provider-app
+      - PACKAGES_VERSION=unkown
+    ports:
+      - 4502:8489
+
+  annotation-api:
+    image: pawelblue/rpa-em-annotation-api:latest
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://annotation-api-db:5432/anno
+      - SPRING_DATASOURCE_USERNAME=anno
+      - SPRING_DATASOURCE_PASSWORD=anno
+      - S2S_BASE_URI=http://service-auth-provider-app:8489
+      - IDAM_API_BASE_URI=http://idam-api:8080
+      - ENABLE_LIQUIBASE=true
+    links:
+      - annotation-api-db
+    depends_on:
+      - annotation-api-db
+    ports:
+      - 4623:8080
+
+  annotation-api-db:
+    image: postgres
+    restart: always
+    environment:
+      - POSTGRES_DB=anno
+      - POSTGRES_USER=anno
+      - POSTGRES_PASSWORD=anno
+
+  dm-store:
+    image: hmcts/dm-store:latest
+    command: --wait-for-database 30
+    environment:
+      - SERVER_PORT=8080
+      - IDAM_SUPERUSER_EMAIL
+      - IDAM_SECRET_KEY=AAAAAAAAAAAAAAAA
+      - GOV_NOTIFY_API_KEY
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://dm-store-db:5432/evidence
+      - SPRING_DATASOURCE_USERNAME=evidence
+      - SPRING_DATASOURCE_PASSWORD=evidence
+      - SPRING_PROFILES_ACTIVE=dev
+      - IDAM_TESTING_SUPPORT_ENABLED=true
+      - LOGGING_LEVEL_UK_GOV_HMCTS_IDAM=DEBUG
+      - IDAM_API_URI=http://idam-api:8080
+      - IDAM_S2S_BASE_URI=http://service-auth-provider-app:8489
+      - http_proxy=
+      - https_proxy=
+      - no_proxy=
+      - S2S_NAMES_WHITELIST=em_npa_app,sscs,divorce,ccd,em_gw,ccd_gw,jui_webapp
+#      logging env vars
+      - ROOT_APPENDER=JSON_CONSOLE
+      - JSON_CONSOLE_PRETTY_PRINT=false
+      - REFORM_SERVICE_TYPE=java
+      - REFORM_SERVICE_NAME=dm-store
+      - REFORM_TEAM=evidence
+      - REFORM_ENVIRONMENT=docker
+#      healthcheck env vars
+      - PACKAGES_ENVIRONMENT=docker
+      - PACKAGES_PROJECT=evidence
+      - PACKAGES_NAME=dm-store
+      - PACKAGES_VERSION=unkown
+#      debug mode
+      - JAVA_OPTS=-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=5005
+    links:
+     - dm-store-db
+     - idam-api
+     - service-auth-provider-app
+    depends_on:
+     - dm-store-db
+     - idam-api
+     - service-auth-provider-app
+    ports:
+     - 4603:8080
+#     - 5005:5005
+
+  dm-store-db:
+    image: hmcts/dm-store-db:latest
+
+  idam-authentication-web:
+    image: docker.artifactory.reform.hmcts.net/auth/authentication-web:latest
+    container_name: idam-authentication-web
+    environment:
+    - IDAM_CONTINUE_URL_VALIDATOR_ENFORCE_TLS=false
+    - IDAM_ENABLE_PROXY=true
+    - IDAM_API_URL=http://idam-api:8080
+    links:
+    - idam-api
+    - service-auth-provider-app
+    ports:
+    - 3501:8000
+
+  idam-registration-web:
+    image: docker.artifactory.reform.hmcts.net/auth/registration-web:latest
+    environment:
+    - IDAM_API_URL=http://idam-api:8080
+    - IDAM_LOGIN_URL=http://idam-api:8080/login
+    - IDAM_REGISTRATION_URL=http://idam-api:8080/register
+    - IDAM_API_OAUTH2_CLIENT_CLIENT_SECRETS_REGISTRATION_WEB=AAAAAAAAAAAAAAAA
+    links:
+    - idam-api
+    - service-auth-provider-app
+    ports:
+    - 3502:8000
+
+  idam-api:
+    image: docker.artifactory.reform.hmcts.net/auth/idam-api:1620c9973d85ca622904ecbf01c47a4abb91f7c9
+    container_name: idam-api
+    command: --wait-for-database 60
+    environment:
+      - IDAM_SUPERUSER_EMAIL
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://idam-database:5432/idam
+      - SPRING_PROFILES_ACTIVE=test
+      - IDAM_TESTING_SUPPORT_ENABLED=true
+      - LOGGING_LEVEL_UK_GOV_HMCTS_IDAM=DEBUG
+      - IDAM_AUTHENTICATION_WEB_HOST=https://idam-authentication-web:8000
+      - IDAM_REGISTRATION_WEB_HOST=https://idam-registration-web:8000
+      - IDAM_API_OAUTH2_CLIENT_CLIENT_SECRETS_REGISTRATION_WEB=AAAAAAAAAAAAAAAA
+      - IDAM_API_OAUTH2_CLIENT_CLIENT_SECRETS_WEBSHOW=AAAAAAAAAAAAAAAA
+      - IDAM_API_OAUTH2_CLIENT_CLIENT_SECRETS_CCD_GATEWAY=AAAAAAAAAAAAAAAA
+      - IDAM_API_OAUTH2_CLIENT_CLIENT_SECRETS_CCD_ADMIN=AAAAAAAAAAAAAAAA
+      - IDAM_API_OAUTH2_CLIENT_CLIENT_SECRETS_JUIWEBAPP=AAAAAAAAAAAAAAAA
+      - IDAM_API_OAUTH2_CLIENT_CLIENT_ID_JUIWEBAPP=AAAAAAAAAAAAAAAA
+      - IDAM_JUIWEBAPP_WHITELIST=http://locahost:3000/oauth2/callback
+      - http_proxy
+      - https_proxy
+      - no_proxy
+#      logging env vars
+      - ROOT_APPENDER=JSON_CONSOLE
+      - JSON_CONSOLE_PRETTY_PRINT=false
+      - REFORM_SERVICE_TYPE=java
+      - REFORM_SERVICE_NAME=idam-api
+      - REFORM_TEAM=cc
+      - REFORM_ENVIRONMENT=docker
+#      healthcheck env vars
+      - PACKAGES_ENVIRONMENT=docker
+      - PACKAGES_PROJECT=idam
+      - PACKAGES_NAME=idam
+      - PACKAGES_VERSION=unkown
+    links:
+      - smtp-server
+      - idam-database
+    depends_on:
+      - idam-database
+      - smtp-server
+    ports:
+      - 4501:8080
+
+  idam-database:
+    image: docker.artifactory.reform.hmcts.net/auth/idam-database:latest
+    container_name: idam-database
+    ports:
+      - 5501:5432
+
+  smtp-server:
+    image: mailhog/mailhog
+
+  smtp-server:
+    image: mailhog/mailhog
+
+  # rpa-native-pdf-annotator-app:
+  #   image: hmcts/rpa-native-pdf-annotator-app:latest
+  #   environment:
+  #     - SERVER_PORT=8080
+  #     - SPRING_DATASOURCE_URL=jdbc:postgresql://rpa-native-pdf-annotator-db:5432/rpanativepdfannotatorapp
+  #     - SPRING_DATASOURCE_USERNAME=rpanativepdfannotatorapp
+  #     - SPRING_DATASOURCE_PASSWORD=rpanativepdfannotatorapp
+  #     - IDAM_USER_BASE_URI=http://idam-api:4501
+  #     - IDAM_S2S_BASE_URI=http://service-auth-provider-app:4502
+  #     - APPINSIGHTS_INSTRUMENTATIONKEY=test_app
+  #   # these environment variables are used by java-logging library
+  #     - ROOT_APPENDER=JSON_CONSOLE
+  #     - JSON_CONSOLE_PRETTY_PRINT=false
+  #     - ROOT_LOGGING_LEVEL
+  #     - REFORM_SERVICE_TYPE=java
+  #     - REFORM_SERVICE_NAME=rpa-native-pdf-annotator-app
+  #     - REFORM_TEAM=em-npa
+  #     - REFORM_ENVIRONMENT=docker
+  #   links:
+  #    - rpa-native-pdf-annotator-db
+  #    - service-auth-provider-app
+  #   depends_on:
+  #    - rpa-native-pdf-annotator-db
+  #    - service-auth-provider-app
+  #   ports:
+  #   - 4613:8080
+
+  # rpa-native-pdf-annotator-db:
+  #   image: postgres
+  #   environment:
+  #    - POSTGRES_USER=rpanativepdfannotatorapp
+  #    - POSTGRES_PASSWORD=rpanativepdfannotatorapp
+  #    - POSTGRES_DB=rpanativepdfannotatorapp

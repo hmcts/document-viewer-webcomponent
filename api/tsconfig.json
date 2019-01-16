@@ -1,0 +1,29 @@
+{
+    "compileOnSave": false,
+    "compilerOptions": {
+        "outDir": "../dist/rpa-em-annotation-webapp-api",
+        "target": "es5",
+        "types": [
+            "node",
+            "mocha",
+            "rxjs"
+        ],
+        "baseUrl": ".",
+        "paths": {
+            "@angular/*": [
+                "../../node_modules/@angular/*"
+            ]
+        },
+        "lib": [
+            "es2017",
+            "dom"
+        ]
+    },
+    "include": [
+        "**/*.ts",
+        "../*.ts", "../src/app/routing/pages/generic-page/annotation-webapp/annotation-webapp.component.ts", "../config/environments/aat.config.ts", "../config/environments/local.config.ts"
+    ],
+    "exclude": [
+        "**/*.spec.ts"
+    ]
+}

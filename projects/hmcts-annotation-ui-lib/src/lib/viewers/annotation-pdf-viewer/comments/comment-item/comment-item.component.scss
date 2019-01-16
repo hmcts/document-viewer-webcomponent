@@ -1,0 +1,71 @@
+////////////////////////////////////////
+// comment-item.component.scss
+////////////////////////////////////////
+
+form {
+  width: 95%;
+  padding-right: 2px;
+  margin-bottom: 5px;
+  position: absolute;
+  background-color: #ffffff;
+  padding: 20px 20px 0;
+}
+
+form textarea {
+  width: 95%;
+  padding: 2px;
+  border: none;
+  
+  font-size: 17px;
+  font-family: "nta", Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-weight: 400;
+  overflow: hidden;
+    resize: none;
+}
+
+.mimic-focus {
+  outline-offset: -2px;
+  outline: #0B0C0C auto 5px;
+}
+
+textarea.view-mode:focus {
+    outline: none;
+}
+
+#detailsWrapper {
+  padding: 0px;
+}
+
+#detailsWrapper.expanded {
+  margin-bottom: 15px;
+}
+
+.commentBtns {
+  height: 50px;
+}
+
+.expanded {
+  margin-top: 0px;
+}
+
+.collapsed {
+  height: 30px;
+}
+textarea.expanded {
+  margin-bottom: 10px;
+}
+
+textarea.collapsed {
+    margin-top: -25px;
+    max-height: 20px;
+}
+
+.collapsed > time {
+  display: none;
+}
+
+
+////////////////////////////////////////
+////////////////////////////////////////
