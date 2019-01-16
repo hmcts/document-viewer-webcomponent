@@ -25,13 +25,10 @@ apt:
 #
 script:
   - yarn --version
-  - yarn check --integrity
   - yarn install
+  - yarn check --integrity
   - yarn build
-  - yarn lint
   - yarn test
-  - yarn test:coverage
-  - yarn test:a11y
 after_success:
   - yarn test:codacy-upload
   - yarn test:codecov-upload
