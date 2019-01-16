@@ -20,16 +20,22 @@
             "tsConfig": "src/tsconfig.app.json",
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              {
+                "glob": "pdf.worker.js",
+                "input": "../dist/hmcts-annotation-ui-lib/assets/javascripts/",
+                "output": "./assets/"
+              }
             ],
             "styles": [
               "projects/hmcts-annotation-ui-lib/src/assets/annotation-ui-theme.scss",
               "src/styles.css"
             ],
             "scripts": [
-              "projects/hmcts-annotation-ui-lib/src/assets/pdf.js",
-              "projects/hmcts-annotation-ui-lib/src/assets/pdf_viewer.js",
-              "projects/hmcts-annotation-ui-lib/src/assets/pdf-annotate.js"
+              "projects/hmcts-annotation-ui-lib/src/assets/javascripts/pdf.js",
+              "projects/hmcts-annotation-ui-lib/src/assets/javascripts/pdf-worker.js",
+              "projects/hmcts-annotation-ui-lib/src/assets/javascripts/pdf_viewer.js",
+              "projects/hmcts-annotation-ui-lib/src/assets/javascripts/pdf-annotate.js"
             ]
           },
           "configurations": {
@@ -55,7 +61,8 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "annotation-ui:build"
+            "browserTarget": "annotation-ui:build",
+            "port": 3000
           },
           "configurations": {
             "production": {
@@ -72,6 +79,16 @@
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
+            "codeCoverage": true,
+            "codeCoverageExclude": [
+                "**/*.spec.ts",
+                "**/*.spec.js",
+                "test/**",
+                "config/**",
+                "api/**/templates/**",
+                "src/public/**",
+                "src/environments/**"
+            ],
             "main": "src/test.ts",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "src/tsconfig.spec.json",
@@ -148,6 +165,16 @@
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
+            "codeCoverage": true,
+            "codeCoverageExclude": [
+                "**/*.spec.ts",
+                "**/*.spec.js",
+                "test/**",
+                "config/**",
+                "api/**/templates/**",
+                "src/public/**",
+                "src/environments/**"
+            ],
             "main": "projects/hmcts-annotation-ui-lib/src/test.ts",
             "tsConfig": "projects/hmcts-annotation-ui-lib/tsconfig.spec.json",
             "karmaConfig": "projects/hmcts-annotation-ui-lib/karma.conf.js"

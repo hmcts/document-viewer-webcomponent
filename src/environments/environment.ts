@@ -1,5 +1,12 @@
+// The file contents for the current environment will overwrite these during build.
+// The build system defaults to the dev environment which uses `environment.ts`, but if you do
+// `ng build --env=prod` then `environment.prod.ts` will be used instead.
+// The list of which env maps to which file can be found in `.angular-cli.json`.
 
 export const environment = {
-  authorization: "eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJtbHZoMzMzbDZvdXFvZmgxcnRtbG9kMWo1ZyIsInN1YiI6IjI4IiwiaWF0IjoxNTM4NDg1NjI3LCJleHAiOjE1Mzg0ODkyMjcsImRhdGEiOiJjaXRpemVuLHByb2JhdGUtcHJpdmF0ZS1iZXRhLGNpdGl6ZW4tbG9hMSxwcm9iYXRlLXByaXZhdGUtYmV0YS1sb2ExIiwidHlwZSI6IkFDQ0VTUyIsImlkIjoiMjgiLCJmb3JlbmFtZSI6InRlc3QiLCJzdXJuYW1lIjoidGVzdCIsImRlZmF1bHQtc2VydmljZSI6IlByb2JhdGUiLCJsb2EiOjEsImRlZmF1bHQtdXJsIjoiaHR0cHM6Ly9sb2NhbGhvc3Q6OTAwMC9wb2MvcHJvYmF0ZSIsImdyb3VwIjoicHJvYmF0ZS1wcml2YXRlLWJldGEifQ.4I0R13doe296aXHy4JVFkwy6Z9nX1yGzaHf24K7NcgU",
-  serviceAuthorization: "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzc2NzIiwiZXhwIjoxNTM4NTAwMDI3fQ.to6EcwKT2hmrn0i5M_bvF1qujHMOTQvsETT_g0IaNEE4Vl-G9H2TgPMhX_anqruWUGRxiD5tR9Pbc3NDoYKJcQ"
+    production: false,
+    // remove this line if GA is need only for production. For time being, to test on aat env, added this.
+    googleAnalyticsKey: 'UA-124734893-1',
+    serviceDeskEmail: 'service-desk@hmcts.gov.uk',
+    serviceDeskTel: '0207 633 4140'
 };

@@ -1,10 +1,6 @@
-<!-- <router-outlet></router-outlet> -->
+<title>{{title}}</title>
 
-<app-annotation-pdf-viewer
-    [baseUrl]="'http://localhost:3000/api'"
-    [annotate]="true"
-    [dmDocumentId]="myId"
-    [outputDmDocumentId]="null"
-    [url]="'http://localhost:4200/assets/example.pdf'"
-    [annotationSet]="annotationSet"
-></app-annotation-pdf-viewer>
+<a href="{{logoutLink}}">Sign out</a>
+<router-outlet></router-outlet>
+
+<div id="global-app-error" class="app-error hidden"></div>
