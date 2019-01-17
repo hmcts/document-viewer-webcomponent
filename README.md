@@ -4,7 +4,7 @@
 Set environment variable to define if app connects to localhost or aat:
 ### export APP_ENV=local
 
-yarn install; export S2S_SECRET={{insert secret here}}; export IDAM_SECRET={{insert secret here}}; export APP_ENV=local; yarn start-dev-node;
+yarn install; export S2S_SECRET={{insert secret here}}; export IDAM_SECRET={{insert secret here}}; export APP_ENV=local; yarn watch-dev-node;
 yarn install; export S2S_SECRET={{insert secret here}}; export IDAM_SECRET={{insert secret here}}; export APP_ENV=local; yarn start-dev-proxy;
 
 Goto http://localhost:3000 and the viewer should load the document.
