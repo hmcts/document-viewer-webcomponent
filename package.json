@@ -17,6 +17,8 @@
     "package": "npm run build-lib && npm run copy-files && npm run npm-pack",
     "test": "ng test",
     "lint": "ng lint",
+    "test:codacy-upload": "cat ./reports/tests/coverage/lcov.info | codacy-coverage",
+    "test:codecov-upload": "codecov -f ./reports/tests/coverage/lcov.info",
     "e2e": "ng e2e"
   },
   "private": true,
