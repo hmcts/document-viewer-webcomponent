@@ -17,6 +17,7 @@ apt:
 script:
 - yarn --version
 - npm install
+- yarn install
 - yarn check --integrity
 - yarn test
 - yarn package
