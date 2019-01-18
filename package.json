@@ -1,6 +1,6 @@
 {
-  "name": "annotation-ui",
-  "version": "0.0.0",
+  "name": "@hmcts/annotation-ui",
+  "version": "1.0.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -107,5 +107,8 @@
     "tslint": "~5.9.1",
     "typescript": "~2.7.2",
     "nodemon": "1.17.5"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
