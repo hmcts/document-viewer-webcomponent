@@ -29,6 +29,3 @@ script:
   - yarn check --integrity
   - yarn build
   - yarn test
-after_success:
-  - yarn test:codacy-upload
-  - yarn test:codecov-upload
