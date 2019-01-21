@@ -21,7 +21,6 @@
     "test:codecov-upload": "codecov -f ./reports/tests/coverage/lcov.info",
     "e2e": "ng e2e"
   },
-  "private": true,
   "dependencies": {
     "@angular-devkit/build-ng-packagr": "^0.12.1",
     "@angular/animations": "6.1.0",
