@@ -14,7 +14,7 @@ const configs = {
 };
 
 export const configEnv = process ? process.env.APP_ENV || 'local' : 'local';
-console.log('Using ' + configEnv + 'config file');
+console.log('Using ' + configEnv + ' config file');
 export const config = { ...configs[configEnv].default, ...application };
 
 if (configEnv === 'local') {
