@@ -18,7 +18,7 @@ script:
 - npm --version
 - npm install
 - npm test
-- npm package
+- npm run package
 deploy:
   provider: npm
   email: jenkins-reform@hmcts.net
