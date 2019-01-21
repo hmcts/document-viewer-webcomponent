@@ -10,7 +10,7 @@ import { HmctsModule } from '../hmcts/hmcts.module';
 import { GenericPageComponent } from './pages/generic-page/generic-page.component';
 import { AnnotationWebappComponent } from '../annotation-webapp/annotation-webapp.component';
 import { CookiesComponent } from './pages/cookies/cookies.component';
-import { HmctsEmViewerUiModule } from 'projects/hmcts-annotation-ui-lib/src/lib/hmcts-em-viewer-ui.module';
+import { HmctsEmViewerUiModule } from '../../../projects/hmcts-annotation-ui-lib/src/lib/hmcts-em-viewer-ui.module';
 
 const routes: Routes = [
     {

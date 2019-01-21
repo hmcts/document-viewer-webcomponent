@@ -75,13 +75,13 @@ class MockViewerComponent {
 class MockPdfRenderService {
 
   listPagesSubject = new Subject();
-  
+
   setRenderOptions() {}
   getRenderOptions() {}
   getDataLoadedSub() {}
   render() {}
   getPdfPages() {}
-} 
+}
 
 class MockRotationFactoryService {
 }
@@ -91,7 +91,7 @@ describe('AnnotationPdfViewerComponent', () => {
   let fixture: ComponentFixture<AnnotationPdfViewerComponent>;
 
   const mockPdfRenderService = new MockPdfRenderService();
-  const mockRotationFactoryService = new MockRotationFactoryService(); 
+  const mockRotationFactoryService = new MockRotationFactoryService();
   const mockAnnotationStoreService = new MockAnnotationStoreService();
   const mockPdfService = new MockPdfService();
   const mockNpaService = new MockNpaService();
@@ -197,7 +197,7 @@ describe('AnnotationPdfViewerComponent', () => {
       spyOn(mockAnnotationStoreService, 'preLoad');
       spyOn(mockApiHttpService, 'setBaseUrl');
 
-      component.loadAnnotations(true);
+      component.loadAnnotations(true, null);
       expect(mockApiHttpService.setBaseUrl).toHaveBeenCalled();
       expect(mockAnnotationStoreService.preLoad).toHaveBeenCalledTimes(1);
     }));
@@ -206,7 +206,7 @@ describe('AnnotationPdfViewerComponent', () => {
       spyOn(mockAnnotationStoreService, 'preLoad').and.callFake(function() {
         expect(arguments[0]).toBeNull();
       });
-      component.loadAnnotations(false);
+      component.loadAnnotations(false, null);
     }));
   });
 
