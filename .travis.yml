@@ -15,12 +15,10 @@ apt:
   - google-chrome-stable
   - google-chrome-beta
 script:
-- yarn --version
+- npm --version
 - npm install
-- yarn install
-- yarn check --integrity
-- yarn test
-- yarn package
+- npm test
+- npm package
 deploy:
   provider: npm
   email: jenkins-reform@hmcts.net

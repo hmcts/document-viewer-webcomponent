@@ -5,7 +5,7 @@ import { ConfigService } from '../config.service';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie';
 
-const config = {
+const configService = {
     config: {
         cookies: {
             token: 'bob',
@@ -44,7 +44,7 @@ describe('AuthService', () => {
         TestBed.configureTestingModule({
             providers: [
                 AuthService,
-                { provide: ConfigService, useValue: config },
+                { provide: ConfigService, useValue: configService },
                 { provide: Router, useValue: router },
                 { provide: CookieService, useValue: cookieService }
             ]
@@ -57,8 +57,8 @@ describe('AuthService', () => {
 
     it('should take cookie ids from config', inject([AuthService], (service: AuthService) => {
         expect(service.COOKIE_KEYS).toEqual({
-            TOKEN: config.config.cookies.token,
-            USER: config.config.cookies.userId
+            TOKEN: configService.config.cookies.token,
+            USER: configService.config.cookies.userId
         });
     }));
 
