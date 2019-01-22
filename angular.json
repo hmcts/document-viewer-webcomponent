@@ -35,7 +35,6 @@
               "projects/hmcts-annotation-ui-lib/src/assets/javascripts/pdf.js",
               "projects/hmcts-annotation-ui-lib/src/assets/javascripts/pdf-worker.js",
               "projects/hmcts-annotation-ui-lib/src/assets/javascripts/pdf_viewer.js",
-              "projects/hmcts-annotation-ui-lib/src/assets/javascripts/pdf-annotate.js"
             ]
           },
           "configurations": {
