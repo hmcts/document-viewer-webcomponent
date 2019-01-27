@@ -3,5 +3,6 @@
   "dest": "../../dist/hmcts-annotation-ui-lib",
   "lib": {
     "entryFile": "src/public_api.ts"
-  }
+  },
+  "whitelistedNonPeerDependencies": ["@hmcts/pdf-annotate"]
 }
