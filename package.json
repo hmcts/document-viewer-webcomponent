@@ -40,7 +40,7 @@
     "@angular/platform-browser-dynamic": "6.1.0",
     "@angular/platform-server": "6.1.0",
     "@angular/router": "6.1.0",
-    "@hmcts/annotation-ui-lib": "file:///home/taleb/projects/reform/repos/rpa-em-annotation-webapp/dist/hmcts-annotation-ui-lib/hmcts-annotation-ui-lib-0.0.91.tgz",
+    "@hmcts/annotation-ui-lib": "0.0.91",
     "@hmcts/frontend": "0.0.14-alpha",
     "@hmcts/info-provider": "1.0.0",
     "@hmcts/nodejs-healthcheck": "1.4.6",
