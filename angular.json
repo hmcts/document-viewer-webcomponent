@@ -70,22 +70,17 @@
             "tsConfig": "projects/hmcts-annotation-ui-app/src/tsconfig.app.json",
             "assets": [
               "projects/hmcts-annotation-ui-app/src/favicon.ico",
-              "projects/hmcts-annotation-ui-app/src/assets",
-              {
-                "glob": "pdf.worker.js",
-                "input": "../dist/hmcts-annotation-ui-lib/assets/javascripts/",
-                "output": "./assets/"
-              }
+              "projects/hmcts-annotation-ui-app/src/assets"
             ],
             "styles": [
-              "projects/hmcts-annotation-ui-app/src/assets/annotation-ui-theme.scss",
+              "dist/hmcts-annotation-ui-lib/assets/annotation-ui-theme.scss",
               "projects/hmcts-annotation-ui-app/src/styles.css"
             ],
             "scripts": [
-              "projects/hmcts-annotation-ui-lib/src/assets/javascripts/pdf.js",
-              "projects/hmcts-annotation-ui-lib/src/assets/javascripts/pdf-worker.js",
-              "projects/hmcts-annotation-ui-lib/src/assets/javascripts/pdf_viewer.js",
-              "projects/hmcts-annotation-ui-lib/src/assets/javascripts/pdf-annotate.min.js"
+              "dist/hmcts-annotation-ui-lib/assets/js/pdf.js",
+              "dist/hmcts-annotation-ui-lib/assets/js/pdf.worker.js",
+              "dist/hmcts-annotation-ui-lib/assets/js/pdf_viewer.js",
+              "dist/hmcts-annotation-ui-lib/assets/js/pdf-annotate.min.js"
             ]
           },
           "configurations": {
@@ -195,5 +190,5 @@
       }
     }
   },
-  "defaultProject": "annotation-ui"
+  "defaultProject": "hmcts-annotation-ui-lib"
 }
