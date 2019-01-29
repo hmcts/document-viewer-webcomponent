@@ -19,6 +19,8 @@ script:
 - npm install
 - npm test
 - npm run package
+before_deploy:
+- cd dist
 deploy:
   provider: npm
   email: jenkins-reform@hmcts.net
