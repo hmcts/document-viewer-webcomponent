@@ -16,6 +16,14 @@
     "lib": [
       "es2017",
       "dom"
-    ]
+    ],
+    "paths": {
+      "@hmcts/annotation-ui-lib": [
+        "dist/annotation-ui-lib"
+      ],
+      "@hmcts/annotation-ui-lib/*": [
+        "dist/annotation-ui-lib/*"
+      ]
+    }
   }
 }
