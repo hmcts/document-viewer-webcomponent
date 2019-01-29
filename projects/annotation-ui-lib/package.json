@@ -1,6 +1,6 @@
 {
   "name": "@hmcts/annotation-ui-lib",
-  "version": "1.0.2-RC",
+  "version": "1.0.3-RC",
   "description": "PDF Viewer and ability to highlight text with and comment tracking",
   "keywords": [
     "Angular",
@@ -11,7 +11,7 @@
   "license": "SEE LICENSE IN LICENSE",
   "repository": {
     "type": "git",
-    "url": "https://github.com/hmcts/rpa-em-annotation-webapp"
+    "url": "https://github.com/hmcts/annotation-ui-lib"
   },
   "dependencies": {
     "@hmcts/pdf-annotate": "1.1.12"

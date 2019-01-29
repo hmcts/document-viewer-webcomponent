@@ -1,7 +1,7 @@
 {
     "compileOnSave": false,
     "compilerOptions": {
-        "outDir": "../dist/rpa-em-annotation-webapp-api",
+        "outDir": "../dist/annotation-ui-app-api",
         "target": "es5",
         "types": [
             "node",
@@ -22,7 +22,7 @@
     "include": [
         "**/*.ts",
         "../*.ts",
-      "../projects/hmcts-annotation-ui-app/src/app/routing/pages/generic-page/annotation-webapp/annotation-webapp.component.ts", "../config/environments/aat.config.ts", "../config/environments/local.config.ts"
+      "../projects/annotation-ui-app/src/app/routing/pages/generic-page/annotation-webapp/annotation-webapp.component.ts", "../config/environments/aat.config.ts", "../config/environments/local.config.ts"
     ],
     "exclude": [
         "**/*.spec.ts"

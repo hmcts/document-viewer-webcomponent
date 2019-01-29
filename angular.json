@@ -3,21 +3,21 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "hmcts-annotation-ui-lib": {
-      "root": "projects/hmcts-annotation-ui-lib",
-      "sourceRoot": "projects/hmcts-annotation-ui-lib/src",
+    "annotation-ui-lib": {
+      "root": "projects/annotation-ui-lib",
+      "sourceRoot": "projects/annotation-ui-lib/src",
       "projectType": "library",
       "prefix": "aui",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
           "options": {
-            "tsConfig": "projects/hmcts-annotation-ui-lib/tsconfig.lib.json",
-            "project": "projects/hmcts-annotation-ui-lib/ng-package.json"
+            "tsConfig": "projects/annotation-ui-lib/tsconfig.lib.json",
+            "project": "projects/annotation-ui-lib/ng-package.json"
           },
           "configurations": {
             "production": {
-              "project": "projects/hmcts-annotation-ui-lib/ng-package.prod.json"
+              "project": "projects/annotation-ui-lib/ng-package.prod.json"
             }
           }
         },
@@ -34,17 +34,17 @@
               "src/public/**",
               "src/environments/**"
             ],
-            "main": "projects/hmcts-annotation-ui-lib/src/test.ts",
-            "tsConfig": "projects/hmcts-annotation-ui-lib/tsconfig.spec.json",
-            "karmaConfig": "projects/hmcts-annotation-ui-lib/karma.conf.js"
+            "main": "projects/annotation-ui-lib/src/test.ts",
+            "tsConfig": "projects/annotation-ui-lib/tsconfig.spec.json",
+            "karmaConfig": "projects/annotation-ui-lib/karma.conf.js"
           }
         },
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "projects/hmcts-annotation-ui-lib/tsconfig.lib.json",
-              "projects/hmcts-annotation-ui-lib/tsconfig.spec.json"
+              "projects/annotation-ui-lib/tsconfig.lib.json",
+              "projects/annotation-ui-lib/tsconfig.spec.json"
             ],
             "exclude": [
               "**/node_modules/**"
@@ -53,9 +53,9 @@
         }
       }
     },
-    "hmcts-annotation-ui-app": {
-      "root": "projects/hmcts-annotation-ui-app/",
-      "sourceRoot": "projects/hmcts-annotation-ui-app/src",
+    "annotation-ui-app": {
+      "root": "projects/annotation-ui-app/",
+      "sourceRoot": "projects/annotation-ui-app/src",
       "projectType": "application",
       "prefix": "app",
       "schematics": {},
@@ -63,32 +63,32 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/hmcts-annotation-ui-app",
-            "index": "projects/hmcts-annotation-ui-app/src/index.html",
-            "main": "projects/hmcts-annotation-ui-app/src/main.ts",
-            "polyfills": "projects/hmcts-annotation-ui-app/src/polyfills.ts",
-            "tsConfig": "projects/hmcts-annotation-ui-app/src/tsconfig.app.json",
+            "outputPath": "dist/annotation-ui-app",
+            "index": "projects/annotation-ui-app/src/index.html",
+            "main": "projects/annotation-ui-app/src/main.ts",
+            "polyfills": "projects/annotation-ui-app/src/polyfills.ts",
+            "tsConfig": "projects/annotation-ui-app/src/tsconfig.app.json",
             "assets": [
-              "projects/hmcts-annotation-ui-app/src/favicon.ico",
-              "projects/hmcts-annotation-ui-app/src/assets"
+              "projects/annotation-ui-app/src/favicon.ico",
+              "projects/annotation-ui-app/src/assets"
             ],
             "styles": [
-              "dist/hmcts-annotation-ui-lib/assets/annotation-ui-theme.scss",
-              "projects/hmcts-annotation-ui-app/src/styles.css"
+              "dist/annotation-ui-lib/assets/annotation-ui-theme.scss",
+              "projects/annotation-ui-app/src/styles.css"
             ],
             "scripts": [
-              "dist/hmcts-annotation-ui-lib/assets/js/pdf.js",
-              "dist/hmcts-annotation-ui-lib/assets/js/pdf.worker.js",
-              "dist/hmcts-annotation-ui-lib/assets/js/pdf_viewer.js",
-              "dist/hmcts-annotation-ui-lib/assets/js/pdf-annotate.min.js"
+              "dist/annotation-ui-lib/assets/js/pdf.js",
+              "dist/annotation-ui-lib/assets/js/pdf.worker.js",
+              "dist/annotation-ui-lib/assets/js/pdf_viewer.js",
+              "dist/annotation-ui-lib/assets/js/pdf-annotate.min.js"
             ]
           },
           "configurations": {
             "production": {
               "fileReplacements": [
                 {
-                  "replace": "projects/hmcts-annotation-ui-app/src/environments/environment.ts",
-                  "with": "projects/hmcts-annotation-ui-app/src/environments/environment.prod.ts"
+                  "replace": "projects/annotation-ui-app/src/environments/environment.ts",
+                  "with": "projects/annotation-ui-app/src/environments/environment.prod.ts"
                 }
               ],
               "optimization": true,
@@ -106,19 +106,19 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "hmcts-annotation-ui-app:build",
+            "browserTarget": "annotation-ui-app:build",
             "port": 3000
           },
           "configurations": {
             "production": {
-              "browserTarget": "hmcts-annotation-ui-app:build:production"
+              "browserTarget": "annotation-ui-app:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "hmcts-annotation-ui-app:build"
+            "browserTarget": "annotation-ui-app:build"
           }
         },
         "test": {
@@ -131,20 +131,20 @@
                 "test/**",
                 "config/**",
                 "api/**/templates/**",
-                "projects/hmcts-annotation-ui-app/src/public/**",
-                "projects/hmcts-annotation-ui-app/src/environments/**"
+                "projects/annotation-ui-app/src/public/**",
+                "projects/annotation-ui-app/src/environments/**"
             ],
-            "main": "projects/hmcts-annotation-ui-app/src/test.ts",
-            "polyfills": "projects/hmcts-annotation-ui-app/src/polyfills.ts",
-            "tsConfig": "projects/hmcts-annotation-ui-app/src/tsconfig.spec.json",
-            "karmaConfig": "projects/hmcts-annotation-ui-app/src/karma.conf.js",
+            "main": "projects/annotation-ui-app/src/test.ts",
+            "polyfills": "projects/annotation-ui-app/src/polyfills.ts",
+            "tsConfig": "projects/annotation-ui-app/src/tsconfig.spec.json",
+            "karmaConfig": "projects/annotation-ui-app/src/karma.conf.js",
             "styles": [
-              "projects/hmcts-annotation-ui-app/src/styles.css"
+              "projects/annotation-ui-app/src/styles.css"
             ],
             "scripts": [],
             "assets": [
-              "projects/hmcts-annotation-ui-app/src/favicon.ico",
-              "projects/hmcts-annotation-ui-app/src/assets"
+              "projects/annotation-ui-app/src/favicon.ico",
+              "projects/annotation-ui-app/src/assets"
             ]
           }
         },
@@ -152,8 +152,8 @@
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "projects/hmcts-annotation-ui-app/src/tsconfig.app.json",
-              "projects/hmcts-annotation-ui-app/src/tsconfig.spec.json"
+              "projects/annotation-ui-app/src/tsconfig.app.json",
+              "projects/annotation-ui-app/src/tsconfig.spec.json"
             ],
             "exclude": [
               "**/node_modules/**"
@@ -162,26 +162,26 @@
         }
       }
     },
-    "hmcts-annotation-ui-app-e2e": {
-      "root": "projects/hmcts-annotation-ui-app-e2e/",
+    "annotation-ui-app-e2e": {
+      "root": "projects/annotation-ui-app-e2e/",
       "projectType": "application",
       "architect": {
         "e2e": {
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
-            "protractorConfig": "projects/hmcts-annotation-ui-app-e2e/protractor.conf.js",
-            "devServerTarget": "hmcts-annotation-ui-app:serve"
+            "protractorConfig": "projects/annotation-ui-app-e2e/protractor.conf.js",
+            "devServerTarget": "annotation-ui-app:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "hmcts-annotation-ui-app:serve:production"
+              "devServerTarget": "annotation-ui-app:serve:production"
             }
           }
         },
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": "projects/hmcts-annotation-ui-app-e2e/tsconfig.e2e.json",
+            "tsConfig": "projects/annotation-ui-app-e2e/tsconfig.e2e.json",
             "exclude": [
               "**/node_modules/**"
             ]
@@ -190,5 +190,5 @@
       }
     }
   },
-  "defaultProject": "hmcts-annotation-ui-lib"
+  "defaultProject": "annotation-ui-lib"
 }

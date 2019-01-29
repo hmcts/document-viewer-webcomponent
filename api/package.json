@@ -1,5 +1,5 @@
 {
-  "name": "rpa-em-annotation-webapp-api",
+  "name": "annotation-ui-app-api",
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
@@ -9,7 +9,7 @@
     "watch": "nodemon --watch '**/*.ts' --exec 'ts-node' ../dev-server.ts",
     "test": "mocha",
     "test:watch": "mocha --watch --recursive --watch-extensions ts",
-    "start": "cd ../dist/rpa-em-annotation-webapp-api && node server.js"
+    "start": "cd ../dist/annotation-ui-app-api-api && node server.js"
   },
   "private": true,
   "nyc": {

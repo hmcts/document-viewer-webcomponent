@@ -11,7 +11,7 @@ Goto http://localhost:3000 and the viewer should load the document.
 
 ## To build annotation library
 npm run package
-Distributable will be copied to /dist/hmcts-annotation-ui-lib
+Distributable will be copied to /dist/annotation-ui-lib
 
 ## Instructions to add this library to your another angular app
 Check demo app:
@@ -21,7 +21,7 @@ Import HmctsEmViewerUiModule and declare it in your NgModule imports.
 
 For example:
 ```
-import { HmctsEmViewerUiModule } from 'hmcts-annotation-ui-lib';
+import { HmctsEmViewerUiModule } from 'annotation-ui-lib';
 
 @NgModule({
   imports: [
@@ -34,16 +34,16 @@ Import the assets to your angular.json
 ```
   {
       "glob": "**/*",
-      "input": "node_modules/hmcts-annotation-ui-lib/assets",
+      "input": "node_modules/annotation-ui-lib/assets",
       "output": "/assets"
   }
 ```
 Reference the followings scripts in your angular.json.
 ```
 "scripts": [
-    "node_modules/hmcts-annotation-ui-lib/assets/javascripts/pdf.js",
-    "node_modules/hmcts-annotation-ui-lib/assets/javascripts/pdf_viewer.js",
-    "node_modules/hmcts-annotation-ui-lib/assets/javascripts/pdf-annotate.js"
+    "node_modules/annotation-ui-lib/assets/javascripts/pdf.js",
+    "node_modules/annotation-ui-lib/assets/javascripts/pdf_viewer.js",
+    "node_modules/annotation-ui-lib/assets/javascripts/pdf-annotate.js"
     ...
 ]
 ```
@@ -51,7 +51,7 @@ Reference the followings scripts in your angular.json.
 And styles
 ```
 "styles": [
-  "node_modules/hmcts-annotation-ui-lib/assets/annotation-ui-theme.scss",
+  "node_modules/annotation-ui-lib/assets/annotation-ui-theme.scss",
   ...
 ],
 ```

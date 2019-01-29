@@ -26,7 +26,7 @@ services:
       - 4502:8489
 
   annotation-api:
-    image: pawelblue/rpa-em-annotation-api:latest
+    image: pawelblue/annotation-ui-app-api:latest
     environment:
       - SPRING_DATASOURCE_URL=jdbc:postgresql://annotation-api-db:5432/anno
       - SPRING_DATASOURCE_USERNAME=anno

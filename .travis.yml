@@ -26,6 +26,6 @@ deploy:
     secure: UrvQez/uI/M45eGJzjPjpVzMi6VM7uttQJsjcioGPEaRd/jxvjd/TkIgPb2gpaquCNUulkvKOGnEj9/pHRAGAEscok+uTQHWZXQdAJOOECgJLMLvjdqu1KEyCZlWFvkXSR0KLHXDJeLcatVbj3mepr/NOFLgezNlvN3XH7flY+mgQnal9gbxcNgS6urQw7g5sSKHfiqgpjUsDmMytlHQ+EhTGWkQYVCFMaZDC7gMOCC+LtUuBkE90NTR71E3JOuj4jrCkSpYTyCOEuKU0qRRHLunXJOzriIF0Oyweau3KEArweDd9qq3NFrsFwXVVBPGJiNJC742985rn1hL2QxDxokeedEgjqAH82lIE1hYvcrg4JilF5uvOoublPeBAJcOIytV+Hf1VAGRmbKdiU2X9fjuGdnH2+IlmHtAT/1dlAu3gk1dLxkQuT9bLgBRkLwdLcbxCaTKwzCcnzFc8Tpq9367GFvHk+hYyWL7aBdESGdarN75CrjYSM5Q+rAWwuKqcXqZPC6B7TcLXJSNehhUPkaX9pRiK+PoPzMBdrTWiSG4jrdgktI4gTclVX5tJrjESeIwXC7yi1lIlKLghr/2ZaVHCOMvlz5j85wQwaDAEv/yD2x+UDM4dr2iy9uL6VAIRHYaOzsIpmQeLr3M7XHoVRrckbeaXORdFoG6iDetQ/I=
   on:
     tags: true
-    repo: hmcts/rpa-em-annotation-webapp
+    repo: hmcts/annotation-ui-lib
     branch: upload-npm-in-pipeline
   skip_cleanup: true
