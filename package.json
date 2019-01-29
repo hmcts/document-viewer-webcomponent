@@ -1,6 +1,6 @@
 {
   "name": "@hmcts/annotation-ui-lib",
-  "version": "1.0.5-RC",
+  "version": "1.0.6-RC",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -18,7 +18,7 @@
     "copy-files": "npm run copy-js-dependencies && npm run copy-assets && npm run copy-docs",
     "build-lib": "npm install && npm run install-js-dependencies && cd projects/annotation-ui-lib && ng build",
     "npm-pack": "cd dist/annotation-ui-lib && npm pack",
-    "package": "npm run build-lib && npm run copy-files && npm pack",
+    "package": "npm run build-lib && npm run copy-files && npm run npm-pack",
     "test": "ng test",
     "lint": "ng lint",
     "test:codacy-upload": "cat ./reports/tests/coverage/lcov.info | codacy-coverage",
@@ -40,7 +40,7 @@
     "@angular/platform-browser-dynamic": "6.1.0",
     "@angular/platform-server": "6.1.0",
     "@angular/router": "6.1.0",
-    "@hmcts/annotation-ui-lib": "1.0.4-RC",
+    "@hmcts/annotation-ui-lib": "1.0.5-RC",
     "@hmcts/frontend": "0.0.14-alpha",
     "@hmcts/info-provider": "1.0.0",
     "@hmcts/nodejs-healthcheck": "1.4.6",
