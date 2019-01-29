@@ -28,3 +28,4 @@ deploy:
     tags: true
     repo: hmcts/rpa-em-annotation-webapp
     branch: upload-npm-in-pipeline
+  skip_cleanup: true
