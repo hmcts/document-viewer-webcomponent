@@ -1,6 +1,6 @@
 {
   "name": "@hmcts/annotation-ui-lib",
-  "version": "1.0.9-RC",
+  "version": "1.0.10-RC",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -40,7 +40,7 @@
     "@angular/platform-browser-dynamic": "6.1.0",
     "@angular/platform-server": "6.1.0",
     "@angular/router": "6.1.0",
-    "@hmcts/annotation-ui-lib": "1.0.7-RC",
+    "@hmcts/annotation-ui-lib": "1.0.9-RC",
     "@hmcts/frontend": "0.0.14-alpha",
     "@hmcts/info-provider": "1.0.0",
     "@hmcts/nodejs-healthcheck": "1.4.6",

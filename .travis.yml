@@ -30,4 +30,4 @@ deploy:
   on:
     tags: true
     repo: hmcts/annotation-ui-lib
-    branch: upload-npm-in-pipeline
+    all_branches: true
