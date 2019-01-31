@@ -24,9 +24,9 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   }));
 
-  it(`should have as title 'EM Annotation WebApp'`, async(() => {
+  it(`should have as title 'Annotation Library Demo App'`, async(() => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.debugElement.componentInstance;
-    expect(app.title).toEqual('EM Annotation WebApp');
+    expect(app.title).toEqual('Annotation Library Demo App');
   }));
 });

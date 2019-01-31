@@ -1,6 +1,6 @@
 {
   "name": "@hmcts/annotation-ui-lib",
-  "version": "1.0.12-RC",
+  "version": "1.0.13-RC",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
