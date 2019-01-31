@@ -24,7 +24,6 @@ documentsRoutes(router)
 if (config.configEnv !== 'prod') {
     // Uncomment to enable direct access to Microservices
     dmStoreApiRoutes(router)
-
     idamApiRoutes(router)
     s2sApiRoutes(router)
 }
