@@ -1,0 +1,112 @@
+.annotation-toolbar-container {
+  margin: 0 auto;
+}
+
+.annotation-toolbar {
+  background-color: #ffffff;
+  border-bottom: 1px solid #DDDDDD;
+  border-top: 1px solid #DDDDDD;
+  height: 50px;
+  position: sticky;
+  position: -webkit-sticky;
+  top: -1px;
+  width: 100%;
+  z-index: 1;
+}
+
+.annotation-toolbar-button {
+  font-family: "nta", Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-weight: 400;
+  font-size: 16px;
+  font-size: 1rem;
+  line-height: 1.25;
+  background-color: #ffffff;
+  border: 0 none;
+  color: #0b0c0c;
+  cursor: pointer;
+  float: left;
+  height: 50px;
+  margin: 0;
+  padding-left: 15px;
+  padding-right: 15px;
+  position: relative;
+}
+
+.annotation-toolbar-button::after {
+  background-color: #DEE0E2;
+  content: "";
+  display: block;
+  height: 100%;
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 1px;
+}
+
+.annotation-toolbar-button[aria-pressed=true] {
+  background-color: #dee0e2;
+  cursor: default;
+}
+
+.annotation-toolbar-button--items {
+  background-image: url(/assets/images/icon-casefile-items.svg);
+  background-repeat: no-repeat;
+  background-size: 18px 14px;
+  background-position: 15px 50%;
+  padding-left: 45px;
+}
+
+.annotation-toolbar-container {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 1220px;
+  margin: 0 15px;
+  border-left: 1px solid #dee0e2;
+  border-right: 1px solid #dee0e2;
+  height: 100%;
+  position: relative;
+  left: 0;
+  top: 0;
+  z-index: 1;
+}
+
+.document-window {
+  background-color: #f8f8f8;
+  padding-bottom: 25px;
+  padding-top: 25px;
+  position: relative;
+}
+
+.document-pages {
+  margin-left: 417px;
+}
+
+.document-pages {
+  max-width: 803px;
+  margin-bottom: 30px;
+}
+
+.document-page:first-child {
+  margin-top: 0;
+}
+
+.document-page {
+  background: #ffffff;
+  box-sizing: border-box;
+  box-shadow: 0 0 1px 0 #D1D1D1, 0 0 3px 0 #CCCCCC;
+  margin-top: 20px;
+}
+
+.document-page:before {
+  content: '';
+  float: left;
+  padding-bottom: 141.4%;
+}
+
+.document-page:after {
+  content: '';
+  display: table;
+  clear: both;
+}
