@@ -1,15 +1,20 @@
+<!-- <app-rotation-toolbar></app-rotation-toolbar> -->
+<div id="annotation-wrapper" #annotationWrapper class="aui-window">
+  <div class="aui-window-container">
+    <div class="aui-document">
+      <app-comments (click)="handleClick($event, false)" #commentsComponent
+                    *ngIf="annotate"></app-comments>
+      <app-contextual-toolbar #contextualToolbar></app-contextual-toolbar>
+      <div class="aui-document-pages">
 
-
- <!-- <app-rotation-toolbar></app-rotation-toolbar> -->
-<div id="annotation-wrapper" #annotationWrapper>
-
-    <app-comments (click)="handleClick($event, false)" #commentsComponent
-    *ngIf="annotate"></app-comments>
-    <app-contextual-toolbar #contextualToolbar></app-contextual-toolbar>
-
-    <div id="content-wrapper"
-         #contentWrapper
-        (click)="handleClick($event, true)">
-        <div id="viewer" #viewer class="pdfViewer"></div>
+          <div id="content-wrapper"
+               #contentWrapper
+               (click)="handleClick($event, true)">
+            <div class="aui-document-page">
+            <div id="viewer" #viewer class="pdfViewer"></div>
+            </div>
+          </div>
+      </div>
     </div>
+  </div>
 </div>

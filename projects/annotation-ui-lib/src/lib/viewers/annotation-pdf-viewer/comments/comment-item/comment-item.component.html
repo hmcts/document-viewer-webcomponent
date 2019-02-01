@@ -1,30 +1,30 @@
-  <form class="jui-comment comment-list-item"
+  <form class="aui-comment comment-list-item"
     (ngSubmit)="onSubmit()"
     #commentSelector
     #commentItem="ngForm" 
     (click)="handleCommentClick($event)"
     [style.top.px]="commentTopPos">
-    <div #detailsWrapper id="detailsWrapper" class="jui-comment__header">
-      <span *ngIf="comment.createdByDetails" class="jui-comment__author">{{comment.createdByDetails.forename}} {{comment.createdByDetails.surname}}</span>
-      <time #commentDate class="jui-comment__meta" ng-controller="datCtrl">{{ comment.createdDate | date: 'd MMMM y h:mm a' }}</time>
+    <div #detailsWrapper id="detailsWrapper" class="aui-comment-header">
+      <span *ngIf="comment.createdByDetails" class="aui-comment-author">{{comment.createdByDetails.forename}} {{comment.createdByDetails.surname}}</span>
+      <time #commentDate class="aui-comment-meta" ng-controller="datCtrl">{{ comment.createdDate | date: 'd MMMM y h:mm a' }}</time>
       <div *ngIf="false">
           <span>modified By: {{comment.lastModifiedByDetails.forename}} {{comment.lastModifiedByDetails.surname}}</span>
-        <time class="jui-comment__meta" ng-controller="datCtrl"><br>{{ comment.lastModifiedDate | date: 'd MMMM y h:mm a' }}</time>
+        <time class="aui-comment-meta" ng-controller="datCtrl"><br>{{ comment.lastModifiedDate | date: 'd MMMM y h:mm a' }}</time>
       </div>
     </div>
 
-    <textarea 
+    <textarea
       #commentArea
       (blur)="onBlur()"
       type="text" 
       [class.mimic-focus]="focused"
-      class="jui-comment__content form-control mimic-focus view-mode"
+      class="aui-comment-content form-control mimic-focus view-mode"
       required
       [ngModel]="sliceComment" name="content"
       value="comment.content"
       [readonly]="!focused"></textarea>
 
-      <div [hidden]="hideButton" class="jui-comment__footer commentBtns">
+      <div [hidden]="hideButton" class="aui-comment-footer commentBtns">
           <button *ngIf="focused" type="submit" class="govuk-button" role="button">Save</button>
           <button *ngIf="!focused" (click)="onEdit()" class="govuk-button" role="button">Edit</button>
           <button

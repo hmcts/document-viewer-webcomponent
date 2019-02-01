@@ -1,19 +1,15 @@
-<div class="annotation-toolbar" role="toolbar">
-  <div class="annotation-toolbar-container">
-    <button class="annotation-toolbar-button annotation-toolbar-button--items">
+<div class="aui-toolbar" role="toolbar">
+  <div class="aui-toolbar-container">
+    <button class="aui-toolbar-button aui-toolbar-button--items">
       <b>Annotation Library Demo App</b>
     </button>
   </div>
 </div>
-<div class="document-window">
-  <div class="document-pages">
-    <div class="document-page">
-      <app-document-viewer
-        [baseUrl]="'http://localhost:3000/api'"
-        [annotate]="true"
-        [pdfWorker]="'/assets/pdf-worker.js'"
-        [url]="'https://dm-store-aat.service.core-compute-aat.internal/documents/35f3714e-30e0-45d6-b4fb-08f51c271f8e'">
-      </app-document-viewer>
-    </div>
-  </div>
-</div>
+
+<app-document-viewer
+  [baseUrl]="'http://localhost:3000/api'"
+  [annotate]="true"
+  [pdfWorker]="'/assets/pdf-worker.js'"
+  [url]="'https://dm-store-aat.service.core-compute-aat.internal/documents/35f3714e-30e0-45d6-b4fb-08f51c271f8e'">
+</app-document-viewer>
+
