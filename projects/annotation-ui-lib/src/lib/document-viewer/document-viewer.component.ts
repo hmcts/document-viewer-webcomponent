@@ -5,6 +5,8 @@ import {DocumentViewerService} from './document-viewer.service';
 import { ViewerFactoryService } from '../viewers/viewer-factory.service';
 import { UrlFixerService } from '../data/url-fixer.service';
 import { EmLoggerService } from '../logging/em-logger.service';
+import {ImageViewerComponent} from '../viewers/image-viewer/image-viewer.component';
+import {UnsupportedViewerComponent} from '../viewers/unsupported-viewer/unsupported-viewer.component';
 
 @Component({
     selector: 'app-document-viewer',
@@ -16,6 +18,8 @@ export class DocumentViewerComponent implements OnChanges, OnInit {
     @Input() url = '';
     @Input() annotate: boolean;
     @Input() baseUrl: string;
+    @Input() isDM: boolean;
+    @Input() contentType: string;
 
     mimeType: string;
     docName: string;
@@ -33,8 +37,10 @@ export class DocumentViewerComponent implements OnChanges, OnInit {
     }
 
     ngOnChanges(changes: SimpleChanges) {
-        if (changes.url || changes.annotate) {
-            this.buildComponent();
+        if (this.isDM && (changes.url || changes.annotate)) {
+          this.buildComponent();
+        } else {
+          this.buildUIViewer();
         }
     }
 
@@ -56,5 +62,20 @@ export class DocumentViewerComponent implements OnChanges, OnInit {
             this.log.error('An error has occured while fetching document' + err);
             this.error = err;
         });
+    }
+
+    buildUIViewer() {
+      if (this.contentType === 'pdf') {
+          this.viewerComponent = this.viewerFactoryService.buildAnnotateUi(this.url,
+            this.viewerAnchor.viewContainerRef, this.baseUrl, false, null, this.pdfWorker);
+      } else if (this.contentType === 'image') {
+        this.log.info('Selected image viewer');
+        this.viewerComponent = this.viewerFactoryService.createComponent(ImageViewerComponent,
+          this.viewerAnchor.viewContainerRef, this.url, this.url);
+      } else {
+        this.log.info('Unsupported type for viewer');
+        this.viewerComponent = this.viewerFactoryService.createComponent(UnsupportedViewerComponent,
+          this.viewerAnchor.viewContainerRef, this.url, this.url);
+      }
     }
 }
