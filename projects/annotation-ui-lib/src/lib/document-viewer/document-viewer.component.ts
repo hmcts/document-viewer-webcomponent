@@ -15,7 +15,6 @@ export class DocumentViewerComponent implements OnChanges, OnInit {
     @ViewChild(ViewerAnchorDirective) viewerAnchor: ViewerAnchorDirective;
     @Input() url = '';
     @Input() annotate: boolean;
-    @Input() pdfWorker: string;
     @Input() baseUrl: string;
 
     mimeType: string;
@@ -51,7 +50,7 @@ export class DocumentViewerComponent implements OnChanges, OnInit {
                 this.docName = resp.originalDocumentName;
                 this.viewerComponent =
                     this.viewerFactoryService.buildViewer(resp, this.annotate,
-                        this.viewerAnchor.viewContainerRef, this.baseUrl, this.pdfWorker);
+                        this.viewerAnchor.viewContainerRef, this.baseUrl);
             }
         }, err => {
             this.log.error('An error has occured while fetching document' + err);

@@ -12,7 +12,7 @@
     "experimentalDecorators": true,
     "importHelpers": true,
     "types": [ "node"],
-    "typeRoots": ["../node_modules/@types" ],
+    "typeRoots": ["../node_modules/@types"],
     "lib": [
       "dom",
       "es2017"

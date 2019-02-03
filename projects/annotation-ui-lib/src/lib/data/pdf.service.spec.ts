@@ -14,7 +14,6 @@ class MockPdfAnnotateWrapper {
 }
 
 class MockPdfWrapper {
-  workerSrc() {}
   getDocument(documentId) {}
 }
 

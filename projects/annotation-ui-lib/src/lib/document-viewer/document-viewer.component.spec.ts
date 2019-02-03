@@ -8,6 +8,7 @@ import {of} from 'rxjs';
 import { TransferState } from '@angular/platform-browser';
 import { HmctsEmViewerUiModule } from '../hmcts-em-viewer-ui.module';
 import { EmLoggerService } from '../logging/em-logger.service';
+import {PdfWrapper} from "../data/js-wrapper/pdf-wrapper";
 
 const originalUrl = 'http://api-gateway.dm.com/documents/1234-1234-1234';
 const url = '/demproxy/dm/documents/1234-1234-1234';
@@ -18,8 +19,13 @@ class MockTransferState {
     set() {}
 }
 
+class MockPdfWrapper {
+  getDocument(documentId) {}
+}
+
 describe('DocumentViewerComponent', () => {
     const mockTransferState = new MockTransferState();
+    const mockPdfWrapper = new MockPdfWrapper();
     let component: DocumentViewerComponent;
     let fixture: ComponentFixture<DocumentViewerComponent>;
     let element: DebugElement;
@@ -37,7 +43,8 @@ describe('DocumentViewerComponent', () => {
             providers: [
                 EmLoggerService,
                 { provide: TransferState, useFactory: () => mockTransferState},
-                { provide: DocumentViewerService, useValue: DocumentViewerServiceMock}
+                { provide: DocumentViewerService, useValue: DocumentViewerServiceMock},
+                { provide: PdfWrapper, useFactory: () => mockPdfWrapper }
             ]
         });
 

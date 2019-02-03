@@ -9,7 +9,6 @@ import { RotationModel } from '../model/rotation-factory.model';
 @Injectable()
 export class PdfRenderService {
 
-    pdfWorker: string;
     private viewerElementRef: ElementRef;
     private RENDER_OPTIONS: RenderOptions;
     private pdfPages: number;
@@ -55,8 +54,6 @@ export class PdfRenderService {
             this.viewerElementRef = viewerElementRef;
         }
 
-        this.pdfWrapper.workerSrc(this.pdfWorker);
-        
         const renderOptions = this.getRenderOptions();
         this.pdfWrapper.getDocument(renderOptions.documentId)
             .then(pdf => {

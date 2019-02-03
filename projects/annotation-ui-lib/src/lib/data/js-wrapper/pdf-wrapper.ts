@@ -2,8 +2,8 @@ declare const PDFJS: any;
 
 export class PdfWrapper {
 
-    workerSrc(workerSrc) {
-        PDFJS.workerSrc = workerSrc;
+    constructor() {
+        PDFJS.workerSrc = '/assets/js/pdf.worker.min.js';
     }
 
     getDocument(documentId): Promise<any> {

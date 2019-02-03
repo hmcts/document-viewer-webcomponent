@@ -197,7 +197,7 @@ describe('AnnotationPdfViewerComponent', () => {
       spyOn(mockAnnotationStoreService, 'preLoad');
       spyOn(mockApiHttpService, 'setBaseUrl');
 
-      component.loadAnnotations(true, null);
+      component.loadAnnotations(true);
       expect(mockApiHttpService.setBaseUrl).toHaveBeenCalled();
       expect(mockAnnotationStoreService.preLoad).toHaveBeenCalledTimes(1);
     }));
@@ -206,7 +206,7 @@ describe('AnnotationPdfViewerComponent', () => {
       spyOn(mockAnnotationStoreService, 'preLoad').and.callFake(function() {
         expect(arguments[0]).toBeNull();
       });
-      component.loadAnnotations(false, null);
+      component.loadAnnotations(false);
     }));
   });
 

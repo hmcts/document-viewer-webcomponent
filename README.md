@@ -38,9 +38,9 @@ This is an angular library that provides components to view and annotate PDF doc
 - import JS dependencies as scripts within angular.json
   ```
   "scripts": [
-      "node_modules/@hmcts/annotation-ui-lib/assets/js/pdf.js",
-      "node_modules/@hmcts/annotation-ui-lib/assets/js/pdf.worker.js",
-      "node_modules/@hmcts/annotation-ui-lib/assets/js/pdf_viewer.js",
+      "node_modules/@hmcts/annotation-ui-lib/assets/js/pdf.min.js",
+      "node_modules/@hmcts/annotation-ui-lib/assets/js/pdf.worker.min.js",
+      "node_modules/@hmcts/annotation-ui-lib/assets/js/pdf_viewer.min.js",
       "node_modules/@hmcts/annotation-ui-lib/assets/js/pdf-annotate.min.js"
       ...
   ]
@@ -50,7 +50,6 @@ This is an angular library that provides components to view and annotate PDF doc
   <app-document-viewer
       [baseUrl]="'http://localhost:3000/api'"
       [annotate]="true"
-      [pdfWorker]="'/public/javascripts/pdf-worker.js'"
       [url]="'https://dm-store-aat.service.core-compute-aat.internal/documents/35f3714e-30e0-45d6-b4fb-08f51c271f8e'"
   ></app-document-viewer>
   ```
