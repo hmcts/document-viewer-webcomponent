@@ -8,15 +8,12 @@
 
 .rotate {
   position: relative;
-  height: 30px;
-  width: 30px;
   background-repeat: no-repeat;
-  background-size: 20px 20px;
+  background-size: 14px 14px;
   background-position: 3px 50%;
-  background-image: url(/assets/images/viewer-rotate.svg);
+  background-image: url(/public/images/em-viewer-rotate.svg);
 }
-
-.anti {
+.anti{
   position: relative;
   -webkit-transform: scaleX(-1);
   transform: scaleX(-1);

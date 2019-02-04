@@ -2,45 +2,27 @@
 // comment-item.component.scss
 ////////////////////////////////////////
 
-@media (min-width: 48.0625em) {
-.aui-comment {
-  position: relative;
-  top: 578px;
-}
-}
-.aui-comment {
+form {
+  width: 95%;
+  padding-right: 2px;
+  margin-bottom: 5px;
+  position: absolute;
   background-color: #ffffff;
-  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3), inset 0 -1px 0 0 #DDDDDD;
   padding: 20px 20px 0;
 }
 
+form textarea {
+  width: 95%;
+  padding: 2px;
+  border: none;
 
-.aui-comment-header {
-  border-bottom: 1px solid #ddd;
-  margin-bottom: 25px;
-  padding-bottom: 25px;
-}
-
-.aui-comment-author {
-  font-size: 1.1875rem;
-  line-height: 1.31579;
+  font-size: 17px;
   font-family: "nta", Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
-  display: block;
-  font-weight: bold;
-}
-
-aui-comment-meta {
-  font-size: 1rem;
-  line-height: 1.25;
-  font-family: "nta", Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   font-weight: 400;
-  color: #6f777b;
-}
-
-aui-comment-footer {
-  font-size: .1px;
+  overflow: hidden;
+  resize: none;
 }
 
 .mimic-focus {
@@ -49,7 +31,7 @@ aui-comment-footer {
 }
 
 textarea.view-mode:focus {
-    outline: none;
+  outline: none;
 }
 
 #detailsWrapper {
@@ -76,8 +58,8 @@ textarea.expanded {
 }
 
 textarea.collapsed {
-    margin-top: -25px;
-    max-height: 20px;
+  margin-top: -25px;
+  max-height: 20px;
 }
 
 .collapsed > time {

@@ -1,77 +1,15 @@
 ////////////////////////////////////////
-// aui-pdf-viewer.component.scss
+// annotation-pdf-viewer.component.scss
 ////////////////////////////////////////
 
-.aui-window {
-  background-color: #f8f8f8;
-  padding-bottom: 25px;
-  padding-top: 25px;
-  position: relative;
-}
-
-@media (min-width: 1280px) {
-  .aui-window-container {
-    margin: 0 auto;
-  }
-}
-
-@media (min-width: 40.0625em) {
-  .aui-window-container {
-    margin: 0 30px;
-  }
-}
-
-.aui-window-container {
-  max-width: 1220px;
-  margin: auto auto;
-  position: relative;
-}
-
-.aui-window-container:after {
-  content: "";
-  display: block;
-  clear: both;
-}
-
-.aui-document {
-  position: relative;
-}
-
-.aui-document-pages {
-  max-width: 803px;
-  margin-bottom: 30px;
-}
-
-.aui-document-page:first-child {
-  margin-top: 0;
-}
-
-.aui-document-page {
-  background: #ffffff;
-  box-sizing: border-box;
-  box-shadow: 0 0 1px 0 #D1D1D1, 0 0 3px 0 #CCCCCC;
-  margin-top: 20px;
-}
-
-.aui-document-page:before {
-  content: '';
-  float: left;
-  padding-bottom: 141.4%;
-}
-
-.aui-document-page:after {
-  content: '';
-  display: table;
-  clear: both;
-}
-
 #annotation-wrapper {
-    position: relative;
-    width: 100%;
+  position: relative;
+  width: 100%;
 }
 
 #content-wrapper {
-    overflow: auto;
+  overflow: hidden;
+  padding: 0 5px;
 }
 
 ////////////////////////////////////////

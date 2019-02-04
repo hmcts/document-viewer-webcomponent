@@ -69,17 +69,45 @@
             "polyfills": "projects/annotation-ui-app/src/polyfills.ts",
             "tsConfig": "projects/annotation-ui-app/src/tsconfig.app.json",
             "assets": [
-              "projects/annotation-ui-app/src/favicon.ico",
-              "projects/annotation-ui-app/src/assets",
               {
                 "glob": "**/*",
                 "input": "dist/annotation-ui-lib/assets",
+                "output": "/assets"
+              },
+              {
+                "glob": "**/*",
+                "input": "projects/annotation-ui-app/src/public",
+                "output": "/public"
+              },
+              {
+                "glob": "favicon.ico",
+                "input": "projects/annotation-ui-app/src",
+                "output": "/"
+              },
+              {
+                "glob": "**/*",
+                "input": "node_modules/@hmcts/frontend/assets",
+                "output": "/public"
+              },
+              {
+                "glob": "**/*",
+                "input": "node_modules/@hmcts/frontend/assets",
+                "output": "/assets"
+              },
+              {
+                "glob": "**/*",
+                "input": "node_modules/govuk-frontend/assets",
+                "output": "/public"
+              },
+              {
+                "glob": "**/*",
+                "input": "node_modules/govuk-frontend/assets",
                 "output": "/assets"
               }
             ],
             "styles": [
               "dist/annotation-ui-lib/assets/annotation-ui-theme.scss",
-              "projects/annotation-ui-app/src/styles.css"
+              "projects/annotation-ui-app/src/styles.scss"
             ],
             "scripts": [
               "dist/annotation-ui-lib/assets/js/pdf.min.js",
