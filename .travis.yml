@@ -19,6 +19,8 @@ script:
 - npm install
 - npm test
 - npm run package
+after_success:
+- npm run test:codecov-upload
 before_deploy:
 - cd dist/annotation-ui-lib
 deploy:
