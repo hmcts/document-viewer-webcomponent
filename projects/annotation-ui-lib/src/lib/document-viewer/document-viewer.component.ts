@@ -5,8 +5,6 @@ import {DocumentViewerService} from './document-viewer.service';
 import { ViewerFactoryService } from '../viewers/viewer-factory.service';
 import { UrlFixerService } from '../data/url-fixer.service';
 import { EmLoggerService } from '../logging/em-logger.service';
-import {ImageViewerComponent} from '../viewers/image-viewer/image-viewer.component';
-import {UnsupportedViewerComponent} from '../viewers/unsupported-viewer/unsupported-viewer.component';
 
 @Component({
     selector: 'app-document-viewer',
@@ -37,35 +35,37 @@ export class DocumentViewerComponent implements OnChanges, OnInit {
     }
 
     ngOnChanges(changes: SimpleChanges) {
-        if (this.isDM && (changes.url || changes.annotate)) {
-          this.buildDMComponent();
-        } else {
-          this.buildNonDMComponent();
+        if (changes.url || changes.annotate) {
+          this.buildComponent();
         }
     }
 
-    buildDMComponent() {
+    buildComponent() {
         if (!this.url) {
             this.log.error('url is required argument');
             throw new Error('url is required argument');
         }
-        this.documentViewerService.fetch(`${this.urlFixer.fixDm(this.url, this.baseUrl)}`).subscribe(resp => {
+        if (this.isDM) {
+          this.getDocumentMetadata().subscribe(resp => {
 
             this.log.info(resp);
             if (resp && resp._links) {
-                this.docName = resp.originalDocumentName;
-                this.viewerComponent =
-                    this.viewerFactoryService.buildDMViewer(resp, this.annotate,
-                        this.viewerAnchor.viewContainerRef, this.baseUrl);
+              this.docName = resp.originalDocumentName;
+              this.viewerComponent =
+                this.viewerFactoryService.buildDMViewer(resp, this.annotate,
+                  this.viewerAnchor.viewContainerRef, this.baseUrl);
             }
-        }, err => {
+          }, err => {
             this.log.error('An error has occured while fetching document' + err);
             this.error = err;
-        });
+          });
+        } else {
+          this.viewerComponent = this.viewerFactoryService.buildNonDMViewer(this.contentType, this.viewerAnchor.viewContainerRef,
+            this.url, this.baseUrl, this.annotate);
+        }
     }
 
-    buildNonDMComponent() {
-      this.viewerComponent = this.viewerFactoryService.buildNonDMViewer(this.contentType, this.viewerAnchor.viewContainerRef,
-        this.url, this.baseUrl, this.annotate, this.pdfWorker);
+    getDocumentMetadata() {
+      return this.documentViewerService.fetch(`${this.urlFixer.fixDm(this.url, this.baseUrl)}`);
     }
 }
