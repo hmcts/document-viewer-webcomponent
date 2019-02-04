@@ -21,8 +21,9 @@
     "package": "npm run build-lib && npm run copy-files && npm run npm-pack",
     "test": "ng test",
     "lint": "ng lint",
-    "test:codacy-upload": "cat ./reports/tests/coverage/lcov.info | codacy-coverage",
-    "test:codecov-upload": "codecov -f ./reports/tests/coverage/lcov.info",
+    "test:codacy-upload": "cat ./reports/tests/coverage/ng/lcov.info | codacy-coverage",
+    "test:coveralls-upload": "cat ./reports/tests/coverage/ng/lcov.info | coveralls",
+    "test:codecov-upload": "codecov -f ./reports/tests/coverage/ng/lcov.info",
     "e2e": "ng e2e"
   },
   "dependencies": {
@@ -88,6 +89,7 @@
     "codacy-coverage": "^2.1.1",
     "codecov": "^3.1.0",
     "codelyzer": "~4.2.1",
+    "coveralls": "^3.0.2",
     "eslint": "4.19.1",
     "eslint-config-standard": "12.0.0",
     "eslint-plugin-import": "2.14.0",

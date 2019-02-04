@@ -21,6 +21,8 @@ script:
 - npm run package
 after_success:
 - npm run test:codecov-upload
+- npm run test:codacy-upload
+- npm run test:coveralls-upload
 before_deploy:
 - cd dist/annotation-ui-lib
 deploy:
