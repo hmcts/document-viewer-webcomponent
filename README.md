@@ -1,4 +1,7 @@
 # @hmcts/annotation-ui-lib 
+[![Coverage Status](https://coveralls.io/repos/github/hmcts/annotation-ui-lib/badge.svg?branch=upload-npm-in-pipeline)](https://coveralls.io/github/hmcts/annotation-ui-lib?branch=upload-npm-in-pipeline)
+[![Build Status](https://travis-ci.com/hmcts/annotation-ui-lib.svg?branch=master)](https://travis-ci.com/hmcts/annotation-ui-lib)
+
 This is an angular library that provides components to view and annotate PDF documents, as well as view images.
 
 ### Building annotation library
