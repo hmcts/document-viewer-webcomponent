@@ -38,13 +38,13 @@ export class DocumentViewerComponent implements OnChanges, OnInit {
 
     ngOnChanges(changes: SimpleChanges) {
         if (this.isDM && (changes.url || changes.annotate)) {
-          this.buildComponent();
+          this.buildDMComponent();
         } else {
-          this.buildUIViewer();
+          this.buildNonDMComponent();
         }
     }
 
-    buildComponent() {
+    buildDMComponent() {
         if (!this.url) {
             this.log.error('url is required argument');
             throw new Error('url is required argument');
@@ -55,7 +55,7 @@ export class DocumentViewerComponent implements OnChanges, OnInit {
             if (resp && resp._links) {
                 this.docName = resp.originalDocumentName;
                 this.viewerComponent =
-                    this.viewerFactoryService.buildViewer(resp, this.annotate,
+                    this.viewerFactoryService.buildDMViewer(resp, this.annotate,
                         this.viewerAnchor.viewContainerRef, this.baseUrl);
             }
         }, err => {
@@ -64,18 +64,8 @@ export class DocumentViewerComponent implements OnChanges, OnInit {
         });
     }
 
-    buildUIViewer() {
-      if (this.contentType === 'pdf') {
-          this.viewerComponent = this.viewerFactoryService.buildAnnotateUi(this.url,
-            this.viewerAnchor.viewContainerRef, this.baseUrl, false, null, this.pdfWorker);
-      } else if (this.contentType === 'image') {
-        this.log.info('Selected image viewer');
-        this.viewerComponent = this.viewerFactoryService.createComponent(ImageViewerComponent,
-          this.viewerAnchor.viewContainerRef, this.url, this.url);
-      } else {
-        this.log.info('Unsupported type for viewer');
-        this.viewerComponent = this.viewerFactoryService.createComponent(UnsupportedViewerComponent,
-          this.viewerAnchor.viewContainerRef, this.url, this.url);
-      }
+    buildNonDMComponent() {
+      this.viewerComponent = this.viewerFactoryService.buildNonDMViewer(this.contentType, this.viewerAnchor.viewContainerRef,
+        this.url, this.baseUrl, this.annotate, this.pdfWorker);
     }
 }

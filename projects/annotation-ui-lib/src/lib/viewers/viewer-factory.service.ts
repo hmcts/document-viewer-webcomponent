@@ -53,7 +53,7 @@ export class ViewerFactoryService {
         return componentRef.instance;
     }
 
-    buildViewer(documentMetaData: any, annotate: boolean, viewContainerRef: ViewContainerRef, baseUrl: string) {
+    buildDMViewer(documentMetaData: any, annotate: boolean, viewContainerRef: ViewContainerRef, baseUrl: string) {
         if (ViewerFactoryService.isPdf(documentMetaData.mimeType) && annotate) {
             this.log.info('Selected pdf viewer with annotations enabled');
             const url = this.urlFixer.fixDm(documentMetaData._links.binary.href, baseUrl);
@@ -78,6 +78,20 @@ export class ViewerFactoryService {
             const url = this.urlFixer.fixDm(documentMetaData._links.binary.href, baseUrl);
             return this.createComponent(UnsupportedViewerComponent, viewContainerRef, originalUrl, url);
         }
+    }
+
+    buildNonDMViewer(contentType: string, viewContainerRef: ViewContainerRef, url: string, baseUrl: string,
+                     annotate: boolean): ComponentRef<any>['instance'] {
+      if (contentType === 'pdf') {
+        this.log.info('Selected pdf viewer');
+        return this.buildAnnotateUi(url, viewContainerRef, baseUrl, false, null);
+      } else if (contentType === 'image') {
+        this.log.info('Selected image viewer');
+        return this.createComponent(ImageViewerComponent, viewContainerRef, url, url);
+      } else {
+        this.log.info('Unsupported type for viewer');
+        return this.createComponent(UnsupportedViewerComponent, viewContainerRef, url, url);
+      }
     }
 
     createComponent(component: any, viewContainerRef: ViewContainerRef, originalUrl: string, url: string) {
