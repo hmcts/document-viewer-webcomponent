@@ -6,7 +6,8 @@
     "ng": "ng",
     "build": "tsc",
     "coverage": "npx nyc mocha",
-    "watch": "nodemon --watch '**/*.ts' --exec 'ts-node' ../dev-server.ts",
+    "watch-dev-node": "nodemon --watch '**/*.ts' --exec 'ts-node' ../dev-server.ts",
+    "start-dev-node": "nodemon --watch '**/*.ts' --exec 'ts-node' ../dev-server.ts",
     "test": "mocha",
     "test:watch": "mocha --watch --recursive --watch-extensions ts",
     "start": "cd ../dist/annotation-ui-app-api-api && node server.js"

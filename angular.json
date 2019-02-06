@@ -75,39 +75,13 @@
                 "output": "/assets"
               },
               {
-                "glob": "**/*",
-                "input": "projects/annotation-ui-app/src/public",
-                "output": "/public"
-              },
-              {
                 "glob": "favicon.ico",
                 "input": "projects/annotation-ui-app/src",
                 "output": "/"
-              },
-              {
-                "glob": "**/*",
-                "input": "node_modules/@hmcts/frontend/assets",
-                "output": "/public"
-              },
-              {
-                "glob": "**/*",
-                "input": "node_modules/@hmcts/frontend/assets",
-                "output": "/assets"
-              },
-              {
-                "glob": "**/*",
-                "input": "node_modules/govuk-frontend/assets",
-                "output": "/public"
-              },
-              {
-                "glob": "**/*",
-                "input": "node_modules/govuk-frontend/assets",
-                "output": "/assets"
               }
             ],
             "styles": [
-              "dist/annotation-ui-lib/assets/annotation-ui-theme.scss",
-              "projects/annotation-ui-app/src/styles.scss"
+              "dist/annotation-ui-lib/assets/aui-styles.scss"
             ],
             "scripts": [
               "dist/annotation-ui-lib/assets/js/pdf.combined.min.js",

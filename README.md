@@ -34,15 +34,14 @@ This is an angular library that provides components to view and annotate PDF doc
 - and styles
   ```
   "styles": [
-    "node_modules/@hmcts/annotation-ui-lib/assets/annotation-ui-theme.scss",
+    "node_modules/@hmcts/annotation-ui-lib/assets/aui-styles.scss",
     ...
   ],
   ```
 - import JS dependencies as scripts within angular.json
   ```
   "scripts": [
-      "node_modules/@hmcts/annotation-ui-lib/assets/js/pdf.min.js",
-      "node_modules/@hmcts/annotation-ui-lib/assets/js/pdf.worker.min.js",
+      "node_modules/@hmcts/annotation-ui-lib/assets/js/pdf.combined.min.js",
       "node_modules/@hmcts/annotation-ui-lib/assets/js/pdf_viewer.min.js",
       "node_modules/@hmcts/annotation-ui-lib/assets/js/pdf-annotate.min.js"
       ...

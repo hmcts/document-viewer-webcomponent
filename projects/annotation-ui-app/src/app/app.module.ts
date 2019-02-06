@@ -5,10 +5,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { AuthModule } from './auth/auth.module';
 import { ConfigService } from './config.service';
-import { HmctsModule } from './hmcts/hmcts.module';
-import { GovukModule } from './govuk/govuk.module';
 import { RouterModule } from '@angular/router';
-import { RoutingModule } from './routing/routing.module';
+import { RoutingModule } from './routing.module';
 
 @NgModule({
   declarations: [
@@ -18,8 +16,6 @@ import { RoutingModule } from './routing/routing.module';
     BrowserModule,
     HttpClientModule,
     AuthModule,
-    HmctsModule,
-    GovukModule,
     RouterModule,
     RoutingModule,
     BrowserTransferStateModule

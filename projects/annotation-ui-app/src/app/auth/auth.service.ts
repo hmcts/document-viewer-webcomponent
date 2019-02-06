@@ -1,8 +1,8 @@
-import { Inject, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { CookieService } from 'ngx-cookie';
 import * as jwtDecode from 'jwt-decode';
 import { ConfigService } from '../config.service';
-import { RedirectionService } from '../routing/redirection.service';
+import { RedirectionService } from './redirection.service';
 
 @Injectable({
     providedIn: 'root'
