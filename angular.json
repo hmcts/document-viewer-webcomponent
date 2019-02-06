@@ -110,8 +110,7 @@
               "projects/annotation-ui-app/src/styles.scss"
             ],
             "scripts": [
-              "dist/annotation-ui-lib/assets/js/pdf.min.js",
-              "dist/annotation-ui-lib/assets/js/pdf.worker.min.js",
+              "dist/annotation-ui-lib/assets/js/pdf.combined.min.js",
               "dist/annotation-ui-lib/assets/js/pdf_viewer.min.js",
               "dist/annotation-ui-lib/assets/js/pdf-annotate.min.js"
             ]
