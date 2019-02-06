@@ -19,8 +19,6 @@ export class DocumentViewerComponent implements OnChanges, OnInit {
     @Input() isDM: boolean;
     @Input() contentType: string;
 
-    mimeType: string;
-    docName: string;
     viewerComponent: any;
     error: HttpErrorResponse;
 
@@ -46,22 +44,27 @@ export class DocumentViewerComponent implements OnChanges, OnInit {
             throw new Error('url is required argument');
         }
         if (this.isDM) {
-          this.getDocumentMetadata().subscribe(resp => {
+          this.getDocumentMetadata().subscribe(response => {
 
-            this.log.info(resp);
-            if (resp && resp._links) {
-              this.docName = resp.originalDocumentName;
-              this.viewerComponent =
-                this.viewerFactoryService.buildDMViewer(resp, this.annotate,
-                  this.viewerAnchor.viewContainerRef, this.baseUrl);
+            this.log.info(response);
+            if (response && response._links) {
+              const url = this.urlFixer.fixDm(response._links.binary.href, this.baseUrl);
+              const dmDocumentId = this.viewerFactoryService.getDocumentId(response);
+
+              this.viewerFactoryService.getAnnotationSet(this.baseUrl, dmDocumentId)
+                .subscribe((annoSetResponse) => {
+                  this.viewerComponent =
+                    this.viewerFactoryService.buildDMViewer(this.viewerAnchor.viewContainerRef,
+                      response.mimeType, url, this.baseUrl, response._links.self.href, this.annotate, annoSetResponse.body);
+                });
             }
           }, err => {
             this.log.error('An error has occured while fetching document' + err);
             this.error = err;
           });
         } else {
-          this.viewerComponent = this.viewerFactoryService.buildNonDMViewer(this.contentType, this.viewerAnchor.viewContainerRef,
-            this.url, this.baseUrl, this.annotate);
+          this.viewerComponent = this.viewerFactoryService.buildDMViewer(this.viewerAnchor.viewContainerRef,
+            this.contentType, this.url, this.baseUrl, this.url, this.annotate, null);
         }
     }
 
