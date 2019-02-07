@@ -38,7 +38,7 @@ export class DocumentViewerComponent implements OnChanges, OnInit {
         }
     }
 
-    buildComponent() {
+    async buildViewer() {
         if (!this.url) {
             this.log.error('url is required argument');
             throw new Error('url is required argument');
@@ -49,14 +49,11 @@ export class DocumentViewerComponent implements OnChanges, OnInit {
             this.log.info(response);
             if (response && response._links) {
               const url = this.urlFixer.fixDm(response._links.binary.href, this.baseUrl);
-              const dmDocumentId = this.viewerFactoryService.getDocumentId(response);
+              const annotationSet = this.getAnnotationSet(response);
 
-              this.viewerFactoryService.getAnnotationSet(this.baseUrl, dmDocumentId)
-                .subscribe((annoSetResponse) => {
-                  this.viewerComponent =
-                    this.viewerFactoryService.buildComponent(this.viewerAnchor.viewContainerRef,
-                      response.mimeType, url, this.baseUrl, response._links.self.href, this.annotate, annoSetResponse.body);
-                });
+              this.viewerComponent =
+                this.viewerFactoryService.buildComponent(this.viewerAnchor.viewContainerRef, this.pdfWorker,
+                  response.mimeType, url, this.baseUrl, response._links.self.href, this.annotate, annotationSet);
             }
           }, err => {
             this.log.error('An error has occured while fetching document' + err);
@@ -70,5 +67,12 @@ export class DocumentViewerComponent implements OnChanges, OnInit {
 
     getDocumentMetadata() {
       return this.documentViewerService.fetch(`${this.urlFixer.fixDm(this.url, this.baseUrl)}`);
+    }
+
+    getAnnotationSet(response) {
+      const dmDocumentId = this.viewerFactoryService.getDocumentId(response);
+      this.viewerFactoryService.getAnnotationSet(this.baseUrl, dmDocumentId).subscribe((annoSetResponse) => {
+        return annoSetResponse.body;
+      });
     }
 }

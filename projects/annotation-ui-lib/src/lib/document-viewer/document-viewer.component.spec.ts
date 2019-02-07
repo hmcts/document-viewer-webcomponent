@@ -54,6 +54,7 @@ describe('DocumentViewerComponent', () => {
     function createComponent() {
         fixture = TestBed.createComponent(DocumentViewerComponent);
         component = fixture.componentInstance;
+        component.isDM = true;
         component.url = originalUrl;
         component.baseUrl = '/demproxy/dm';
         element = fixture.debugElement;
