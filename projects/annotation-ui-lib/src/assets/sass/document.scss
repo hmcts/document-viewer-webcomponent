@@ -1,8 +1,8 @@
-.aui-cf {
+.aui {
 
   &--show-comments {
 
-    .aui-cf__document-pages {
+    .aui__document-pages {
 
       @include mq($from: desktop) {
         margin-right: 417px;
@@ -16,7 +16,7 @@
 }
 
 
-.aui-cf__toolbar {
+.aui__toolbar {
   @include govuk-clearfix;
   background-color: govuk-colour("white");
   border-bottom: 1px solid #DDDDDD;
@@ -55,7 +55,7 @@
 }
 
 
-.aui-cf__toolbar-container {
+.aui__toolbar-container {
   @include aui-width-container;
   border-left:1px solid govuk-colour("grey-3");
   border-right: 1px solid govuk-colour("grey-3");
@@ -66,7 +66,7 @@
 }
 
 
-.aui-cf__toolbar-button {
+.aui__toolbar-button {
   @include govuk-font($size: 19);
   background-color: govuk-colour("white");
   border: 0 none;
@@ -123,8 +123,8 @@
 }
 
 
-.aui-cf__toolbar-button--items {
-  background-image: url(/assets/images/icon-casefile-items.svg);
+.aui__toolbar-button--items {
+  background-image: url(/assets/images/icon-document-items.svg);
   background-repeat: no-repeat;
   background-size: 18px 14px;
   background-position: 15px 50%;
@@ -132,8 +132,8 @@
 }
 
 
-.aui-cf__toolbar-button--comments {
-  background-image: url(/assets/images/icon-casefile-comments.svg);
+.aui__toolbar-button--comments {
+  background-image: url(/assets/images/icon-document-comments.svg);
   background-repeat: no-repeat;
   background-size: 20px 20px;
   background-position: 15px 50%;
@@ -141,14 +141,14 @@
 }
 
 
-.aui-cf__toolbar-icon {
+.aui__toolbar-icon {
   display: inline-block;
   margin-right: 10px;
   vertical-align: middle;
 }
 
 
-.aui-cf__window {
+.aui__window {
   background-color: govuk-colour("grey-4");
   padding-bottom: 25px;
   padding-top: 25px;
@@ -156,21 +156,21 @@
 }
 
 
-.aui-cf__window-container {
+.aui__window-container {
   @include aui-width-container;
   @include govuk-clearfix;
   position: relative;
 }
 
 
-.aui-cf__files {
+.aui__files {
   box-sizing: border-box;
   margin-bottom: 25px;
   width: 100%;
 }
 
 
-.aui-cf__document-pages {
+.aui__document-pages {
   max-width: 803px;
   margin-bottom: 30px;
 
@@ -181,12 +181,12 @@
 }
 
 
-.aui-cf__document {
+.aui__document {
   position: relative;
 }
 
 
-.aui-cf__document-page {
+.aui__document-page {
   @include aspect-ratio(1,1.414); // True A4 aspect ratio
   background: govuk-colour(white);
   box-sizing: border-box;
@@ -213,7 +213,7 @@
 }
 
 
-.aui-cf__document-comments {
+.aui__document-comments {
   margin-bottom: 30px;
 
   @include mq($from: desktop) {
@@ -225,7 +225,7 @@
 }
 
 
-.aui-cf__files {
+.aui__files {
 
   @include mq($from: desktop) {
     position: sticky;
