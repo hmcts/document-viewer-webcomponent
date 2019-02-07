@@ -17,7 +17,10 @@ $hmcts-page-width: 1220px;
 @import "settings.general";
 
 // Reference to all components
-@import "components/all";
+@import "components/document";
+@import "components/button";
+@import "components/casefile-2";
+@import "components/casefile-3";
 
 html {
   background-color: govuk-colour("grey-3");
@@ -27,23 +30,23 @@ html {
   display: none !important;
 }
 
-.jui-measure {
+.aui-measure {
   max-width: 833px;
 }
 
 
-.jui-case-action-alert {
+.aui-case-action-alert {
   background-color: govuk-colour("blue");
   color: govuk-colour("white");
   margin-bottom: govuk-spacing(6);
   padding: govuk-spacing(4);
 }
 
-.jui-case-action-alert__heading {
+.aui-case-action-alert__heading {
   color: inherit;
 }
 
-.jui-case-action-alert__content {
+.aui-case-action-alert__content {
   color: inherit;
 
   p:last-child {
@@ -52,15 +55,15 @@ html {
 
 }
 
-.jui-case-action-alert__link:link,
-.jui-case-action-alert__link:visited {
+.aui-case-action-alert__link:link,
+.aui-case-action-alert__link:visited {
   color: govuk-colour("white");
 }
 
 
 // Case action alert
 
-.jui-case-action-alert {
+.aui-case-action-alert {
   background-color: govuk-colour("blue");
   color: govuk-colour("white");
   margin-bottom: govuk-spacing(6);
@@ -68,7 +71,7 @@ html {
 }
 
 
-.jui-case-action-alert__heading {
+.aui-case-action-alert__heading {
   @include govuk-font(
     $size: 24,
     $weight: bold
@@ -79,7 +82,7 @@ html {
 }
 
 
-.jui-case-action-alert__content {
+.aui-case-action-alert__content {
   color: inherit;
 
   p:last-child {
@@ -89,11 +92,11 @@ html {
 }
 
 
-.jui-case-action-alert__link:link {
+.aui-case-action-alert__link:link {
   color: govuk-colour("white");
 }
 
 
-.jui-case-action-alert__link:focus {
+.aui-case-action-alert__link:focus {
   color: govuk-colour("black");
 }

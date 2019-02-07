@@ -3,7 +3,7 @@
    Unfortunately GDS don’t have a secondary button available.
    ========================================================================== */
 
-.jui-button--secondary {
+.aui-button--secondary {
   background-color: govuk-colour("grey-3");
   box-shadow: 0 2px 0 rgba(govuk-colour("grey-1"), .7);
   color: govuk-colour(black);
@@ -20,6 +20,23 @@
   &:link:focus {
     background-color: rgba(govuk-colour("grey-2"), .7);
     color: $govuk-text-colour;
+  }
+
+}
+
+.aui-button-actions {
+  @include govuk-clearfix;
+}
+
+
+/* Style variants
+   ========================================================================== */
+
+@include mq($from: tablet) {
+
+  .aui-button-actions__item--inline {
+    float: left;
+    margin-right: govuk-spacing(4);
   }
 
 }

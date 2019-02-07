@@ -1,8 +1,8 @@
-.jui-cf {
+.aui-cf {
 
   &--show-comments {
 
-    .jui-cf__document-pages {
+    .aui-cf__document-pages {
 
       @include mq($from: desktop) {
         margin-right: 417px;
@@ -16,7 +16,7 @@
 }
 
 
-.jui-cf__toolbar {
+.aui-cf__toolbar {
   @include govuk-clearfix;
   background-color: govuk-colour("white");
   border-bottom: 1px solid #DDDDDD;
@@ -55,8 +55,8 @@
 }
 
 
-.jui-cf__toolbar-container {
-  @include jui-width-container;
+.aui-cf__toolbar-container {
+  @include aui-width-container;
   border-left:1px solid govuk-colour("grey-3");
   border-right: 1px solid govuk-colour("grey-3");
   height: 100%;
@@ -66,7 +66,7 @@
 }
 
 
-.jui-cf__toolbar-button {
+.aui-cf__toolbar-button {
   @include govuk-font($size: 19);
   background-color: govuk-colour("white");
   border: 0 none;
@@ -123,7 +123,7 @@
 }
 
 
-.jui-cf__toolbar-button--items {
+.aui-cf__toolbar-button--items {
   background-image: url(/assets/images/icon-casefile-items.svg);
   background-repeat: no-repeat;
   background-size: 18px 14px;
@@ -132,7 +132,7 @@
 }
 
 
-.jui-cf__toolbar-button--comments {
+.aui-cf__toolbar-button--comments {
   background-image: url(/assets/images/icon-casefile-comments.svg);
   background-repeat: no-repeat;
   background-size: 20px 20px;
@@ -141,14 +141,14 @@
 }
 
 
-.jui-cf__toolbar-icon {
+.aui-cf__toolbar-icon {
   display: inline-block;
   margin-right: 10px;
   vertical-align: middle;
 }
 
 
-.jui-cf__window {
+.aui-cf__window {
   background-color: govuk-colour("grey-4");
   padding-bottom: 25px;
   padding-top: 25px;
@@ -156,21 +156,21 @@
 }
 
 
-.jui-cf__window-container {
-  @include jui-width-container;
+.aui-cf__window-container {
+  @include aui-width-container;
   @include govuk-clearfix;
   position: relative;
 }
 
 
-.jui-cf__files {
+.aui-cf__files {
   box-sizing: border-box;
   margin-bottom: 25px;
   width: 100%;
 }
 
 
-.jui-cf__document-pages {
+.aui-cf__document-pages {
   max-width: 803px;
   margin-bottom: 30px;
 
@@ -181,12 +181,12 @@
 }
 
 
-.jui-cf__document {
+.aui-cf__document {
   position: relative;
 }
 
 
-.jui-cf__document-page {
+.aui-cf__document-page {
   @include aspect-ratio(1,1.414); // True A4 aspect ratio
   background: govuk-colour(white);
   box-sizing: border-box;
@@ -213,7 +213,7 @@
 }
 
 
-.jui-cf__document-comments {
+.aui-cf__document-comments {
   margin-bottom: 30px;
 
   @include mq($from: desktop) {
@@ -225,7 +225,7 @@
 }
 
 
-.jui-cf__files {
+.aui-cf__files {
 
   @include mq($from: desktop) {
     position: sticky;
@@ -245,7 +245,7 @@
 
 // Comment
 
-.jui-comment {
+.aui-comment {
   background-color: govuk-colour(white);
   box-shadow: 0 1px 3px 0 rgba(0,0,0,0.30), inset 0 -1px 0 0 #DDDDDD;
   padding: 20px 20px 0;
@@ -257,27 +257,27 @@
 }
 
 
-.jui-comment__header {
+.aui-comment__header {
   border-bottom: 1px solid #ddd;
   margin-bottom: govuk-spacing(5);
   padding-bottom: govuk-spacing(5);
 }
 
 
-.jui-comment__author {
+.aui-comment__author {
   @include govuk-font($size: 19);
   display: block;
   font-weight: bold;
 }
 
 
-.jui-comment__meta {
+.aui-comment__meta {
   @include govuk-font($size: 16);
   color: $govuk-secondary-text-colour;
 }
 
 
-.jui-comment__footer {
+.aui-comment__footer {
   font-size: .1px;
 
   .govuk-button {

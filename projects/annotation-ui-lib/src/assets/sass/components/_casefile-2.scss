@@ -1,15 +1,15 @@
-.jui-casefile-2 {
+.aui-casefile-2 {
   display: grid;
   grid-template-columns: 260px auto 260px;
 }
 
 
-.jui-casefile-2-files {
+.aui-casefile-2-files {
   box-sizing: border-box;
   padding-bottom: govuk-spacing(6);
 }
 
-.jui-casefile-2-document-comments {
+.aui-casefile-2-document-comments {
   background-color: govuk-colour("grey-4");
 }
 
@@ -20,23 +20,23 @@
   border: 1px solid #ccc;
 }
 
-.jui-casefile-2-document-wrapper {
+.aui-casefile-2-document-wrapper {
   overflow-x: scroll;
 }
 
-.jui-casefile-2-page {
+.aui-casefile-2-page {
   background-color: govuk-colour("grey-4");
   box-sizing: border-box;
   padding: govuk-spacing(6);
   width: 860px;
 }
 
-.jui-casefile-2-page-head {
+.aui-casefile-2-page-head {
   height: 74px;
   margin-bottom: govuk-spacing(7);
 }
 
-.jui-casefile-2-page-content {
+.aui-casefile-2-page-content {
   background: govuk-colour(white);
   box-shadow: 0 4px 6px 0 rgba(govuk-colour(black), .10);
   box-sizing: border-box;
@@ -62,7 +62,7 @@
 }
 
 
-.jui-casefile-2-list {
+.aui-casefile-2-list {
   list-style: none;
   margin: 0;
   position: sticky;

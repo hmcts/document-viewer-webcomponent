@@ -2,7 +2,7 @@
    #DOCUMENT
    ========================================================================== */
 
-.jui-document {
+.aui-document {
   @include govuk-clearfix;
 
   &:not(:first-child) {
@@ -12,8 +12,8 @@
 }
 
 
-.jui-document__link {
-  background-image: url(#{$jui-assets-path}icon-document.svg);
+.aui-document__link {
+  background-image: url(#{$aui-assets-path}icon-document.svg);
   background-repeat: no-repeat;
   background-size: 31px 40px;
   float: left;
@@ -23,12 +23,12 @@
 }
 
 
-.jui-document__title {
+.aui-document__title {
   display: block;
   text-decoration: underline;
 }
 
 
-.jui-document__meta {
+.aui-document__meta {
   color: $govuk-text-colour;
 }
