@@ -38,7 +38,7 @@ export class DocumentViewerComponent implements OnChanges, OnInit {
         }
     }
 
-    async buildViewer() {
+    buildViewer() {
         if (!this.url) {
             this.log.error('url is required argument');
             throw new Error('url is required argument');
