@@ -37,7 +37,7 @@ export class ViewerFactoryService {
         return docArray[docArray.length - 1];
     }
 
-    buildDMViewer(viewContainerRef: ViewContainerRef, pdfWorker: string, contentType: string,
+    buildComponent(viewContainerRef: ViewContainerRef, pdfWorker: string, contentType: string,
                   url: string, baseUrl: string, originalUrl: string, annotate: boolean, annotationSet: any) {
         if (ViewerFactoryService.isPdf(contentType) && annotate) {
             this.log.info('Selected pdf viewer with annotations enabled');

@@ -34,7 +34,7 @@ export class DocumentViewerComponent implements OnChanges, OnInit {
 
     ngOnChanges(changes: SimpleChanges) {
         if (changes.url || changes.annotate) {
-          this.buildComponent();
+          this.buildViewer();
         }
     }
 
@@ -54,7 +54,7 @@ export class DocumentViewerComponent implements OnChanges, OnInit {
               this.viewerFactoryService.getAnnotationSet(this.baseUrl, dmDocumentId)
                 .subscribe((annoSetResponse) => {
                   this.viewerComponent =
-                    this.viewerFactoryService.buildDMViewer(this.viewerAnchor.viewContainerRef,
+                    this.viewerFactoryService.buildComponent(this.viewerAnchor.viewContainerRef,
                       response.mimeType, url, this.baseUrl, response._links.self.href, this.annotate, annoSetResponse.body);
                 });
             }
@@ -63,7 +63,7 @@ export class DocumentViewerComponent implements OnChanges, OnInit {
             this.error = err;
           });
         } else {
-          this.viewerComponent = this.viewerFactoryService.buildDMViewer(this.viewerAnchor.viewContainerRef,
+          this.viewerComponent = this.viewerFactoryService.buildComponent(this.viewerAnchor.viewContainerRef,
             this.contentType, this.url, this.baseUrl, this.url, this.annotate, null);
         }
     }
