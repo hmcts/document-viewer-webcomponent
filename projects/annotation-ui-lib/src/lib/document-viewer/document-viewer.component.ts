@@ -44,16 +44,16 @@ export class DocumentViewerComponent implements OnChanges, OnInit {
             throw new Error('url is required argument');
         }
         if (this.isDM) {
-          this.getDocumentMetadata().subscribe(response => {
+          this.getDocumentMetadata().subscribe(async (metadata) => {
 
-            this.log.info(response);
-            if (response && response._links) {
-              const url = this.urlFixer.fixDm(response._links.binary.href, this.baseUrl);
-              const annotationSet = this.getAnnotationSet(response);
+            this.log.info(metadata);
+            if (metadata && metadata._links) {
+              const url = this.urlFixer.fixDm(metadata._links.binary.href, this.baseUrl);
+              const annotationSet = await this.getAnnotationSet(metadata);
 
               this.viewerComponent =
                 this.viewerFactoryService.buildComponent(this.viewerAnchor.viewContainerRef, this.pdfWorker,
-                  response.mimeType, url, this.baseUrl, response._links.self.href, this.annotate, annotationSet);
+                  metadata.mimeType, url, this.baseUrl, metadata._links.self.href, this.annotate, annotationSet);
             }
           }, err => {
             this.log.error('An error has occured while fetching document' + err);
@@ -69,10 +69,12 @@ export class DocumentViewerComponent implements OnChanges, OnInit {
       return this.documentViewerService.fetch(`${this.urlFixer.fixDm(this.url, this.baseUrl)}`);
     }
 
-    getAnnotationSet(response) {
-      const dmDocumentId = this.viewerFactoryService.getDocumentId(response);
-      this.viewerFactoryService.getAnnotationSet(this.baseUrl, dmDocumentId).subscribe((annoSetResponse) => {
-        return annoSetResponse.body;
+    getAnnotationSet(metadata) {
+      return new Promise(resolve => {
+        const dmDocumentId = this.viewerFactoryService.getDocumentId(metadata);
+        this.viewerFactoryService.getAnnotationSet(this.baseUrl, dmDocumentId).subscribe((annotationSet) => {
+          resolve(annotationSet.body);
+        });
       });
     }
 }
