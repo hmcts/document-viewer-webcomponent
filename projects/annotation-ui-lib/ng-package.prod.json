@@ -4,5 +4,9 @@
   "lib": {
     "entryFile": "src/public_api.ts"
   },
-  "whitelistedNonPeerDependencies": ["@hmcts/pdf-annotate"]
+  "whitelistedNonPeerDependencies": [
+    "@hmcts/pdf-annotate",
+    "@hmcts/frontend",
+    "govuk-frontend"
+  ]
 }
