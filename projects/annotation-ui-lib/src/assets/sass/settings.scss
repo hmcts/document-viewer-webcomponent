@@ -1,0 +1,40 @@
+/* ==========================================================================
+   #GENERAL CONFIGURATIONS
+   ========================================================================== */
+
+$aui-page-width: 1220px;
+$aui-gutter: govuk-spacing(6);
+$aui-gutter-half: $govuk-gutter / 2;
+
+// Assets path
+$aui-assets-path : "/public/images/";
+
+@mixin aspect-ratio($ratio-or-width, $height: null) {
+  $padding: if($height, percentage($height/$ratio-or-width), percentage(1/$ratio-or-width));
+  &:before { content:''; float: left; padding-bottom: $padding;  }
+  &:after  { content:''; display: table; clear: both;  }
+}
+
+@mixin aui-width-container {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: $aui-page-width;
+
+  @include govuk-if-ie8 {
+    width: $aui-page-width;
+  }
+
+  // On mobile, add half width gutters
+  margin: 0 $aui-gutter-half;
+
+  // On tablet, add full width gutters
+  @include mq($from: tablet) {
+    margin: 0 $aui-gutter;
+  }
+
+  // As soon as the viewport is greater than the width of the page plus the
+  // gutters, just centre the content instead of adding gutters.
+  @include mq($and: "(min-width: #{($aui-page-width + $aui-gutter * 2)})") {
+    margin: 0 auto;
+  }
+}

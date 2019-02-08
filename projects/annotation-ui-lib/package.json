@@ -1,0 +1,27 @@
+{
+  "name": "@hmcts/annotation-ui-lib",
+  "version": "1.0.17",
+  "description": "PDF Viewer and ability to highlight text with and comment tracking",
+  "keywords": [
+    "Angular",
+    "PDF",
+    "Annotation"
+  ],
+  "homepage": "https://github.com/hmcts/rpa-annotation-ui-demo",
+  "license": "SEE LICENSE IN LICENSE",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hmcts/annotation-ui-lib"
+  },
+  "dependencies": {
+    "@hmcts/pdf-annotate": "1.1.14",
+    "@hmcts/frontend": "0.0.14-alpha",
+    "govuk-frontend": "2.5.0"
+  },
+  "peerDependencies": {
+    "@angular/common": "^6.0.0-rc.0 || ^6.0.0",
+    "@angular/core": "^6.0.0-rc.0 || ^6.0.0",
+    "@angular/forms": "^6.1.0",
+    "@ng-toolkit/universal": "^1.1.45"
+  }
+}

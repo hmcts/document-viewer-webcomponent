@@ -6,12 +6,15 @@
 /out-tsc
 
 # dependencies
-/node_modules
+node_modules/
+projects/annotation-ui-lib/node_modules/
+**/**/node_modules/
 /reports
 /src/environments/environment.ts
 
 # IDEs and editors
 /.idea
+*.iml
 .project
 .classpath
 .c9/
@@ -41,3 +44,5 @@ testem.log
 Thumbs.db
 
 yarn\.lock
+
+api/\.sessions/

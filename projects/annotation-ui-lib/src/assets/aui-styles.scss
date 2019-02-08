@@ -1,0 +1,15 @@
+
+$govuk-global-styles: true;
+@import "govuk-frontend/all";
+@import "hmcts-frontend/all";
+@import "sass/application";
+@import "sass/annotation-ui-theme";
+
+
+div.govuk-prose-scope, p {
+  white-space: pre-wrap;
+}
+
+td.govuk-table__cell {
+  white-space: pre-wrap;
+}

@@ -1,0 +1,14 @@
+<div *ngIf="pageNumber" id="comment-wrapper">
+  <div class="comment-list-container">
+
+    <div *ngFor="let annotation of annotations" class="highlight-group">
+      <app-comment-item #commentItem
+                        *ngFor="let comment of annotation.comments"
+                        [annotation]="annotation"
+                        [comment]="comment"
+                        (commentSubmitted)='showAllComments()'
+                        (commentRendered)='redrawCommentItemComponents()'
+      ></app-comment-item>
+    </div>
+  </div>
+</div>

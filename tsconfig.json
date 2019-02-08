@@ -18,17 +18,11 @@
       "dom"
     ],
     "paths": {
-      "pdfannotator": [
-        "dist/pdfannotator"
+      "@hmcts/annotation-ui-lib": [
+        "dist/annotation-ui-lib"
       ],
-      "pdfannotator/*": [
-        "dist/pdfannotator/*"
-      ],
-      "hmcts-annotation-ui-lib": [
-        "dist/hmcts-annotation-ui-lib"
-      ],
-      "hmcts-annotation-ui-lib/*": [
-        "dist/hmcts-annotation-ui-lib/*"
+      "@hmcts/annotation-ui-lib/*": [
+        "dist/annotation-ui-lib/*"
       ]
     }
   }

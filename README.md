@@ -1,81 +1,72 @@
-# Annotation UI 
-### Annotation code is in /projects/annotation-ui-lib
-## Running development application
-Set environment variable to define if app connects to localhost or aat:
-### export APP_ENV=local
+# @hmcts/annotation-ui-lib 
+[![Coverage Status](https://coveralls.io/repos/github/hmcts/annotation-ui-lib/badge.svg?branch=upload-npm-in-pipeline)](https://coveralls.io/github/hmcts/annotation-ui-lib?branch=upload-npm-in-pipeline)
+[![Build Status](https://travis-ci.com/hmcts/annotation-ui-lib.svg?branch=master)](https://travis-ci.com/hmcts/annotation-ui-lib)
 
-yarn install; export S2S_SECRET={{insert secret here}}; export IDAM_SECRET={{insert secret here}}; export APP_ENV=local; yarn watch-dev-node;
-yarn install; export S2S_SECRET={{insert secret here}}; export IDAM_SECRET={{insert secret here}}; export APP_ENV=local; yarn start-dev-proxy;
+This is an angular library that provides components to view and annotate PDF documents, as well as view images.
 
-Goto http://localhost:3000 and the viewer should load the document.
+### Building annotation library
+- npm run package
+- distributable will be created under dist/annotation-ui-lib
 
-## To build annotation library
-npm run package
-Distributable will be copied to /dist/hmcts-annotation-ui-lib
+### Add as a dependency in your angular app
+- add @hmcts/annotation-ui-lib as a dependency in package.json
+- import HmctsEmViewerUiModule and declare it in your NgModule imports.
 
-## Instructions to add this library to your another angular app
-Check demo app:
-https://github.com/hmcts/rpa-em-show
+  For example:
+  ```
+  import { HmctsEmViewerUiModule } from 'annotation-ui-lib';
 
-Import HmctsEmViewerUiModule and declare it in your NgModule imports.
-
-For example:
-```
-import { HmctsEmViewerUiModule } from 'hmcts-annotation-ui-lib';
-
-@NgModule({
-  imports: [
-    ...,
-    HmctsEmViewerUiModule,
-  ]
-})
-```
-Import the assets to your angular.json
-```
-  {
-      "glob": "**/*",
-      "input": "node_modules/hmcts-annotation-ui-lib/assets",
-      "output": "/assets"
-  }
-```
-Reference the followings scripts in your angular.json.
-```
-"scripts": [
-    "node_modules/hmcts-annotation-ui-lib/assets/javascripts/pdf.js",
-    "node_modules/hmcts-annotation-ui-lib/assets/javascripts/pdf_viewer.js",
-    "node_modules/hmcts-annotation-ui-lib/assets/javascripts/pdf-annotate.js"
+  @NgModule({
+    imports: [
+      ...,
+      HmctsEmViewerUiModule,
+    ]
+  })
+  ```
+- import assets to your angular.json
+  ```
+    {
+        "glob": "**/*",
+        "input": "node_modules/@hmcts/annotation-ui-lib/assets",
+        "output": "/assets"
+    }
+  ```
+- and styles
+  ```
+  "styles": [
+    "node_modules/@hmcts/annotation-ui-lib/assets/aui-styles.scss",
     ...
-]
-```
-
-And styles
-```
-"styles": [
-  "node_modules/hmcts-annotation-ui-lib/assets/annotation-ui-theme.scss",
-  ...
-],
-```
-
-Copy pdf.worker.js into your assets folder too.
-
-Component entry point:
-```
-<app-document-viewer
-    [baseUrl]="'http://localhost:3000/api'"
-    [annotate]="true"
-    [pdfWorker]="'/public/javascripts/pdf-worker.js'"
-    [url]="'https://dm-store-aat.service.core-compute-aat.internal/documents/35f3714e-30e0-45d6-b4fb-08f51c271f8e'"
-></app-document-viewer>
-```
-
-## Development server
-
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200`. The app will automatically reload if you change any of the source files.
-
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+  ],
+  ```
+- import JS dependencies as scripts within angular.json
+  ```
+  "scripts": [
+      "node_modules/@hmcts/annotation-ui-lib/assets/js/pdf.combined.min.js",
+      "node_modules/@hmcts/annotation-ui-lib/assets/js/pdf_viewer.min.js",
+      "node_modules/@hmcts/annotation-ui-lib/assets/js/pdf-annotate.min.js"
+      ...
+  ]
+  ```
+- component entry point:
+  ```
+  <app-document-viewer
+      [baseUrl]="'http://localhost:3000/api'"
+      [annotate]="true"
+      [url]="'https://dm-store-aat.service.core-compute-aat.internal/documents/35f3714e-30e0-45d6-b4fb-08f51c271f8e'"
+  ></app-document-viewer>
+  ```
+  
+### Running development application (only for use with hmcts document store)
+- set environment variable to define if app connects to localhost or aat:
+  ```
+  export APP_ENV=local
+  ```
+- start app server
+  ```
+  yarn install; export S2S_SECRET={{insert secret here}}; export IDAM_SECRET={{insert secret here}}; export APP_ENV=local; yarn start-dev-proxy;
+  ```
+- start node server
+  ```
+  yarn install; export S2S_SECRET={{insert secret here}}; export IDAM_SECRET={{insert secret here}}; export APP_ENV=local; yarn watch-dev-node;
+  ``` 
+- go to http://localhost:3000 and the viewer should load the document.
