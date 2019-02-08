@@ -1,6 +1,8 @@
+import * as express from 'express';
+
 const healthcheck = require('@hmcts/nodejs-healthcheck');
 const { InfoContributor, infoRequestHandler } = require('@hmcts/info-provider');
-import * as express from 'express';
+
 const apiRoute = require('./api');
 import { config } from './config';
 
