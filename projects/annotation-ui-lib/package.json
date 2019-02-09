@@ -1,6 +1,6 @@
 {
   "name": "@hmcts/annotation-ui-lib",
-  "version": "1.0.18-RC",
+  "version": "1.0.18",
   "description": "PDF Viewer and ability to highlight text with and comment tracking",
   "keywords": [
     "Angular",
@@ -14,7 +14,7 @@
     "url": "https://github.com/hmcts/annotation-ui-lib"
   },
   "dependencies": {
-    "@hmcts/pdf-annotate": "1.1.14",
+    "@hmcts/pdf-annotate": "^1.1.15",
     "@hmcts/frontend": "0.0.14-alpha",
     "govuk-frontend": "2.5.0"
   },
