@@ -51,7 +51,7 @@ export class DocumentViewerComponent implements OnChanges, OnInit {
               const url = this.urlFixer.fixDm(metadata._links.binary.href, this.baseUrl);
               this.getAnnotationSet(metadata).subscribe(annotationSet => {
                 this.viewerComponent =
-                  this.viewerFactoryService.buildComponent(this.viewerAnchor.viewContainerRef, this.pdfWorker,
+                  this.viewerFactoryService.buildComponent(this.viewerAnchor.viewContainerRef,
                     metadata.mimeType, url, this.baseUrl, metadata._links.self.href, this.annotate, annotationSet.body);
               });
             }
