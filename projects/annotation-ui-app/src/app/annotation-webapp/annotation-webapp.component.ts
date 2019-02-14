@@ -6,12 +6,11 @@ import {Component} from '@angular/core';
 })
 export class AnnotationWebappComponent {
 
-  dmDocumentSelected: boolean = false;
+    documentTypeToShow: string = 'nonDM_PDF';
 
-    constructor() {
-    }
+    constructor() {}
 
-    toggleDocumentSelection() {
-      this.dmDocumentSelected = !this.dmDocumentSelected;
+    toggleDocumentSelection(selectedDocumentType: string) {
+      this.documentTypeToShow = selectedDocumentType;
     }
 }
