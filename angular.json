@@ -78,6 +78,11 @@
                 "glob": "favicon.ico",
                 "input": "projects/annotation-ui-app/src",
                 "output": "/"
+              },
+              {
+                "glob": "**/*",
+                "input": "projects/annotation-ui-app/src/assets",
+                "output": "/assets"
               }
             ],
             "styles": [
