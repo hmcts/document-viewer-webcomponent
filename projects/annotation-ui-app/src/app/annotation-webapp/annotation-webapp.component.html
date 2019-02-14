@@ -3,10 +3,26 @@
   <div class="aui__toolbar" role="toolbar">
     <div class="aui__toolbar-container">
       <button
-        class="aui__toolbar-button aui__toolbar-button--items"
+        class="aui__toolbar-button"
         type="button"
         role="button">
         Annotation UI Demo
+      </button>
+    </div>
+  </div>
+  <div class="aui__toolbar" role="toolbar">
+    <div class="aui__toolbar-container">
+      <button (click)="toggleDocumentSelection()"
+        class="aui__toolbar-button aui__toolbar-button--items"
+        type="button"
+        role="button">
+        Document Store
+      </button>
+      <button (click)="toggleDocumentSelection()"
+        class="aui__toolbar-button aui__toolbar-button--items"
+        type="button"
+        role="button">
+        Non Document Store
       </button>
     </div>
   </div>
@@ -36,16 +52,16 @@
                    role="textbox"
                    aria-multiline="true" data-medium-editor-editor-index="1"
                    medium-editor-index="ca3cfb8f-8b6a-8f73-1ed5-fa7679703446" data-placeholder="Type your text">
-                <!--<app-document-viewer-->
-                  <!--[baseUrl]="'http://localhost:3000/api'"-->
-                  <!--[annotate]="true"-->
-                  <!--[url]="'https://dm-store-aat.service.core-compute-aat.internal/documents/35f3714e-30e0-45d6-b4fb-08f51c271f8e'"-->
-                  <!--[isDM]="true">-->
-                <!--</app-document-viewer>-->
+                <app-document-viewer *ngIf="dmDocumentSelected"
+                  [baseUrl]="'http://localhost:3000/api'"
+                  [annotate]="true"
+                  [url]="'https://dm-store-aat.service.core-compute-aat.internal/documents/35f3714e-30e0-45d6-b4fb-08f51c271f8e'"
+                  [isDM]="true">
+                </app-document-viewer>
 
 
                 <!--non dm app -->
-                <app-document-viewer
+                <app-document-viewer *ngIf="!dmDocumentSelected"
                   [baseUrl]="'http://localhost:3000/api'"
                   [annotate]="false"
                   [url]="'http://localhost:3000/assets/non-dm.pdf'"

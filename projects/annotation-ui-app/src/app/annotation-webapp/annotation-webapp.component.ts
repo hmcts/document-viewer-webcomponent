@@ -5,6 +5,13 @@ import {Component} from '@angular/core';
     templateUrl: './annotation-webapp.component.html'
 })
 export class AnnotationWebappComponent {
+
+  dmDocumentSelected: boolean = false;
+
     constructor() {
+    }
+
+    toggleDocumentSelection() {
+      this.dmDocumentSelected = !this.dmDocumentSelected;
     }
 }
