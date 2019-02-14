@@ -5,6 +5,12 @@ import {Component} from '@angular/core';
     templateUrl: './annotation-webapp.component.html'
 })
 export class AnnotationWebappComponent {
-    constructor() {
+
+    documentTypeToShow: string = 'nonDM_PDF';
+
+    constructor() {}
+
+    toggleDocumentSelection(selectedDocumentType: string) {
+      this.documentTypeToShow = selectedDocumentType;
     }
 }

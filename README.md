@@ -56,6 +56,18 @@ This is an angular library that provides components to view and annotate PDF doc
   ></app-document-viewer>
   ```
   
+  for non document store files:
+    ```
+    <app-document-viewer
+        [baseUrl]="'http://localhost:3000/api'"
+        [annotate]="false"
+        [url]="'http://localhost:3000/assets/non-dm.pdf'"
+        [isDM]="false"
+        [contentType]="'pdf'">
+    </app-document-viewer>
+    ```
+    Note: The file needs to be retrievable.
+  
 ### Running development application (only for use with hmcts document store)
 - set environment variable to define if app connects to localhost or aat:
   ```

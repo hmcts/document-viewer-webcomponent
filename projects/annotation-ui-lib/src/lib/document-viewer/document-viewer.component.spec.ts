@@ -2,12 +2,13 @@ import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {DocumentViewerComponent} from './document-viewer.component';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
-import {DebugElement, SimpleChange} from '@angular/core';
+import {DebugElement, Renderer2, SimpleChange, Type} from '@angular/core';
 import {DocumentViewerService} from './document-viewer.service';
 import {of} from 'rxjs';
 import { TransferState } from '@angular/platform-browser';
 import { HmctsEmViewerUiModule } from '../hmcts-em-viewer-ui.module';
 import { EmLoggerService } from '../logging/em-logger.service';
+import {ViewerFactoryService} from "../viewers/viewer-factory.service";
 import {PdfWrapper} from "../data/js-wrapper/pdf-wrapper";
 
 const originalUrl = 'http://api-gateway.dm.com/documents/1234-1234-1234';
@@ -30,18 +31,22 @@ describe('DocumentViewerComponent', () => {
     let fixture: ComponentFixture<DocumentViewerComponent>;
     let element: DebugElement;
     let mockDocuments;
+    let viewerFactoryServiceMock;
 
-    const DocumentViewerServiceMock = {
+  const DocumentViewerServiceMock = {
         fetch: () => {
             return of(mockDocuments);
         }
     };
+
 
     beforeEach(async(() => {
         const testingModule = TestBed.configureTestingModule({
             imports: [HmctsEmViewerUiModule, HttpClientTestingModule],
             providers: [
                 EmLoggerService,
+                Renderer2,
+                ViewerFactoryService,
                 { provide: TransferState, useFactory: () => mockTransferState},
                 { provide: DocumentViewerService, useValue: DocumentViewerServiceMock},
                 { provide: PdfWrapper, useFactory: () => mockPdfWrapper }
@@ -51,31 +56,10 @@ describe('DocumentViewerComponent', () => {
         testingModule.compileComponents();
     }));
 
-    function createComponent() {
-        fixture = TestBed.createComponent(DocumentViewerComponent);
-        component = fixture.componentInstance;
-        component.url = originalUrl;
-        component.baseUrl = '/demproxy/dm';
-        element = fixture.debugElement;
-        fixture.detectChanges();
-        component.ngOnChanges({url: new SimpleChange(null, component.url, true)});
-    }
-
 
     describe('when the mime type is an image', () => {
         beforeEach(() => {
-            mockDocuments = {
-                mimeType: 'image/jpeg',
-                originalDocumentName: 'image.jpeg',
-                _links: {
-                    binary: {
-                        href: `${originalUrl}/binary`
-                    },
-                    self: {
-                        href: `${originalUrl}`
-                    }
-                }
-            };
+            mockDocuments = createMockDocuments('image/jpeg', 'image.jpeg', originalUrl);
             createComponent();
         });
 
@@ -96,19 +80,7 @@ describe('DocumentViewerComponent', () => {
             });
 
             beforeEach(() => {
-                mockDocuments = {
-                    mimeType: 'image/jpeg',
-                    originalDocumentName: 'new-image.jpeg',
-                    _links: {
-                        binary: {
-                            href: `${newUrl}/binary`
-                        },
-                        self: {
-                            href: `${newUrl}`
-                        }
-                    }
-                };
-                createComponent();
+              mockDocuments = createMockDocuments('image/jpeg', 'new-image.jpeg', newUrl);
             });
 
             it('img element should still be visible', () => {
@@ -123,18 +95,7 @@ describe('DocumentViewerComponent', () => {
 
     describe('when the mime type is pdf', () => {
         beforeEach(() => {
-            mockDocuments = {
-                mimeType: 'application/pdf',
-                originalDocumentName: 'cert.pdf',
-                _links: {
-                    binary: {
-                        href: `${originalUrl}/binary`
-                    },
-                    self: {
-                        href: `${originalUrl}`
-                    }
-                }
-            };
+            mockDocuments = createMockDocuments('application/pdf', 'cert.pdf', originalUrl);
             createComponent();
         });
 
@@ -149,4 +110,37 @@ describe('DocumentViewerComponent', () => {
             expect(element.nativeElement.querySelector('app-image-viewer')).not.toBeTruthy();
         });
     });
+
+  const createComponent = () => {
+    fixture = TestBed.createComponent(DocumentViewerComponent);
+    component = fixture.componentInstance;
+    component.isDM = true;
+    component.url = originalUrl;
+    component.baseUrl = '/demproxy/dm';
+    element = fixture.debugElement;
+
+    viewerFactoryServiceMock = fixture.componentRef.injector.get<ViewerFactoryService>(ViewerFactoryService as Type<ViewerFactoryService>);
+    spyOn(viewerFactoryServiceMock, 'getDocumentId').and.callThrough();
+    spyOn(viewerFactoryServiceMock, 'getAnnotationSet').and.callFake(() => of({}));
+    spyOn(viewerFactoryServiceMock, 'buildComponent').and.callThrough();
+
+    fixture.detectChanges();
+    component.ngOnChanges({url: new SimpleChange(null, component.url, true)});
+  }
+
+  const createMockDocuments = (mimeType, documentName, url) => {
+    return {
+      mimeType: mimeType,
+      originalDocumentName: documentName,
+      _links: {
+        binary: {
+          href: `${url}/binary`
+        },
+        self: {
+          href: `${url}`
+        }
+      }
+    }
+  };
+
 });

@@ -25,68 +25,65 @@ export class ViewerFactoryService {
     }
 
     private static isImage(mimeType: String) {
-        return mimeType.startsWith('image/');
+        return mimeType.startsWith('image/') || mimeType === 'image';
     }
 
     private static isPdf(mimeType: String) {
-        return mimeType === 'application/pdf';
+        return mimeType === 'application/pdf' || mimeType === 'pdf';
     }
 
-    private static getDocumentId(documentMetaData: any) {
+    public getDocumentId(documentMetaData: any) {
         const docArray = documentMetaData._links.self.href.split('/');
         return docArray[docArray.length - 1];
     }
 
-    buildAnnotateUi(documentMetaData: any, viewContainerRef: ViewContainerRef, baseUrl: string,
-                    annotate: boolean, annotationSet: IAnnotationSet): ComponentRef<any>['instance'] {
-
-        viewContainerRef.clear();
-        const componentFactory = this.componentFactoryResolver.resolveComponentFactory(AnnotationPdfViewerComponent);
-
-        const componentRef: ComponentRef<any> = viewContainerRef.createComponent(componentFactory);
-        componentRef.instance.annotate = annotate;
-        componentRef.instance.annotationSet = annotationSet;
-        componentRef.instance.dmDocumentId = ViewerFactoryService.getDocumentId(documentMetaData);
-        componentRef.instance.outputDmDocumentId = null; // '4fbdde23-e9a7-4843-b6c0-24d5bf2140ab';
-        componentRef.instance.baseUrl = baseUrl;
-
-        console.log(this.urlFixer.fixDm(documentMetaData._links.binary.href, baseUrl));
-        componentRef.instance.url = this.urlFixer.fixDm(documentMetaData._links.binary.href, baseUrl);
-        // componentRef.instance.url = 'http://localhost:4603i/documents/51465475-b8bf-4304-a1c7-1fc32ae1d647/binary';
-
-        return componentRef.instance;
-    }
-
-    buildViewer(documentMetaData: any, annotate: boolean, viewContainerRef: ViewContainerRef, baseUrl: string) {
-        if (ViewerFactoryService.isPdf(documentMetaData.mimeType) && annotate) {
+    buildComponent(viewContainerRef: ViewContainerRef, contentType: string,
+                  url: string, baseUrl: string, originalUrl: string, annotate: boolean, annotationSet: any) {
+        if (ViewerFactoryService.isPdf(contentType) && annotate) {
             this.log.info('Selected pdf viewer with annotations enabled');
-            const dmDocumentId = ViewerFactoryService.getDocumentId(documentMetaData);
-            this.annotationStoreService.fetchData(baseUrl, dmDocumentId).subscribe((response) => {
-                return this.buildAnnotateUi(documentMetaData, viewContainerRef, baseUrl, annotate, response.body);
-            });
+            return this.buildAnnotateUi(url, viewContainerRef, baseUrl, annotate, annotationSet);
 
-        } else if (ViewerFactoryService.isPdf(documentMetaData.mimeType) && !annotate) {
+        } else if (ViewerFactoryService.isPdf(contentType) && !annotate) {
             this.log.info('Selected pdf viewer with annotations disabled');
-            return this.buildAnnotateUi(documentMetaData, viewContainerRef, baseUrl, annotate, null);
-        } else if (ViewerFactoryService.isImage(documentMetaData.mimeType)) {
+            return this.buildAnnotateUi(url, viewContainerRef, baseUrl, annotate, null);
+        } else if (ViewerFactoryService.isImage(contentType)) {
             this.log.info('Selected image viewer');
-            const componentFactory = this.componentFactoryResolver.resolveComponentFactory(ImageViewerComponent);
-            viewContainerRef.clear();
+            return this.createComponent(ImageViewerComponent, viewContainerRef, originalUrl, url);
 
-            const componentRef: ComponentRef<any> = viewContainerRef.createComponent(componentFactory);
-            componentRef.instance.originalUrl = documentMetaData._links.self.href;
-            componentRef.instance.url = this.urlFixer.fixDm(documentMetaData._links.binary.href, baseUrl);
-            return componentRef.instance;
         } else {
             this.log.info('Unsupported type for viewer');
-            const componentFactory = this.componentFactoryResolver.resolveComponentFactory(UnsupportedViewerComponent);
-            viewContainerRef.clear();
-
-            const componentRef: ComponentRef<any> = viewContainerRef.createComponent(componentFactory);
-            componentRef.instance.originalUrl = documentMetaData._links.self.href;
-            componentRef.instance.url = this.urlFixer.fixDm(documentMetaData._links.binary.href, baseUrl);
-            return componentRef.instance;
+            return this.createComponent(UnsupportedViewerComponent, viewContainerRef, originalUrl, url);
         }
+    }
+
+    getAnnotationSet(baseUrl, dmDocumentId) {
+      return this.annotationStoreService.fetchData(baseUrl, dmDocumentId);
+    }
+
+    buildAnnotateUi(url: any, viewContainerRef: ViewContainerRef, baseUrl: string,
+                    annotate: boolean, annotationSet: IAnnotationSet): ComponentRef<any>['instance'] {
+
+      viewContainerRef.clear();
+      const componentFactory = this.componentFactoryResolver.resolveComponentFactory(AnnotationPdfViewerComponent);
+
+      const componentRef: ComponentRef<any> = viewContainerRef.createComponent(componentFactory);
+      componentRef.instance.annotate = annotate;
+      componentRef.instance.annotationSet = annotationSet;
+      componentRef.instance.outputDmDocumentId = null; // '4fbdde23-e9a7-4843-b6c0-24d5bf2140ab';
+      componentRef.instance.baseUrl = baseUrl;
+      componentRef.instance.url = url;
+
+      return componentRef.instance;
+    }
+
+    createComponent(component: any, viewContainerRef: ViewContainerRef, originalUrl: string, url: string) {
+      const componentFactory = this.componentFactoryResolver.resolveComponentFactory(component);
+      viewContainerRef.clear();
+
+      const componentRef: ComponentRef<any> = viewContainerRef.createComponent(componentFactory);
+      componentRef.instance.originalUrl = originalUrl;
+      componentRef.instance.url = url;
+      return componentRef.instance;
     }
 
 }
