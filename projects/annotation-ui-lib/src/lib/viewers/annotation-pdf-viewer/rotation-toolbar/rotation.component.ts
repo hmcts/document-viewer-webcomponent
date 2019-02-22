@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import { PdfRenderService } from '../../../data/pdf-render.service';
 import { EmLoggerService } from '../../../logging/em-logger.service';
 
@@ -8,12 +8,21 @@ import { EmLoggerService } from '../../../logging/em-logger.service';
     templateUrl: './rotation.component.html',
     styleUrls: ['./rotation.component.scss']
 })
-export class RotationComponent {
+export class RotationComponent implements OnInit {
+    rotationStyle = {};
+
     @Input() pageNumber: number;
 
     constructor(private pdfRenderService: PdfRenderService,
                 private log: EmLoggerService) {
         this.log.setClass('RotationComponent');
+    }
+
+    ngOnInit() {
+        this.rotationStyle = {
+          'margin-top':
+            `-${(<HTMLElement>document.getElementById('pageContainer' + this.pageNumber).querySelector('.textLayer')).style.height}`
+        };
     }
 
     calculateRotation(rotateVal): number {
