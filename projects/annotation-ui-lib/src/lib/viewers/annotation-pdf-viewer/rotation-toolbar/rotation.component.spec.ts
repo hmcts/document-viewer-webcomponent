@@ -28,6 +28,14 @@ describe('RotationComponent', () => {
   
     beforeEach(() => {
       fixture = TestBed.createComponent(RotationComponent);
+
+      const pageElement = {
+        style: {
+          height: 500
+        }
+      };
+
+      spyOn(document, 'getElementById').and.returnValue( {querySelector() { return pageElement; }});
       component = fixture.componentInstance;
       component.pageNumber = 1;
       fixture.detectChanges();
