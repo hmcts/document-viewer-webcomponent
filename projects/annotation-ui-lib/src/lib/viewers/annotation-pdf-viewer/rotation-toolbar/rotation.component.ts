@@ -10,6 +10,7 @@ import { EmLoggerService } from '../../../logging/em-logger.service';
 })
 export class RotationComponent implements OnInit {
     rotationStyle = {};
+    viewerStyle = {};
 
     @Input() pageNumber: number;
 
@@ -19,9 +20,12 @@ export class RotationComponent implements OnInit {
     }
 
     ngOnInit() {
+        const height = `${(<HTMLElement>document.getElementById('pageContainer' + this.pageNumber).querySelector('.textLayer')).style.height}`;
         this.rotationStyle = {
-          'margin-top':
-            `-${(<HTMLElement>document.getElementById('pageContainer' + this.pageNumber).querySelector('.textLayer')).style.height}`
+          'margin-top': `-${height}`
+        };
+        this.viewerStyle = {
+          'top': `${height}`
         };
     }
 
