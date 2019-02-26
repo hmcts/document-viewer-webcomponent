@@ -28,11 +28,6 @@ export class ImageViewerComponent implements OnInit {
         this.rotateImage();
     }
 
-    onRotateAntiClockwise() {
-        this.rotation = this.rotation - 90;
-        this.rotateImage();
-    }
-
     rotateImage() {
         this.log.info('rotating to-' + this.rotation + 'degrees');
         const styles = ['transform', '-ms-transform', '-o-transform', '-moz-transform', '-webkit-transform'];
