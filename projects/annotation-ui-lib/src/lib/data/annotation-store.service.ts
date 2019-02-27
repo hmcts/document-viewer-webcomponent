@@ -116,7 +116,7 @@ export class AnnotationStoreService implements OnDestroy {
         }
     }
 
-    fetchData(baseUrl, dmDocumentId): Observable<HttpResponse<IAnnotationSet>> {
+    getAnnotationSet(baseUrl, dmDocumentId): Observable<HttpResponse<IAnnotationSet>> {
         return this.apiHttpService.fetch(baseUrl, dmDocumentId).pipe(
             catchError((err) => {
                 if (err instanceof HttpErrorResponse) {

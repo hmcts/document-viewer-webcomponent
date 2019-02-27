@@ -309,12 +309,12 @@ describe('AnnotationStoreService', () => {
     })));
   });
 
-  describe('fetchData', () => {
+  describe('getAnnotationSet', () => {
 
     it('should return annotationSet if successful', inject([AnnotationStoreService], (service: AnnotationStoreService) => {
       const mockResponse = new HttpResponse().clone({body: dummyAnnotationSet});
       spyOn(mockApiHttpService, 'fetch').and.returnValue(of(mockResponse));
-      service.fetchData('http://localhost:3000', 'documentId').subscribe(response => {
+      service.getAnnotationSet('http://localhost:3000', 'documentId').subscribe(response => {
         expect(response.body).toBe(dummyAnnotationSet);
       });
     }));

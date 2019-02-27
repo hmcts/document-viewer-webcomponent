@@ -56,10 +56,6 @@ export class ViewerFactoryService {
         }
     }
 
-    getAnnotationSet(baseUrl, dmDocumentId) {
-      return this.annotationStoreService.fetchData(baseUrl, dmDocumentId);
-    }
-
     buildAnnotateUi(url: any, viewContainerRef: ViewContainerRef, baseUrl: string,
                     annotate: boolean, annotationSet: IAnnotationSet): ComponentRef<any>['instance'] {
 

@@ -16,7 +16,7 @@ export class DocumentViewerService {
         log.setClass('DocumentViewerService');
     }
 
-    fetch(documentUri): Observable<any> {
+    getDocumentMetadata(documentUri): Observable<any> {
         const key = makeStateKey(documentUri);
         const cache = this.state.get(key, null as any);
         if (cache) {

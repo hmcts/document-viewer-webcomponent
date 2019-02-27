@@ -43,13 +43,13 @@ describe('DocumentViewerService', () => {
         }));
     });
 
-    describe('fetch', () => {
+    describe('getDocumentMetadata', () => {
         afterEach(() => {
             httpMock.verify();
           });
 
         it('should call httpClient with documentUri', inject([DocumentViewerService], (service: DocumentViewerService) => {
-            service.fetch(documentUri).subscribe(observer => {
+            service.getDocumentMetadata(documentUri).subscribe(observer => {
                 expect(observer.mimeType).toBe(mockDocuments.mimeType);
                 expect(observer.originalDocumentName).toBe(mockDocuments.originalDocumentName);
             });
@@ -59,7 +59,7 @@ describe('DocumentViewerService', () => {
         }));
 
         it('should catch an error and return it', inject([DocumentViewerService], (service: DocumentViewerService) => {
-            service.fetch(documentUri).subscribe();
+            service.getDocumentMetadata(documentUri).subscribe();
             httpMock.expectOne(documentUri).error(new ErrorEvent('network error'));
         }));
     });

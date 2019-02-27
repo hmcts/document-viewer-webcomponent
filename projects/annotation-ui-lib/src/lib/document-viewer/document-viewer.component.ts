@@ -5,6 +5,7 @@ import {DocumentViewerService} from './document-viewer.service';
 import { ViewerFactoryService } from '../viewers/viewer-factory.service';
 import { UrlFixerService } from '../data/url-fixer.service';
 import { EmLoggerService } from '../logging/em-logger.service';
+import {AnnotationStoreService} from '../data/annotation-store.service';
 
 @Component({
     selector: 'app-document-viewer',
@@ -24,6 +25,7 @@ export class DocumentViewerComponent implements OnChanges, OnInit {
 
     constructor(private log: EmLoggerService,
                 private viewerFactoryService: ViewerFactoryService,
+                private annotationStoreService: AnnotationStoreService,
                 private urlFixer: UrlFixerService,
                 private documentViewerService: DocumentViewerService) {
         log.setClass('DocumentViewerComponent');
@@ -44,12 +46,13 @@ export class DocumentViewerComponent implements OnChanges, OnInit {
             throw new Error('url is required argument');
         }
         if (this.isDM) {
-          this.getDocumentMetadata().subscribe(metadata => {
+          this.documentViewerService.getDocumentMetadata(`${this.urlFixer.fixDm(this.url, this.baseUrl)}`).subscribe(metadata => {
 
             this.log.info(metadata);
             if (metadata && metadata._links) {
               const url = this.urlFixer.fixDm(metadata._links.binary.href, this.baseUrl);
-              this.getAnnotationSet(metadata).subscribe(annotationSet => {
+              const dmDocumentId = this.viewerFactoryService.getDocumentId(metadata);
+              this.annotationStoreService.getAnnotationSet(this.baseUrl, dmDocumentId).subscribe(annotationSet => {
                 this.viewerComponent =
                   this.viewerFactoryService.buildComponent(this.viewerAnchor.viewContainerRef,
                     metadata.mimeType, url, this.baseUrl, metadata._links.self.href, this.annotate, annotationSet.body);
@@ -63,14 +66,5 @@ export class DocumentViewerComponent implements OnChanges, OnInit {
           this.viewerComponent = this.viewerFactoryService.buildComponent(this.viewerAnchor.viewContainerRef,
             this.contentType, this.url, this.baseUrl, this.url, this.annotate, null);
         }
-    }
-
-    getDocumentMetadata() {
-      return this.documentViewerService.fetch(`${this.urlFixer.fixDm(this.url, this.baseUrl)}`);
-    }
-
-    getAnnotationSet(metadata) {
-        const dmDocumentId = this.viewerFactoryService.getDocumentId(metadata);
-        return this.viewerFactoryService.getAnnotationSet(this.baseUrl, dmDocumentId);
     }
 }

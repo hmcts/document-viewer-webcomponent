@@ -10,6 +10,7 @@ import { HmctsEmViewerUiModule } from '../hmcts-em-viewer-ui.module';
 import { EmLoggerService } from '../logging/em-logger.service';
 import {ViewerFactoryService} from "../viewers/viewer-factory.service";
 import {PdfWrapper} from "../data/js-wrapper/pdf-wrapper";
+import {AnnotationStoreService} from '../data/annotation-store.service';
 
 const originalUrl = 'http://api-gateway.dm.com/documents/1234-1234-1234';
 const url = '/demproxy/dm/documents/1234-1234-1234';
@@ -34,8 +35,14 @@ describe('DocumentViewerComponent', () => {
     let viewerFactoryServiceMock;
 
   const DocumentViewerServiceMock = {
-        fetch: () => {
+        getDocumentMetadata: () => {
             return of(mockDocuments);
+        }
+    };
+
+    const AnnotationStoreServiceMock = {
+        getAnnotationSet: () => {
+          return of([]);
         }
     };
 
@@ -49,6 +56,7 @@ describe('DocumentViewerComponent', () => {
                 ViewerFactoryService,
                 { provide: TransferState, useFactory: () => mockTransferState},
                 { provide: DocumentViewerService, useValue: DocumentViewerServiceMock},
+                { provide: AnnotationStoreService, useValue: AnnotationStoreServiceMock},
                 { provide: PdfWrapper, useFactory: () => mockPdfWrapper }
             ]
         });
@@ -121,7 +129,6 @@ describe('DocumentViewerComponent', () => {
 
     viewerFactoryServiceMock = fixture.componentRef.injector.get<ViewerFactoryService>(ViewerFactoryService as Type<ViewerFactoryService>);
     spyOn(viewerFactoryServiceMock, 'getDocumentId').and.callThrough();
-    spyOn(viewerFactoryServiceMock, 'getAnnotationSet').and.callFake(() => of({}));
     spyOn(viewerFactoryServiceMock, 'buildComponent').and.callThrough();
 
     fixture.detectChanges();
