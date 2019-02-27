@@ -1,6 +1,6 @@
 {
   "name": "@hmcts/annotation-ui-lib",
-  "version": "1.0.18",
+  "version": "1.0.19-RC",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -44,6 +44,7 @@
     "@angular/router": "6.1.0",
     "@hmcts/info-provider": "1.0.0",
     "@hmcts/nodejs-healthcheck": "1.4.6",
+    "@hmcts/annotation-ui-lib": "^1.0.18",
     "@ng-toolkit/universal": "^1.1.45",
     "@nguniversal/express-engine": "6.0.0",
     "@nguniversal/module-map-ngfactory-loader": "6.0.0",

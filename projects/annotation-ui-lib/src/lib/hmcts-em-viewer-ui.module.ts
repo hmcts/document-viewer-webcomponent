@@ -21,7 +21,6 @@ import { UrlFixerService } from './data/url-fixer.service';
 import { ViewerFactoryService } from './viewers/viewer-factory.service';
 import { DocumentViewerComponent } from './document-viewer/document-viewer.component';
 import { ViewerAnchorDirective } from './document-viewer/viewer-anchor.directive';
-import { BrowserModule } from '@angular/platform-browser';
 import { DocumentViewerService } from './document-viewer/document-viewer.service';
 import { RotationComponent } from './viewers/annotation-pdf-viewer/rotation-toolbar/rotation.component';
 import { RotationFactoryService } from './viewers/annotation-pdf-viewer/rotation-toolbar/rotation-factory.service';
@@ -30,7 +29,6 @@ import { EmLoggerService } from './logging/em-logger.service';
 
 @NgModule({
   imports: [
-    BrowserModule,
     NgtUniversalModule,
     CommonModule,
     FormsModule,
@@ -68,15 +66,6 @@ import { EmLoggerService } from './logging/em-logger.service';
     RotationFactoryService,
     PdfRenderService,
     EmLoggerService
-  ],
-  exports: [
-    CommentsComponent,
-    CommentItemComponent,
-    ContextualToolbarComponent,
-    AnnotationPdfViewerComponent,
-    ImageViewerComponent,
-    UnsupportedViewerComponent,
-    DocumentViewerComponent
   ]
 })
 export class HmctsEmViewerUiModule { }
