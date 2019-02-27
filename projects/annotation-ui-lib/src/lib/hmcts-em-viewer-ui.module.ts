@@ -66,6 +66,9 @@ import { EmLoggerService } from './logging/em-logger.service';
     RotationFactoryService,
     PdfRenderService,
     EmLoggerService
-  ]
+  ],
+  exports: [
+    DocumentViewerComponent
+]
 })
 export class HmctsEmViewerUiModule { }
