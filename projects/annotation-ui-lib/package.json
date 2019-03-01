@@ -14,14 +14,15 @@
     "url": "https://github.com/hmcts/annotation-ui-lib"
   },
   "dependencies": {
-    "@hmcts/pdf-annotate": "^1.1.15",
     "@hmcts/frontend": "0.0.14-alpha",
+    "@hmcts/pdf-annotate": "^1.1.15",
     "govuk-frontend": "2.5.0"
   },
   "peerDependencies": {
     "@angular/common": "^6.0.0-rc.0 || ^6.0.0",
     "@angular/core": "^6.0.0-rc.0 || ^6.0.0",
     "@angular/forms": "^6.1.0",
-    "@ng-toolkit/universal": "^1.1.45"
+    "@ng-toolkit/universal": "^1.1.45",
+    "@angular/platform-browser": "^7.2.7"
   }
 }

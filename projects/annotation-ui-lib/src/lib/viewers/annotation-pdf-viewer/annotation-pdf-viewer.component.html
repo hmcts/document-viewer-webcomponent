@@ -3,7 +3,7 @@
               *ngIf="annotate"></app-comments>
 
 <div id="annotation-wrapper" #annotationWrapper>
-  <app-contextual-toolbar #contextualToolbar></app-contextual-toolbar>
+  <app-contextual-toolbar (deletedAnnotation)="renderComments()" #contextualToolbar></app-contextual-toolbar>
 
   <div id="content-wrapper"
        #contentWrapper

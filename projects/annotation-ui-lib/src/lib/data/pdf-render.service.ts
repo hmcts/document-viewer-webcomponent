@@ -71,10 +71,10 @@ export class PdfRenderService {
                     this.addDomPage(pageDom, i);
                     pdf.getPage(i).then((pdfPage) => {
                         // Get current page rotation from page rotation objects
-                        pageOptions.rotate = this.getPageRotation(renderOptions, pageOptions, pdfPage);
+                        pageOptions.rotate = this.addPageRotation(renderOptions, pageOptions, pdfPage);
                         setTimeout(() => {
                             this.pdfAnnotateWrapper.renderPage(i, pageOptions).then(() => {
-                                if (i === this.pdfPages - 1) {
+                                if (i === this.pdfPages) {
                                     this.setRenderOptions(renderOptions);
                                     this.dataLoadedUpdate(true);
                                     this.listPagesSubject.next(this.listPages);
@@ -101,14 +101,18 @@ export class PdfRenderService {
         }
     }
 
-    getPageRotation(renderOptions: RenderOptions, pageOptions: RenderOptions, pdfPage: any): number {
-        let rotation = pageOptions.rotationPages
-            .filter(rotateObj => rotateObj.page === pdfPage.pageNumber)
-            .map(rotateObj => rotateObj.rotate)[0];
+    addPageRotation(renderOptions: RenderOptions, pageOptions: RenderOptions, pdfPage: any): number {
+        let rotation = this.getPageRotation(pageOptions, pdfPage);
         if (!rotation) {
             renderOptions.rotationPages.push({page: pdfPage.pageNumber, rotate: pdfPage.rotate});
             rotation = pdfPage.rotate;
         }
         return rotation;
+    }
+
+    getPageRotation(pageOptions: RenderOptions, pdfPage: any): number {
+      return pageOptions.rotationPages
+        .filter(rotateObj => rotateObj.page === pdfPage.pageNumber)
+        .map(rotateObj => rotateObj.rotate)[0];
     }
 }
