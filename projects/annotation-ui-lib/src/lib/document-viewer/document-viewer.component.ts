@@ -19,6 +19,7 @@ export class DocumentViewerComponent implements OnChanges, OnInit {
     @Input() baseUrl: string;
     @Input() isDM: boolean;
     @Input() contentType: string;
+    @Input() rotate = false;
 
     viewerComponent: any;
     error: HttpErrorResponse;
@@ -66,7 +67,7 @@ export class DocumentViewerComponent implements OnChanges, OnInit {
           });
         } else {
           this.viewerComponent = this.viewerFactoryService.buildComponent(this.viewerAnchor.viewContainerRef,
-            this.contentType, this.url, this.baseUrl, this.url, this.annotate, null);
+            this.contentType, this.url, this.baseUrl, this.url, this.annotate, null, this.rotate);
         }
     }
 
