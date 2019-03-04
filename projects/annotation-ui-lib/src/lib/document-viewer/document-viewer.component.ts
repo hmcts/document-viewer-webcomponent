@@ -54,14 +54,10 @@ export class DocumentViewerComponent implements OnChanges, OnInit {
               const dmDocumentId = this.viewerFactoryService.getDocumentId(metadata);
               if (this.annotate) {
                 this.annotationStoreService.getAnnotationSet(this.baseUrl, dmDocumentId).subscribe(annotationSet => {
-                  this.viewerComponent =
-                    this.viewerFactoryService.buildComponent(this.viewerAnchor.viewContainerRef,
-                      metadata.mimeType, url, this.baseUrl, metadata._links.self.href, this.annotate, annotationSet.body);
+                  this.buildComponent(metadata, url, annotationSet);
                 });
               } else {
-                this.viewerComponent =
-                  this.viewerFactoryService.buildComponent(this.viewerAnchor.viewContainerRef,
-                    metadata.mimeType, url, this.baseUrl, metadata._links.self.href, this.annotate, null);
+                this.buildComponent(metadata, url, null);
               }
             }
           }, err => {
@@ -73,4 +69,10 @@ export class DocumentViewerComponent implements OnChanges, OnInit {
             this.contentType, this.url, this.baseUrl, this.url, this.annotate, null);
         }
     }
+
+    buildComponent(metadata, url, annotationSet?) {
+      this.viewerFactoryService.buildComponent(this.viewerAnchor.viewContainerRef,
+        metadata.mimeType, url, this.baseUrl, metadata._links.self.href, this.annotate, annotationSet);
+    }
+
 }
