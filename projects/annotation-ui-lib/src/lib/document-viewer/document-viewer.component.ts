@@ -52,11 +52,13 @@ export class DocumentViewerComponent implements OnChanges, OnInit {
             if (metadata && metadata._links) {
               const url = this.urlFixer.fixDm(metadata._links.binary.href, this.baseUrl);
               const dmDocumentId = this.viewerFactoryService.getDocumentId(metadata);
-              this.annotationStoreService.getAnnotationSet(this.baseUrl, dmDocumentId).subscribe(annotationSet => {
-                this.viewerComponent =
-                  this.viewerFactoryService.buildComponent(this.viewerAnchor.viewContainerRef,
-                    metadata.mimeType, url, this.baseUrl, metadata._links.self.href, this.annotate, annotationSet.body);
-              });
+              if (this.annotate) {
+                this.annotationStoreService.getAnnotationSet(this.baseUrl, dmDocumentId).subscribe(annotationSet => {
+                  this.buildComponent(metadata, url, annotationSet);
+                });
+              } else {
+                this.buildComponent(metadata, url, null);
+              }
             }
           }, err => {
             this.log.error('An error has occured while fetching document' + err);
@@ -67,4 +69,10 @@ export class DocumentViewerComponent implements OnChanges, OnInit {
             this.contentType, this.url, this.baseUrl, this.url, this.annotate, null);
         }
     }
+
+    buildComponent(metadata, url, annotationSet?) {
+      this.viewerFactoryService.buildComponent(this.viewerAnchor.viewContainerRef,
+        metadata.mimeType, url, this.baseUrl, metadata._links.self.href, this.annotate, annotationSet);
+    }
+
 }
