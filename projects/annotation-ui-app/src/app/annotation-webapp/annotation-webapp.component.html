@@ -69,7 +69,8 @@
                   [annotate]="false"
                   [url]="'http://localhost:3000/assets/non-dm.pdf'"
                   [isDM]="false"
-                  [contentType]="'pdf'">
+                  [contentType]="'pdf'"
+                  [rotate]="true">
                 </app-document-viewer>
                 <app-document-viewer *ngIf="documentTypeToShow === 'nonDM_image'"
                   [baseUrl]="'http://localhost:3000/api'"

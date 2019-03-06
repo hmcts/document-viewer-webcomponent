@@ -10,6 +10,7 @@ export class ImageViewerComponent implements OnInit {
     
     @Input() url: string;
     @Input() originalUrl: string;
+    @Input() rotate: boolean;
 
     @ViewChild('img') img: ElementRef;
     rotation: number;

@@ -30,6 +30,7 @@ export class AnnotationPdfViewerComponent implements OnInit, AfterViewInit, OnDe
     @Input() url: string;
     @Input() annotationSet: IAnnotationSet;
     @Input() baseUrl: string;
+    @Input() rotate: boolean;
 
     private page: number;
     private focusedAnnotationSubscription: Subscription;
@@ -67,14 +68,16 @@ export class AnnotationPdfViewerComponent implements OnInit, AfterViewInit, OnDe
             []
         ));
 
-        this.pdfPageSubscription = this.pdfRenderService.listPagesSubject
-            .subscribe((listPages: RotationModel[]) => {
+        if (this.rotate) {
+            this.pdfPageSubscription = this.pdfRenderService.listPagesSubject
+              .subscribe((listPages: RotationModel[]) => {
                 this.rotationComponents.forEach(rc => rc.destroy());
                 listPages.forEach(pageDetails => {
-                    this.rotationComponents.push(this.rotationFactoryService.addToDom(pageDetails));
+                  this.rotationComponents.push(this.rotationFactoryService.addToDom(pageDetails));
                 });
-        }); 
-        
+              });
+        }
+
         this.pdfRenderService.render(this.viewerElementRef);
         this.pdfService.setAnnotationWrapper(this.annotationWrapper);
 
