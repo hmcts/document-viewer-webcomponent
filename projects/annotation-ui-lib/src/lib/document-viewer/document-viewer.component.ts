@@ -73,7 +73,7 @@ export class DocumentViewerComponent implements OnChanges, OnInit {
 
     buildComponent(metadata, url, annotationSet?) {
       this.viewerFactoryService.buildComponent(this.viewerAnchor.viewContainerRef,
-        metadata.mimeType, url, this.baseUrl, metadata._links.self.href, this.annotate, annotationSet);
+        metadata.mimeType, url, this.baseUrl, metadata._links.self.href, this.annotate, annotationSet, this.rotate);
     }
 
 }
