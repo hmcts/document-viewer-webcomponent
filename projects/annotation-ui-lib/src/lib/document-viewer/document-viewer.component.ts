@@ -55,7 +55,7 @@ export class DocumentViewerComponent implements OnChanges, OnInit {
               const dmDocumentId = this.viewerFactoryService.getDocumentId(metadata);
               if (this.annotate) {
                 this.annotationStoreService.getAnnotationSet(this.baseUrl, dmDocumentId).subscribe(annotationSet => {
-                  this.buildComponent(metadata, url, annotationSet);
+                  this.buildComponent(metadata, url, annotationSet.body);
                 });
               } else {
                 this.buildComponent(metadata, url, null);

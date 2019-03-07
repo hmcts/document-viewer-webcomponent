@@ -5,7 +5,7 @@
     .aui__document-pages {
 
       @include mq($from: desktop) {
-        margin-right: 417px;
+        margin-right: 430px;
         margin-left: auto;
       }
 
@@ -219,7 +219,7 @@
   @include mq($from: desktop) {
     float: right;
     padding-left: 30px;
-    width: 386px;
+    width: 400px;
   }
 
 }
