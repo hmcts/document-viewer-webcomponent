@@ -1,6 +1,6 @@
 {
   "name": "@hmcts/annotation-ui-lib",
-  "version": "1.0.22",
+  "version": "1.0.23",
   "description": "PDF Viewer and ability to highlight text with and comment tracking",
   "keywords": [
     "Angular",
