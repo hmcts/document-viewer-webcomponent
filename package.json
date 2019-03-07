@@ -1,6 +1,6 @@
 {
   "name": "@hmcts/annotation-ui-lib",
-  "version": "1.0.21",
+  "version": "1.0.22",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -101,7 +101,7 @@
     "karma-jasmine": "1.1.2",
     "karma-jasmine-html-reporter": "0.2.2",
     "karma-phantomjs-launcher": "1.0.4",
-    "ng-packagr": "^4.4.5",
+    "ng-packagr": "^4.7.1",
     "protractor": "^5.4.2",
     "ts-node": "^5.0.1",
     "tsickle": "^0.34.0",
