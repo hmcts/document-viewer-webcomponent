@@ -6,7 +6,7 @@ import {Component} from '@angular/core';
 })
 export class AnnotationWebappComponent {
 
-    documentTypeToShow: string = 'nonDM_PDF';
+    documentTypeToShow = 'nonDM_PDF';
 
     constructor() {}
 

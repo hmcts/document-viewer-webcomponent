@@ -48,7 +48,7 @@ export class PdfRenderService {
     getPdfPages(): number {
         return this.pdfPages;
     }
-    
+
     render(viewerElementRef?: ElementRef) {
         if (viewerElementRef != null) {
             this.viewerElementRef = viewerElementRef;

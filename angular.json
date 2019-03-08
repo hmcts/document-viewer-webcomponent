@@ -7,7 +7,7 @@
       "root": "projects/document-viewer-webcomponent",
       "sourceRoot": "projects/document-viewer-webcomponent/src",
       "projectType": "library",
-      "prefix": "aui",
+      "prefix": "app",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",

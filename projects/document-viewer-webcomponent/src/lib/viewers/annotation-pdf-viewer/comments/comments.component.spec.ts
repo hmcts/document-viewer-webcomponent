@@ -68,7 +68,7 @@ class MockAnnotationStoreService {
 }
 
 class MockCommentItemComponent extends CommentItemComponent {
-  
+
   constructor() {
     const log = new EmLoggerService();
     super(null, null, null, null, null, null, log);

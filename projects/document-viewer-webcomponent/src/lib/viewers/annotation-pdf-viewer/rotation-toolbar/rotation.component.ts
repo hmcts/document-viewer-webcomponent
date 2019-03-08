@@ -20,7 +20,9 @@ export class RotationComponent implements OnInit {
     }
 
     ngOnInit() {
-        const height = `${(<HTMLElement>document.getElementById('pageContainer' + this.pageNumber).querySelector('.textLayer')).style.height}`;
+        const page: HTMLElement = document.getElementById('pageContainer' + this.pageNumber)
+                                          .querySelector('.textLayer');
+        const height = `${(page.style.height)}`;
         this.rotationStyle = {
           'margin-top': `-${height}`
         };

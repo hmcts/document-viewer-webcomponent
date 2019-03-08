@@ -7,7 +7,7 @@ import { EmLoggerService } from '../logging/em-logger.service';
 export class PdfService {
 
     private pageNumber: BehaviorSubject<number>;
-    
+
     private annotationWrapper: ElementRef;
     listPages: {page: number; rect: any}[];
 

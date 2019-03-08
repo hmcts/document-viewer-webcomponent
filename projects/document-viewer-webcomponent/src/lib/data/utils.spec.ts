@@ -159,14 +159,14 @@ describe('Utils', () => {
     describe('sortByLinePosition', () => {
         it('should return -1 if first rectandle is leftest', () => {
             const sameLine = utils.sortByLinePosition([
-                new Rectangle('myId', 'myId', '', null, null, null, null, null, null, null, 10, 0)], 
+                new Rectangle('myId', 'myId', '', null, null, null, null, null, null, null, 10, 0)],
                 [new Rectangle('myId', 'myId', '', null, null, null, null, null, null, null, 15, 0)]);
             expect(sameLine).toBe(-1);
         });
 
         it('should return 1 if second rectandle is leftest', () => {
             const sameLine = utils.sortByLinePosition([
-                new Rectangle('myId', 'myId', '', null, null, null, null, null, null, null, 15, 0)], 
+                new Rectangle('myId', 'myId', '', null, null, null, null, null, null, null, 15, 0)],
                 [new Rectangle('myId', 'myId', '', null, null, null, null, null, null, null, 10, 0)]);
             expect(sameLine).toBe(1);
         });

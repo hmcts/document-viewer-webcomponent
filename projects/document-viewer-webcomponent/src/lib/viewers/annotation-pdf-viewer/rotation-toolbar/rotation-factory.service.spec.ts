@@ -3,7 +3,7 @@ import { EmLoggerService } from '../../../logging/em-logger.service';
 import { TestBed, inject } from '@angular/core/testing';
 
 describe('PdfService', () => {
-  
+
     beforeEach(() => {
       TestBed.configureTestingModule({
         providers: [
@@ -12,7 +12,7 @@ describe('PdfService', () => {
         ]
       });
     });
-  
+
     describe('constructor', () => {
       it('should be created', inject([RotationFactoryService], (service: RotationFactoryService) => {
         expect(service).toBeTruthy();

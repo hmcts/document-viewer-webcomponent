@@ -7,7 +7,7 @@ import { EmLoggerService } from '../../logging/em-logger.service';
     styleUrls: ['./image-viewer.component.scss'],
 })
 export class ImageViewerComponent implements OnInit {
-    
+
     @Input() url: string;
     @Input() originalUrl: string;
     @Input() rotate: boolean;

@@ -25,7 +25,7 @@ describe('RotationComponent', () => {
       })
       .compileComponents();
     }));
-  
+
     beforeEach(() => {
       fixture = TestBed.createComponent(RotationComponent);
 
@@ -40,7 +40,7 @@ describe('RotationComponent', () => {
       component.pageNumber = 1;
       fixture.detectChanges();
     });
-  
+
     it('should create', () => {
       expect(component).toBeTruthy();
     });

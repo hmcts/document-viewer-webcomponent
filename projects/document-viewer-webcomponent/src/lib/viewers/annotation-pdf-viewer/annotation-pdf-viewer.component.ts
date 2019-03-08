@@ -1,4 +1,15 @@
-import {Component, OnInit, ViewChild, ElementRef, Input, ChangeDetectorRef, Renderer2, OnDestroy, AfterViewInit, ComponentRef} from '@angular/core';
+import {
+    Component,
+    OnInit,
+    ViewChild,
+    ElementRef,
+    Input,
+    ChangeDetectorRef,
+    Renderer2,
+    OnDestroy,
+    AfterViewInit,
+    ComponentRef
+} from '@angular/core';
 import { Subscription } from 'rxjs';
 import {PdfService} from '../../data/pdf.service';
 import {AnnotationStoreService} from '../../data/annotation-store.service';

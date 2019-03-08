@@ -1,5 +1,16 @@
-import {Component, OnInit, Input, Output, EventEmitter, ViewChild, OnDestroy, ChangeDetectorRef, ElementRef, Renderer2} from '@angular/core';
-import {NgForm} from '@angular/forms';
+import {
+  Component,
+  OnInit,
+  Input,
+  Output,
+  EventEmitter,
+  ViewChild,
+  OnDestroy,
+  ChangeDetectorRef,
+  ElementRef,
+  Renderer2
+} from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { Annotation, Comment } from '../../../../data/annotation-set.model';
 import { AnnotationStoreService } from '../../../../data/annotation-store.service';
@@ -32,14 +43,14 @@ export class CommentItemComponent implements OnInit, OnDestroy {
     @ViewChild('commentItem') commentItem: NgForm;
     @ViewChild('detailsWrapper') detailsWrapper: ElementRef;
     @ViewChild('commentDate') commentDate: ElementRef;
-    
+
     model = new Comment(null, null, null, null, null, null, null, null, null);
     commentTopPos: number;
     commentHeight: number;
     annotationTopPos: number;
     annotationLeftPos: number;
     annotationHeight: number;
-    
+
     constructor(private annotationStoreService: AnnotationStoreService,
                 private pdfService: PdfService,
                 private pdfRenderService: PdfRenderService,
@@ -64,7 +75,7 @@ export class CommentItemComponent implements OnInit, OnDestroy {
                     } else {
                         this.handleShowBtn();
                     }
-                    
+
                     this.ref.detectChanges();
                 } else {
                     this.onBlur();
@@ -236,7 +247,7 @@ export class CommentItemComponent implements OnInit, OnDestroy {
     isCommentEmpty(): boolean {
         return this.comment.content === null;
     }
-    
+
     isShrinkable(): boolean {
         return this.commentArea.nativeElement.scrollHeight > 31;
     }

@@ -8,20 +8,17 @@ import { PdfAnnotateWrapper } from './js-wrapper/pdf-annotate-wrapper';
 import { BehaviorSubject } from 'rxjs';
 
 class MockPdfAnnotateWrapper {
-    renderPage(pageNumber) {}
-    enableRect(tool) {}
-    disableRect() {}
     createPage() {}
 }
 
 class MockPdfWrapper {
     getDocument(documentId) {}
   }
-  
+
 describe('PdfService', () => {
     const mockPdfAnnotateWrapper = new MockPdfAnnotateWrapper();
     const mockPdfWrapper = new MockPdfWrapper();
-  
+
     beforeEach(() => {
       TestBed.configureTestingModule({
         providers: [
@@ -32,7 +29,7 @@ describe('PdfService', () => {
         ]
       });
     });
-  
+
     describe('constructor', () => {
       it('should be created', inject([PdfRenderService], (service: PdfRenderService) => {
         expect(service).toBeTruthy();
@@ -41,13 +38,13 @@ describe('PdfService', () => {
 
 
   describe('render', () => {
-    it('render should call underlying pdfjs library and create pdf annotate library page.', inject([PdfRenderService], (service: PdfRenderService) => {
-      spyOn(mockPdfWrapper, 'getDocument').and.returnValue(
-          new Promise((resolve) => {
-            resolve({pdfInfo: { numPages: 65}});
-          }
-        ));
-      service.setRenderOptions(new RenderOptions(
+    it('render should call underlying pdfjs library and create pdf annotate library page.',
+        inject([PdfRenderService], (service: PdfRenderService) => {
+          spyOn(mockPdfWrapper, 'getDocument').and.returnValue(
+            new Promise((resolve) => {
+              resolve({pdfInfo: { numPages: 65}});
+            }));
+          service.setRenderOptions(new RenderOptions(
           'documentId',
           null,
           1.33,

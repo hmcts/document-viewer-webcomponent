@@ -1,22 +1,20 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {DocumentViewerComponent} from './document-viewer.component';
-import {HttpClientTestingModule} from '@angular/common/http/testing';
-import {DebugElement, Renderer2, SimpleChange, Type} from '@angular/core';
-import {DocumentViewerService} from './document-viewer.service';
-import {of} from 'rxjs';
+import { DocumentViewerComponent } from './document-viewer.component';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { DebugElement, Renderer2, SimpleChange, Type } from '@angular/core';
+import { DocumentViewerService } from './document-viewer.service';
+import { of} from 'rxjs';
 import { TransferState } from '@angular/platform-browser';
 import { DocumentViewerModule } from '../document-viewer.module';
 import { EmLoggerService } from '../logging/em-logger.service';
-import {ViewerFactoryService} from "../viewers/viewer-factory.service";
-import {PdfWrapper} from "../data/js-wrapper/pdf-wrapper";
-import {AnnotationStoreService} from '../data/annotation-store.service';
+import { ViewerFactoryService } from '../viewers/viewer-factory.service';
+import { PdfWrapper } from '../data/js-wrapper/pdf-wrapper';
+import { AnnotationStoreService } from '../data/annotation-store.service';
 
 const originalUrl = 'http://api-gateway.dm.com/documents/1234-1234-1234';
-const url = '/demproxy/dm/documents/1234-1234-1234';
 
 class MockTransferState {
-    hasKey() {}
     remove() {}
     set() {}
 }
@@ -44,6 +42,38 @@ describe('DocumentViewerComponent', () => {
         getAnnotationSet: () => {
           return of([]);
         }
+    };
+
+    const createComponent = () => {
+        fixture = TestBed.createComponent(DocumentViewerComponent);
+        component = fixture.componentInstance;
+        component.isDM = true;
+        component.url = originalUrl;
+        component.baseUrl = '/demproxy/dm';
+        element = fixture.debugElement;
+
+        viewerFactoryServiceMock = fixture.componentRef.injector
+            .get<ViewerFactoryService>(ViewerFactoryService as Type<ViewerFactoryService>);
+        spyOn(viewerFactoryServiceMock, 'getDocumentId').and.callThrough();
+        spyOn(viewerFactoryServiceMock, 'buildComponent').and.callThrough();
+
+        fixture.detectChanges();
+        component.ngOnChanges({url: new SimpleChange(null, component.url, true)});
+    };
+
+    const createMockDocuments = (mimeType, documentName, url) => {
+        return {
+            mimeType: mimeType,
+            originalDocumentName: documentName,
+            _links: {
+                binary: {
+                    href: `${url}/binary`
+                },
+                self: {
+                    href: `${url}`
+                }
+            }
+        };
     };
 
 
@@ -118,36 +148,4 @@ describe('DocumentViewerComponent', () => {
             expect(element.nativeElement.querySelector('app-image-viewer')).not.toBeTruthy();
         });
     });
-
-  const createComponent = () => {
-    fixture = TestBed.createComponent(DocumentViewerComponent);
-    component = fixture.componentInstance;
-    component.isDM = true;
-    component.url = originalUrl;
-    component.baseUrl = '/demproxy/dm';
-    element = fixture.debugElement;
-
-    viewerFactoryServiceMock = fixture.componentRef.injector.get<ViewerFactoryService>(ViewerFactoryService as Type<ViewerFactoryService>);
-    spyOn(viewerFactoryServiceMock, 'getDocumentId').and.callThrough();
-    spyOn(viewerFactoryServiceMock, 'buildComponent').and.callThrough();
-
-    fixture.detectChanges();
-    component.ngOnChanges({url: new SimpleChange(null, component.url, true)});
-  }
-
-  const createMockDocuments = (mimeType, documentName, url) => {
-    return {
-      mimeType: mimeType,
-      originalDocumentName: documentName,
-      _links: {
-        binary: {
-          href: `${url}/binary`
-        },
-        self: {
-          href: `${url}`
-        }
-      }
-    }
-  };
-
 });

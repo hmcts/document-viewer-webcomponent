@@ -2,7 +2,7 @@ import { EmLoggerService } from './em-logger.service';
 import { TestBed, inject } from '@angular/core/testing';
 
 describe('EmLoggerService', () => {
-  
+
     beforeEach(() => {
       TestBed.configureTestingModule({
         providers: [
@@ -10,7 +10,7 @@ describe('EmLoggerService', () => {
         ]
       });
     });
-  
+
     describe('constructor', () => {
       it('should be created', inject([EmLoggerService], (service: EmLoggerService) => {
         expect(service).toBeTruthy();

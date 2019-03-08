@@ -72,7 +72,7 @@ describe('CommentItemComponent', () => {
     '123141', null, new Date(), null, null, null,
     9.6, 50,
     68, 70);
-  
+
   const annotation = new Annotation(
     'ca68f5b0-a9dd-4f8e-95b8-3cad024c54be',
     '563ba4f8-47af-4652-961a-1274059269c6',
