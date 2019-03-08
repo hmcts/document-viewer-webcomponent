@@ -1,5 +1,4 @@
 import {ComponentFactoryResolver, ComponentRef, Injectable, ViewContainerRef} from '@angular/core';
-import { UrlFixerService } from '../data/url-fixer.service';
 import { AnnotationStoreService } from '../data/annotation-store.service';
 import { ImageViewerComponent } from './image-viewer/image-viewer.component';
 import { UnsupportedViewerComponent } from './unsupported-viewer/unsupported-viewer.component';
@@ -12,16 +11,8 @@ export class ViewerFactoryService {
 
     constructor(private componentFactoryResolver: ComponentFactoryResolver,
                 private annotationStoreService: AnnotationStoreService,
-                private urlFixer: UrlFixerService,
                 private log: EmLoggerService) {
         this.log.setClass('ViewerFactoryService');
-    }
-
-    private static determineComponent(mimeType: string) {
-        if (ViewerFactoryService.isImage(mimeType)) {
-            return ImageViewerComponent;
-        }
-        return UnsupportedViewerComponent;
     }
 
     private static isImage(mimeType: String) {

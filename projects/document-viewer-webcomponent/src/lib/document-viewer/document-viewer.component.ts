@@ -1,17 +1,16 @@
-import {Component, Input, OnChanges, OnInit, SimpleChanges, ViewChild} from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges, ViewChild } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
-import {ViewerAnchorDirective} from './viewer-anchor.directive';
-import {DocumentViewerService} from './document-viewer.service';
+import { ViewerAnchorDirective } from './viewer-anchor.directive';
+import { DocumentViewerService } from './document-viewer.service';
 import { ViewerFactoryService } from '../viewers/viewer-factory.service';
-import { UrlFixerService } from '../data/url-fixer.service';
 import { EmLoggerService } from '../logging/em-logger.service';
-import {AnnotationStoreService} from '../data/annotation-store.service';
+import { AnnotationStoreService } from '../data/annotation-store.service';
 
 @Component({
     selector: 'app-document-viewer',
     templateUrl: './document-viewer.component.html'
 })
-export class DocumentViewerComponent implements OnChanges, OnInit {
+export class DocumentViewerComponent implements OnChanges {
 
     @ViewChild(ViewerAnchorDirective) viewerAnchor: ViewerAnchorDirective;
     @Input() url = '';
@@ -27,12 +26,8 @@ export class DocumentViewerComponent implements OnChanges, OnInit {
     constructor(private log: EmLoggerService,
                 private viewerFactoryService: ViewerFactoryService,
                 private annotationStoreService: AnnotationStoreService,
-                private urlFixer: UrlFixerService,
                 private documentViewerService: DocumentViewerService) {
         log.setClass('DocumentViewerComponent');
-    }
-
-    ngOnInit(): void {
     }
 
     ngOnChanges(changes: SimpleChanges) {
@@ -47,11 +42,11 @@ export class DocumentViewerComponent implements OnChanges, OnInit {
             throw new Error('url is required argument');
         }
         if (this.isDM) {
-          this.documentViewerService.getDocumentMetadata(`${this.urlFixer.fixDm(this.url, this.baseUrl)}`).subscribe(metadata => {
+          this.documentViewerService.getDocumentMetadata(this.getDocumentUrl(this.url)).subscribe(metadata => {
 
             this.log.info(metadata);
             if (metadata && metadata._links) {
-              const url = this.urlFixer.fixDm(metadata._links.binary.href, this.baseUrl);
+              const url = this.getDocumentUrl(metadata._links.binary.href);
               const dmDocumentId = this.viewerFactoryService.getDocumentId(metadata);
               if (this.annotate) {
                 this.annotationStoreService.getAnnotationSet(this.baseUrl, dmDocumentId).subscribe(annotationSet => {
@@ -75,5 +70,9 @@ export class DocumentViewerComponent implements OnChanges, OnInit {
       this.viewerFactoryService.buildComponent(this.viewerAnchor.viewContainerRef,
         metadata.mimeType, url, this.baseUrl, metadata._links.self.href, this.annotate, annotationSet, this.rotate);
     }
+
+  getDocumentUrl(url: string): string {
+    return url.replace(/http.*\/documents\//, `${this.baseUrl}/documents/`);
+  }
 
 }

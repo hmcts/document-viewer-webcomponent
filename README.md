@@ -1,20 +1,20 @@
-# @hmcts/annotation-ui-lib 
-[![Coverage Status](https://coveralls.io/repos/github/hmcts/annotation-ui-lib/badge.svg?branch=upload-npm-in-pipeline)](https://coveralls.io/github/hmcts/annotation-ui-lib?branch=upload-npm-in-pipeline)
-[![Build Status](https://travis-ci.com/hmcts/annotation-ui-lib.svg?branch=master)](https://travis-ci.com/hmcts/annotation-ui-lib)
+# @hmcts/document-viewer-webcomponent 
+[![Coverage Status](https://coveralls.io/repos/github/hmcts/document-viewer-webcomponent/badge.svg?branch=upload-npm-in-pipeline)](https://coveralls.io/github/hmcts/document-viewer-webcomponent?branch=upload-npm-in-pipeline)
+[![Build Status](https://travis-ci.com/hmcts/document-viewer-webcomponent.svg?branch=master)](https://travis-ci.com/hmcts/document-viewer-webcomponent)
 
 This is an angular library that provides components to view and annotate PDF documents, as well as view images.
 
 ### Building annotation library
 - npm run package
-- distributable will be created under dist/annotation-ui-lib
+- distributable will be created under dist/document-viewer-webcomponent
 
 ### Add as a dependency in your angular app
-- add @hmcts/annotation-ui-lib as a dependency in package.json
+- add @hmcts/document-viewer-webcomponent as a dependency in package.json
 - import HmctsEmViewerUiModule and declare it in your NgModule imports.
 
   For example:
   ```
-  import { HmctsEmViewerUiModule } from 'annotation-ui-lib';
+  import { DocumentViewerModule } from 'document-viewer-webcomponent';
 
   @NgModule({
     imports: [
@@ -27,23 +27,23 @@ This is an angular library that provides components to view and annotate PDF doc
   ```
     {
         "glob": "**/*",
-        "input": "node_modules/@hmcts/annotation-ui-lib/assets",
+        "input": "node_modules/@hmcts/document-viewer-webcomponent/assets",
         "output": "/assets"
     }
   ```
 - and styles
   ```
   "styles": [
-    "node_modules/@hmcts/annotation-ui-lib/assets/aui-styles.scss",
+    "node_modules/@hmcts/document-viewer-webcomponent/assets/aui-styles.scss",
     ...
   ],
   ```
 - import JS dependencies as scripts within angular.json
   ```
   "scripts": [
-      "node_modules/@hmcts/annotation-ui-lib/assets/js/pdf.combined.min.js",
-      "node_modules/@hmcts/annotation-ui-lib/assets/js/pdf_viewer.min.js",
-      "node_modules/@hmcts/annotation-ui-lib/assets/js/pdf-annotate.min.js"
+      "node_modules/@hmcts/document-viewer-webcomponent/assets/js/pdf.combined.min.js",
+      "node_modules/@hmcts/document-viewer-webcomponent/assets/js/pdf_viewer.min.js",
+      "node_modules/@hmcts/document-viewer-webcomponent/assets/js/pdf-annotate.min.js"
       ...
   ]
   ```

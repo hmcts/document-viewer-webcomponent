@@ -17,7 +17,6 @@ import { PdfWrapper } from './data/js-wrapper/pdf-wrapper';
 import { NgtUniversalModule } from '@ng-toolkit/universal';
 import { ImageViewerComponent } from './viewers/image-viewer/image-viewer.component';
 import { UnsupportedViewerComponent } from './viewers/unsupported-viewer/unsupported-viewer.component';
-import { UrlFixerService } from './data/url-fixer.service';
 import { ViewerFactoryService } from './viewers/viewer-factory.service';
 import { DocumentViewerComponent } from './document-viewer/document-viewer.component';
 import { ViewerAnchorDirective } from './document-viewer/viewer-anchor.directive';
@@ -60,7 +59,6 @@ import { EmLoggerService } from './logging/em-logger.service';
     NpaService,
     ApiHttpService,
     Utils,
-    UrlFixerService,
     ViewerFactoryService,
     DocumentViewerService,
     RotationFactoryService,
@@ -71,4 +69,4 @@ import { EmLoggerService } from './logging/em-logger.service';
     DocumentViewerComponent
 ]
 })
-export class HmctsEmViewerUiModule { }
+export class DocumentViewerModule { }

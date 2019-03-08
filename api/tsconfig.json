@@ -22,7 +22,7 @@
     "include": [
         "**/*.ts",
         "../*.ts",
-      "../projects/annotation-ui-app/src/app/routing/pages/generic-page/annotation-webapp/annotation-webapp.component.ts", "../config/environments/aat.config.ts", "../config/environments/local.config.ts"
+      "../src/app/routing/pages/generic-page/annotation-webapp/annotation-webapp.component.ts", "../config/environments/aat.config.ts", "../config/environments/local.config.ts"
     ],
     "exclude": [
         "**/*.spec.ts"

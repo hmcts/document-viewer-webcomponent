@@ -6,7 +6,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { AuthGuardService } from './auth/auth-guard.service';
 import { RedirectionService } from './auth/redirection.service';
 import { AnnotationWebappComponent } from './annotation-webapp/annotation-webapp.component';
-import { HmctsEmViewerUiModule } from '@hmcts/annotation-ui-lib';
+import { DocumentViewerModule } from '@hmcts/document-viewer-webcomponent';
 
 const routes: Routes = [{
     path: '',
@@ -23,7 +23,7 @@ const routes: Routes = [{
         }),
         HttpClientModule,
         ReactiveFormsModule,
-        HmctsEmViewerUiModule
+        DocumentViewerModule
     ],
     declarations: [
         AnnotationWebappComponent

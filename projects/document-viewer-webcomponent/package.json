@@ -1,6 +1,6 @@
 {
-  "name": "@hmcts/annotation-ui-lib",
-  "version": "1.0.23",
+  "name": "@hmcts/document-viewer-webcomponent",
+  "version": "1.1.0",
   "description": "PDF Viewer and ability to highlight text with and comment tracking",
   "keywords": [
     "Angular",
@@ -11,7 +11,7 @@
   "license": "SEE LICENSE IN LICENSE",
   "repository": {
     "type": "git",
-    "url": "https://github.com/hmcts/annotation-ui-lib"
+    "url": "https://github.com/hmcts/document-viewer-webcomponent"
   },
   "dependencies": {
     "@hmcts/frontend": "0.0.14-alpha",

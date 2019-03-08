@@ -6,7 +6,7 @@ import {DebugElement, Renderer2, SimpleChange, Type} from '@angular/core';
 import {DocumentViewerService} from './document-viewer.service';
 import {of} from 'rxjs';
 import { TransferState } from '@angular/platform-browser';
-import { HmctsEmViewerUiModule } from '../hmcts-em-viewer-ui.module';
+import { DocumentViewerModule } from '../document-viewer.module';
 import { EmLoggerService } from '../logging/em-logger.service';
 import {ViewerFactoryService} from "../viewers/viewer-factory.service";
 import {PdfWrapper} from "../data/js-wrapper/pdf-wrapper";
@@ -49,7 +49,7 @@ describe('DocumentViewerComponent', () => {
 
     beforeEach(async(() => {
         const testingModule = TestBed.configureTestingModule({
-            imports: [HmctsEmViewerUiModule, HttpClientTestingModule],
+            imports: [DocumentViewerModule, HttpClientTestingModule],
             providers: [
                 EmLoggerService,
                 Renderer2,
