@@ -17,7 +17,7 @@ export class DocumentViewerComponent implements OnChanges, OnInit {
     @Input() url = '';
     @Input() annotate = false;
     @Input() baseUrl = '';
-    @Input() isDM = false;
+    @Input() isDM = true;
     @Input() contentType: string;
     @Input() rotate = false;
 

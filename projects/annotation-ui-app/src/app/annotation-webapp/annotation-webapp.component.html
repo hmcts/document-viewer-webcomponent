@@ -62,16 +62,17 @@
                   [baseUrl]="'http://localhost:3000/api'"
                   [annotate]="true"
                   [url]="'https://dm-store-aat.service.core-compute-aat.internal/documents/35f3714e-30e0-45d6-b4fb-08f51c271f8e'"
-                  [isDM]="true"
                   [rotate]="true">
                 </app-document-viewer>
                 <app-document-viewer *ngIf="documentTypeToShow === 'nonDM_PDF'"
                   [url]="'http://localhost:3000/assets/non-dm.pdf'"
-                  [contentType]="'pdf'">
+                  [contentType]="'pdf'"
+                  [isDM]="false">
                 </app-document-viewer>
                 <app-document-viewer *ngIf="documentTypeToShow === 'nonDM_image'"
                   [url]="'http://localhost:3000/assets/non-dm.jpg'"
-                  [contentType]="'image'">
+                  [contentType]="'image'"
+                  [isDM]="false">
                 </app-document-viewer>
               </div>
             </div>
