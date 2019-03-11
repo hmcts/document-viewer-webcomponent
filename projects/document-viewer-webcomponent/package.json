@@ -1,0 +1,31 @@
+{
+  "name": "@hmcts/document-viewer-webcomponent",
+  "version": "1.1.2",
+  "description": "PDF Viewer and ability to highlight text with and comment tracking",
+  "keywords": [
+    "Angular",
+    "PDF",
+    "Annotation"
+  ],
+  "homepage": "https://github.com/hmcts/rpa-annotation-ui-demo",
+  "license": "SEE LICENSE IN LICENSE",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hmcts/document-viewer-webcomponent"
+  },
+  "dependencies": {
+    "@hmcts/frontend": "0.0.14-alpha",
+    "@hmcts/pdf-annotate": "^1.1.17",
+    "govuk-frontend": "2.5.0"
+  },
+  "peerDependencies": {
+    "@angular/common": "^7.2.8",
+    "@angular/core": "^7.2.8",
+    "@angular/forms": "^7.2.8",
+    "@ng-toolkit/universal": "^1.1.51",
+    "@angular/platform-browser": "^7.2.8"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

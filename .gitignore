@@ -7,7 +7,7 @@
 
 # dependencies
 node_modules/
-projects/annotation-ui-lib/node_modules/
+projects/document-viewer-webcomponent/node_modules/
 **/**/node_modules/
 /reports
 /src/environments/environment.ts

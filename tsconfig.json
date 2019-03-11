@@ -18,11 +18,11 @@
       "dom"
     ],
     "paths": {
-      "@hmcts/annotation-ui-lib": [
-        "dist/annotation-ui-lib"
+      "@hmcts/document-viewer-webcomponent": [
+        "dist/document-viewer-webcomponent"
       ],
-      "@hmcts/annotation-ui-lib/*": [
-        "dist/annotation-ui-lib/*"
+      "@hmcts/document-viewer-webcomponent/*": [
+        "dist/document-viewer-webcomponent/*"
       ]
     }
   }
