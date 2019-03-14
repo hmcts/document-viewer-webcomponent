@@ -31,7 +31,7 @@ export class DocumentViewerComponent implements OnChanges {
     }
 
     ngOnChanges(changes: SimpleChanges) {
-        if (changes.url || changes.annotate) {
+        if (changes.url || changes.annotate || changes.contentType) {
           this.buildViewer();
         }
     }
@@ -42,20 +42,21 @@ export class DocumentViewerComponent implements OnChanges {
             throw new Error('url is required argument');
         }
         if (this.isDM) {
-          this.documentViewerService.getDocumentMetadata(this.getDocumentUrl(this.url)).subscribe(metadata => {
-
-            this.log.info(metadata);
-            if (metadata && metadata._links) {
-              const url = this.getDocumentUrl(metadata._links.binary.href);
-              const dmDocumentId = this.viewerFactoryService.getDocumentId(metadata);
-              if (this.annotate) {
-                this.annotationStoreService.getAnnotationSet(this.baseUrl, dmDocumentId).subscribe(annotationSet => {
-                  this.buildComponent(metadata, url, annotationSet.body);
-                });
-              } else {
-                this.buildComponent(metadata, url, null);
+          this.documentViewerService
+            .getDocumentMetadata(this.formatUrl(this.url))
+            .subscribe(metadata => {
+              this.log.info(metadata);
+              if (metadata && metadata._links) {
+                const url = this.formatUrl(metadata._links.binary.href);
+                const dmDocumentId = this.viewerFactoryService.getDocumentId(metadata);
+                if (this.annotate) {
+                  this.annotationStoreService.getAnnotationSet(this.baseUrl, dmDocumentId).subscribe(annotationSet => {
+                    this.buildComponent(metadata, url, annotationSet.body);
+                  });
+                } else {
+                  this.buildComponent(metadata, url, null);
+                }
               }
-            }
           }, err => {
             this.log.error('An error has occured while fetching document' + err);
             this.error = err;
@@ -71,7 +72,7 @@ export class DocumentViewerComponent implements OnChanges {
         metadata.mimeType, url, this.baseUrl, metadata._links.self.href, this.annotate, annotationSet, this.rotate);
     }
 
-  getDocumentUrl(url: string): string {
+  formatUrl(url: string): string {
     return url.replace(/http.*\/documents\//, `${this.baseUrl}/documents/`);
   }
 
