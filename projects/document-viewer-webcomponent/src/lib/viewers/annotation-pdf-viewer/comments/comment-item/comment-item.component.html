@@ -5,9 +5,11 @@
       (click)="handleCommentClick($event)"
       [style.top.px]="commentTopPos">
   <div #detailsWrapper id="detailsWrapper" class="aui-comment__header">
-    <span *ngIf="comment.createdByDetails" class="aui-comment__author">{{comment.createdByDetails.forename}} {{comment.createdByDetails.surname}}</span>
-    <time #commentDate class="aui-comment__meta" ng-controller="datCtrl">{{ comment.createdDate | date: 'd MMMM y h:mm a' }}</time>
-    <div *ngIf="false">
+    <div *ngIf="!comment.lastModifiedByDetails">
+      <span class="aui-comment__author">{{comment.createdByDetails.forename}} {{comment.createdByDetails.surname}}</span>
+      <time #commentDate class="aui-comment__meta" ng-controller="datCtrl">{{ comment.createdDate | date: 'd MMMM y h:mm a' }}</time>
+    </div>
+    <div *ngIf="comment.lastModifiedByDetails">
       <span>modified By: {{comment.lastModifiedByDetails.forename}} {{comment.lastModifiedByDetails.surname}}</span>
       <time class="aui-comment__meta" ng-controller="datCtrl"><br>{{ comment.lastModifiedDate | date: 'd MMMM y h:mm a' }}</time>
     </div>
