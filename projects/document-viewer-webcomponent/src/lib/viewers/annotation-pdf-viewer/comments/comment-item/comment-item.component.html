@@ -7,8 +7,8 @@
   <div #detailsWrapper id="detailsWrapper" class="aui-comment__header">
     <span *ngIf="comment.createdByDetails && !comment.lastModifiedByDetails"
           class="aui-comment__author">{{comment.createdByDetails.forename}} {{comment.createdByDetails.surname}}</span>
-    <span *ngIf="comment.lastModifiedByDetails" class="aui-comment__author">modified By: {{comment.lastModifiedByDetails.forename}} {{comment.lastModifiedByDetails.surname}}</span>
-    <time #commentDate class="aui-comment__meta" ng-controller="datCtrl">{{ comment.lastModifiedDate ? comment.lastModifiedDate : comment.createdDate | date: 'd MMMM y h:mm a' }}</time>
+    <span *ngIf="comment.lastModifiedByDetails" class="aui-comment__author">Modified By: {{comment.lastModifiedByDetails.forename}} {{comment.lastModifiedByDetails.surname}}</span>
+    <time #commentDate class="aui-comment__meta" ng-controller="datCtrl">{{ (comment.lastModifiedDate ? comment.lastModifiedDate : comment.createdDate) | date: 'd MMMM y h:mm a' }}</time>
   </div>
 
   <textarea
