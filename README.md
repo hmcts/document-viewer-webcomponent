@@ -1,5 +1,5 @@
 # @hmcts/document-viewer-webcomponent 
-[![Coverage Status](https://coveralls.io/repos/github/hmcts/document-viewer-webcomponent/badge.svg?branch=upload-npm-in-pipeline)](https://coveralls.io/github/hmcts/document-viewer-webcomponent?branch=upload-npm-in-pipeline)
+[![Coverage Status](https://coveralls.io/repos/github/hmcts/document-viewer-webcomponent/badge.svg?branch=master)](https://coveralls.io/github/hmcts/document-viewer-webcomponent?branch=upload-npm-in-pipeline)
 [![Build Status](https://travis-ci.com/hmcts/document-viewer-webcomponent.svg?branch=master)](https://travis-ci.com/hmcts/document-viewer-webcomponent)
 
 This is an angular library that provides components to view and annotate PDF documents, as well as view images.
@@ -10,7 +10,7 @@ This is an angular library that provides components to view and annotate PDF doc
 
 ### Add as a dependency in your angular app
 - add @hmcts/document-viewer-webcomponent as a dependency in package.json
-- import HmctsEmViewerUiModule and declare it in your NgModule imports.
+- import DocumentViewerModule and declare it in your NgModule imports.
 
   For example:
   ```
@@ -19,7 +19,7 @@ This is an angular library that provides components to view and annotate PDF doc
   @NgModule({
     imports: [
       ...,
-      HmctsEmViewerUiModule,
+      DocumentViewerModule,
     ]
   })
   ```
