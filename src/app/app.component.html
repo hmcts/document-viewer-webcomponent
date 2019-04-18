@@ -1,5 +1,37 @@
 <title>{{ title }}</title>
-
-<router-outlet></router-outlet>
-
+<div class="aui aui--show-comments">
+  <div class="govuk-width-container govuk-main-wrapper">
+        <div class="govuk-form-group">
+          <label class="govuk-label" for="file-upload-1">
+            Upload a file
+          </label>
+          <input type="file" class="govuk-file-upload"
+                 (change)="fileChange($event)"
+                 id="file-upload-1" name="file-upload-1" accept=".pdf,.doc,.docx">
+        </div>
+    <span class="js-hidden">{{ documentUrl | async }}</span>
+  </div>
+  <div class="govuk-tabs" data-module="tabs">
+    <ul class="govuk-tabs__list">
+      <li class="govuk-tabs__list-item">
+        <a [className]="tabLinkStyle('nonDM_PDF')" href="#nonDM_PDF" (click)="toggleDocumentSelection('nonDM_PDF')">
+          Non Document Store PDF
+        </a>
+      </li>
+      <li class="govuk-tabs__list-item">
+        <a [className]="tabLinkStyle('nonDM_image')" href="#nonDM_image" (click)="toggleDocumentSelection('nonDM_image')">
+          Non Document Store Image
+        </a>
+      </li>
+      <li class="govuk-tabs__list-item">
+        <a [className]="tabLinkStyle('DM_PDF')" href="#DM_PDF" (click)="toggleDocumentSelection('DM_PDF')">
+          Document Store
+        </a>
+      </li>
+    </ul>
+    <document-viewer-wrapper [documentTypeToShow]="documentTypeToShow"
+                                [documentUrl]="(documentUrl | async) || ''">
+    </document-viewer-wrapper>
+  </div>
+</div>
 <div id="global-app-error" class="app-error hidden"></div>
