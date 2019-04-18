@@ -1,30 +1,22 @@
 {
-    "compileOnSave": false,
-    "compilerOptions": {
-        "outDir": "../dist/annotation-ui-app-api",
-        "target": "es5",
-        "types": [
-            "node",
-            "mocha",
-            "rxjs"
-        ],
-        "baseUrl": ".",
-        "paths": {
-            "@angular/*": [
-                "../../node_modules/@angular/*"
-            ]
-        },
-        "lib": [
-            "es2017",
-            "dom"
-        ]
-    },
-    "include": [
-        "**/*.ts",
-        "../*.ts",
-      "../src/app/routing/pages/generic-page/annotation-webapp/annotation-webapp.component.ts", "../config/environments/aat.config.ts", "../config/environments/local.config.ts"
-    ],
-    "exclude": [
-        "**/*.spec.ts"
+  "compilerOptions": {
+    "moduleResolution": "node",
+    "module": "commonjs",
+    "target": "es2017",
+    "sourceMap": false,
+    "experimentalDecorators": true,
+    "noImplicitAny": false,
+    "strict": true,
+    "declaration": true,
+    "resolveJsonModule": true,
+    "lib": [
+      "es2017",
+      "dom"
     ]
+  },
+  "exclude": [
+    "../node_modules/",
+    "../dist/"
+  ]
 }
+
