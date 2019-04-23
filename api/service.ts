@@ -1,12 +1,12 @@
 import * as path from "path";
-import {config} from "../config/config";
-import {logger} from "../config/logger";
+import {config} from "./config";
+import {logger} from "./logger";
 import {Application} from "express";
 import * as express from "express";
 import {ClientRequest, Server} from "http";
 import * as proxy from "http-proxy-middleware";
-import {TokenRepository} from "../token/TokenRepository";
-import {StatusController} from "./StatusController";
+import {TokenRepository} from "./auth/token-repository";
+import {StatusController} from "./status-controller";
 
 /**
  * Wrapper that boots express with auth headers and static folder

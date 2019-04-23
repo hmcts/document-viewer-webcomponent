@@ -4,7 +4,7 @@ import * as otp from "otp";
 /**
  * Client for the service auth provider API that fetches an S2S token
  */
-export class ServiceAuthProviderClient {
+export class S2sClient {
 
   constructor(
     private readonly http: AxiosInstance,

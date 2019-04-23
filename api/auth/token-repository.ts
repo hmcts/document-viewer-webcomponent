@@ -1,4 +1,4 @@
-import { logger } from "../config/logger";
+import { logger } from "../logger";
 import Timeout = NodeJS.Timeout;
 
 /**
