@@ -38,7 +38,7 @@ export class ApiHttpService {
             this.transferState.remove(STATE_KEY);
             return of(annotationSet);
         } else {
-            const url = `${baseUrl}/em-anno/annotation-sets/${dmDocumentId}`;
+            const url = `${baseUrl}/em-anno/annotation-sets/filter?documentId=${dmDocumentId}`;
             return this.httpClient.get<IAnnotationSet>(url, {observe: 'response'})
                     .pipe(
                         tap(annotationSet => {
