@@ -2,7 +2,7 @@
   <div class="aui__window">
     <div class="aui__window-container">
       <div class="aui__document">
-        <div class="aui__document-comments" id="comments" style="display: block">
+        <div *ngIf="documentTypeToShow == 'DM_PDF'" class="aui__document-comments" id="comments" style="display: block">
           <div class="hmcts-alert">
             <svg class="hmcts-alert__icon" fill="currentColor" role="presentation" focusable="false"
                  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 25 25" height="25" width="25">

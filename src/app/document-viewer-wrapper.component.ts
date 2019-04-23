@@ -1,8 +1,8 @@
 import { Component, Input } from '@angular/core';
 
 @Component({
-  selector: 'document-viewer-wrapper',
-  templateUrl: 'document-viewer-wrapper.component.html'
+  selector: 'app-document-viewer-wrapper',
+  templateUrl: './document-viewer-wrapper.component.html'
 })
 export class DocumentViewerWrapperComponent {
 

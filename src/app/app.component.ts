@@ -9,27 +9,27 @@ import { map } from 'rxjs/operators';
 })
 
 export class AppComponent {
-    title = 'Annotation Library Demo App';
+    title = 'Document Viewer Demo App';
     documentUrl: Observable<string>;
     documentTypeToShow = 'nonDM_PDF';
 
     constructor(private httpClient: HttpClient) {}
 
   fileChange(event) {
-    let fileList: FileList = event.target.files;
-    if(fileList.length > 0) {
+    const fileList: FileList = event.target.files;
+    if (fileList.length > 0) {
 
-      let headers = new HttpHeaders();
+      const headers = new HttpHeaders();
       headers.append('Content-Type', 'multipart/form-data');
 
-      let file: File = fileList[0];
-      let formData: FormData = new FormData();
+      const file: File = fileList[0];
+      const formData: FormData = new FormData();
       formData.append('files', file, file.name);
       formData.append('classification', 'PUBLIC');
 
       this.documentUrl = this.httpClient.post<any>('/documents', formData, { headers })
         .pipe(
-          map(resp => resp._embedded.documents["0"]._links.self.href)
+          map(resp => resp._embedded.documents['0']._links.self.href)
         );
     }
   }

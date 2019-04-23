@@ -4,7 +4,7 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { DocumentViewerModule } from '@hmcts/document-viewer-webcomponent';
-import { DocumentViewerWrapperComponent } from './annotation-webapp/document-viewer-wrapper.component';
+import { DocumentViewerWrapperComponent } from './document-viewer-wrapper.component';
 
 @NgModule({
   declarations: [
