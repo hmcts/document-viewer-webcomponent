@@ -68,7 +68,7 @@ This is an angular library that provides components to view and annotate PDF doc
     ```
     Note: The file needs to be retrievable.
   
-### Running development application (only for use with hmcts document store)
+### Running development application
 - pull and start the docker containers :
   ```
   az login
