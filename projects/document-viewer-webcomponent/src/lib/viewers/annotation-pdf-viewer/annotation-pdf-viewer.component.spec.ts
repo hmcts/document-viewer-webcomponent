@@ -7,7 +7,6 @@ import { AnnotationSet, Annotation } from '../../data/annotation-set.model';
 
 import { PdfService } from '../../data/pdf.service';
 import { AnnotationStoreService } from '../../data/annotation-store.service';
-import { NpaService } from '../../data/npa.service';
 import { ApiHttpService } from '../../data/api-http.service';
 import { Utils } from '../../data/utils';
 import { PdfAnnotateWrapper } from '../../data/js-wrapper/pdf-annotate-wrapper';
@@ -48,16 +47,6 @@ class MockAnnotationStoreService {
   getAnnotationsForPage() {}
 }
 
-class MockNpaService {
-  outputDmDocumentId: Subject<string>;
-
-  constructor() {
-    this.outputDmDocumentId = new Subject<string>();
-  }
-
-  setPageNumber(pageNumber: number) {}
-}
-
 class MockApiHttpService {
   getBaseUrl() {}
   setBaseUrl(baseUrl) {}
@@ -94,7 +83,6 @@ describe('AnnotationPdfViewerComponent', () => {
   const mockRotationFactoryService = new MockRotationFactoryService();
   const mockAnnotationStoreService = new MockAnnotationStoreService();
   const mockPdfService = new MockPdfService();
-  const mockNpaService = new MockNpaService();
   const mockApiHttpService = new MockApiHttpService();
   const mockUtils = new MockUtils();
   const mockPdfAnnotateWrapper = new MockPdfAnnotateWrapper();
@@ -109,7 +97,6 @@ describe('AnnotationPdfViewerComponent', () => {
         { provide: Utils, useFactory: () => mockUtils },
         { provide: PdfService, useFactory: () => mockPdfService },
         { provide: AnnotationStoreService, useFactory: () => mockAnnotationStoreService },
-        { provide: NpaService, useFactory: () => mockNpaService },
         { provide: PdfAnnotateWrapper, useFactory: () => mockPdfAnnotateWrapper },
         { provide: ApiHttpService, useFactory: () => mockApiHttpService },
         { provide: PdfRenderService, useFactory: () => mockPdfRenderService },

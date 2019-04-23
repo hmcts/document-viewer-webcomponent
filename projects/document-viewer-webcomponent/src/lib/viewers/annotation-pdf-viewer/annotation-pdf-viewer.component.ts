@@ -14,7 +14,6 @@ import { Subscription } from 'rxjs';
 import {PdfService} from '../../data/pdf.service';
 import {AnnotationStoreService} from '../../data/annotation-store.service';
 import {IAnnotationSet, Annotation} from '../../data/annotation-set.model';
-import {NpaService} from '../../data/npa.service';
 import {ApiHttpService} from '../../data/api-http.service';
 import { Utils } from '../../data/utils';
 import { PdfAnnotateWrapper } from '../../data/js-wrapper/pdf-annotate-wrapper';
@@ -56,7 +55,6 @@ export class AnnotationPdfViewerComponent implements OnInit, AfterViewInit, OnDe
     @ViewChild('contextualToolbar') contextualToolbar: ContextualToolbarComponent;
 
     constructor(private pdfService: PdfService,
-                private npaService: NpaService,
                 private apiHttpService: ApiHttpService,
                 private annotationStoreService: AnnotationStoreService,
                 private utils: Utils,
@@ -119,7 +117,6 @@ export class AnnotationPdfViewerComponent implements OnInit, AfterViewInit, OnDe
             this.log.info('annotations are enabled');
             this.apiHttpService.setBaseUrl(this.baseUrl);
             this.annotationStoreService.preLoad(this.annotationSet);
-            this.npaService.outputDmDocumentId.next(this.outputDmDocumentId);
         } else {
             this.log.info('annotations are disabled');
             this.annotationStoreService.preLoad(null);

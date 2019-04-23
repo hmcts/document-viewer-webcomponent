@@ -2,7 +2,6 @@ import { HttpTestingController, HttpClientTestingModule } from '@angular/common/
 import { TestBed, inject, async } from '@angular/core/testing';
 import { ApiHttpService } from './api-http.service';
 import { AnnotationSet, Annotation } from './annotation-set.model';
-import { DocumentTask } from './document-task.model';
 import { TransferState } from '@angular/platform-browser';
 import { PLATFORM_ID } from '@angular/core';
 import { EmLoggerService } from '../logging/em-logger.service';
@@ -102,27 +101,6 @@ describe('ApiHttpService', () => {
         });
     });
 
-    // describe('documentTask', () => {
-    //     it('should return IDocumentTask response', () => {
-    //         const outputDocumentId = 'd29e4aca-7b4c-43e9-a594-0b3b50dc216e';
-    //         const dummyDocumentTask = new DocumentTask(
-    //             100, dmDocumentId, outputDocumentId, 'DONE',
-    //             null, '2018-10-17 13:26:04.891', '123141',
-    //             '123141', '2018-10-17 13:26:05.767');
-
-    //         apiHttpService.setBaseUrl(baseUrl);
-    //         apiHttpService.documentTask(dmDocumentId, outputDocumentId).subscribe((response) => {
-    //             expect(response.body).toEqual(jasmine.any(DocumentTask));
-    //         });
-
-    //         const req = httpMock.expectOne(`${baseUrl}/em-npa/document-tasks`);
-    //         expect(req.request.method).toBe('POST');
-    //         expect(req.request.body.inputDocumentId).toBe(dmDocumentId);
-    //         expect(req.request.body.outputDocumentId).toBe(outputDocumentId);
-    //         req.flush(dummyDocumentTask);
-    //     });
-    // });
-
     describe('delete annotation', () => {
         it('should return IAnnotation response', async(() => {
 
@@ -151,9 +129,5 @@ describe('ApiHttpService', () => {
             expect(req.request.method).toBe('POST');
             req.flush(dummyAnnotation);
         }));
-    });
-
-    afterEach(() => {
-     //   httpMock.verify();
     });
 });
