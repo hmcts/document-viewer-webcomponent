@@ -4,7 +4,6 @@ import { tap } from 'rxjs/operators';
 import { isPlatformServer } from '@angular/common';
 import {HttpResponse, HttpClient} from '@angular/common/http';
 import {Injectable, PLATFORM_ID, Inject} from '@angular/core';
-import {IDocumentTask} from './document-task.model';
 import {Annotation, IAnnotation, IAnnotationSet} from './annotation-set.model';
 import { EmLoggerService } from '../logging/em-logger.service';
 
@@ -39,7 +38,7 @@ export class ApiHttpService {
             this.transferState.remove(STATE_KEY);
             return of(annotationSet);
         } else {
-            const url = `${baseUrl}/em-anno/annotation-sets/${dmDocumentId}`;
+            const url = `${baseUrl}/em-anno/annotation-sets/filter?documentId=${dmDocumentId}`;
             return this.httpClient.get<IAnnotationSet>(url, {observe: 'response'})
                     .pipe(
                         tap(annotationSet => {
@@ -49,15 +48,6 @@ export class ApiHttpService {
                         })
                     );
         }
-    }
-    documentTask(dmDocumentId, outputDmDocumentId, baseUrl: string): Observable<HttpResponse<IDocumentTask>> {
-        const url = `${baseUrl}/api/em-npa/document-tasks`;
-        const documentTasks = {
-            inputDocumentId: dmDocumentId,
-            outputDocumentId: outputDmDocumentId
-        };
-        this.log.info('Calling NPA service-' + dmDocumentId);
-        return this.httpClient.post<IDocumentTask>(url, documentTasks, {observe: 'response'});
     }
 
     deleteAnnotation(annotation: Annotation): Observable<HttpResponse<IAnnotation>> {

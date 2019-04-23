@@ -5,7 +5,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { CommentsComponent } from './viewers/annotation-pdf-viewer/comments/comments.component';
 import { CommentItemComponent } from './viewers/annotation-pdf-viewer/comments/comment-item/comment-item.component';
 import { PdfAdapter } from './data/pdf-adapter';
-import { NpaService } from './data/npa.service';
 import { PdfService } from './data/pdf.service';
 import { AnnotationStoreService } from './data/annotation-store.service';
 import { AnnotationPdfViewerComponent } from './viewers/annotation-pdf-viewer/annotation-pdf-viewer.component';
@@ -56,7 +55,6 @@ import { EmLoggerService } from './logging/em-logger.service';
     PdfService,
     AnnotationStoreService,
     PdfAdapter,
-    NpaService,
     ApiHttpService,
     Utils,
     ViewerFactoryService,

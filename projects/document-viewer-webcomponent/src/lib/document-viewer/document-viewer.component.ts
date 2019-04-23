@@ -75,5 +75,4 @@ export class DocumentViewerComponent implements OnChanges {
   formatUrl(url: string): string {
     return url.replace(/http.*\/documents\//, `${this.baseUrl}/documents/`);
   }
-
 }

@@ -69,16 +69,24 @@ This is an angular library that provides components to view and annotate PDF doc
     Note: The file needs to be retrievable.
   
 ### Running development application (only for use with hmcts document store)
-- set environment variable to define if app connects to localhost or aat:
+- pull and start the docker containers :
   ```
-  export APP_ENV=local
+  az login
+  az acr login --name hmcts --subscription 1c4f0704-a29e-403d-b719-b90c34ef14c9
+  docker-compose -f docker-compose-dependencies.yml pull
+  docker-compose -f docker-compose-dependencies.yml up
   ```
-- start app server
+- build and start node server
   ```
-  yarn install; export S2S_SECRET={{insert secret here}}; export IDAM_SECRET={{insert secret here}}; export APP_ENV=local; yarn start-dev-proxy;
+  npm run build:node
+  npm run start:node;
   ```
-- start node server
+- build the angular component library :
   ```
-  yarn install; export S2S_SECRET={{insert secret here}}; export IDAM_SECRET={{insert secret here}}; export APP_ENV=local; yarn watch-dev-node;
+  npm run package
+  ```
+- start angular app
+  ```
+  npm run start:ng;
   ``` 
 - go to http://localhost:3000 and the viewer should load the document.

@@ -1,0 +1,47 @@
+<section [className]="tabStyle(documentTypeToShow)" [id]="documentTypeToShow">
+  <div class="aui__window">
+    <div class="aui__window-container">
+      <div class="aui__document">
+        <div *ngIf="documentTypeToShow == 'DM_PDF'" class="aui__document-comments" id="comments" style="display: block">
+          <div class="hmcts-alert">
+            <svg class="hmcts-alert__icon" fill="currentColor" role="presentation" focusable="false"
+                 xmlns="http://www.w3.org/2000/svg" viewBox="0 0 25 25" height="25" width="25">
+              <path d="M25,6.2L8.7,23.2L0,14.1l4-4.2l4.7,4.9L21,2L25,6.2z"/>
+            </svg>
+            <span class="hmcts-alert__message">
+              <span class="hmcts-alert__assistive">Success</span>
+              Select text to add a comment.
+            </span>
+          </div>
+        </div>
+        <div class="aui__document-pages">
+          <div class="aui__document-page">
+            <div class="aui-casefile-document-wrapper">
+              <div class="aui-casefile-page editable medium-editor-element" data-medium-editor-element="true"
+                   role="textbox"
+                   aria-multiline="true" data-medium-editor-editor-index="1"
+                   medium-editor-index="ca3cfb8f-8b6a-8f73-1ed5-fa7679703446" data-placeholder="Type your text">
+                <app-document-viewer *ngIf="documentTypeToShow == 'nonDM_PDF'"
+                                     [contentType]="'pdf'"
+                                     [isDM]="false"
+                                     [url]="'/assets/non-dm.pdf'">
+                </app-document-viewer>
+                <app-document-viewer *ngIf="documentTypeToShow == 'nonDM_image'"
+                                     [contentType]="'image'"
+                                     [isDM]="false"
+                                     [url]="'/assets/non-dm.jpg'">
+                </app-document-viewer>
+                <app-document-viewer *ngIf="documentTypeToShow == 'DM_PDF' && documentUrl"
+                                     [contentType]="'pdf'"
+                                     [annotate]="true"
+                                     [rotate]="true"
+                                     [url]="documentUrl">
+                </app-document-viewer>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

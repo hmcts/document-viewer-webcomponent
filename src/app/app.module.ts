@@ -3,25 +3,19 @@ import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
-import { AuthModule } from './auth/auth.module';
-import { ConfigService } from './config.service';
-import { RouterModule } from '@angular/router';
-import { RoutingModule } from './routing.module';
+import { DocumentViewerModule } from '@hmcts/document-viewer-webcomponent';
+import { DocumentViewerWrapperComponent } from './document-viewer-wrapper.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    DocumentViewerWrapperComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
-    AuthModule,
-    RouterModule,
-    RoutingModule,
-    BrowserTransferStateModule
-  ],
-  providers: [
-    ConfigService
+    BrowserTransferStateModule,
+    DocumentViewerModule
   ],
   bootstrap: [AppComponent]
 })

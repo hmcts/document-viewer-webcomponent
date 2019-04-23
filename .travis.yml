@@ -17,8 +17,8 @@ apt:
 script:
 - npm --version
 - npm install
-- npm test
 - npm run package
+- npm test
 after_success:
 - npm run test:codecov-upload
 - npm run test:coveralls-upload
