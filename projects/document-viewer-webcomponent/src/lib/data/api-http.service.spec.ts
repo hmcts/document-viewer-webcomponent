@@ -95,7 +95,7 @@ describe('ApiHttpService', () => {
                 expect(response.body.documentId).toBe(dmDocumentId);
             });
 
-            const req = httpMock.expectOne(`${baseUrl}/em-anno/annotation-sets/${dmDocumentId}`);
+            const req = httpMock.expectOne(`${baseUrl}/em-anno/annotation-sets/filter?documentId=${dmDocumentId}`);
             expect(req.request.method).toBe('GET');
             req.flush(dummyAnnotationSet);
         });
