@@ -31,7 +31,7 @@ export class DocumentViewerComponent implements OnChanges {
     }
 
     ngOnChanges(changes: SimpleChanges) {
-        if (changes.url || changes.annotate || changes.contentType) {
+        if (changes.url || changes.annotate || changes.rotate || changes.contentType) {
           this.buildViewer();
         }
     }
