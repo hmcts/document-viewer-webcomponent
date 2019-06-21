@@ -109,16 +109,6 @@ export class CommentItemComponent implements OnInit, OnDestroy {
             );
     }
 
-    setHeight() {
-        this.renderer.setStyle(this.commentArea.nativeElement, 'height', 'fit-content');
-        this.renderer.setStyle(this.commentArea.nativeElement, 'height', (this.commentArea.nativeElement.scrollHeight) + 'px');
-        this.commentHeight =  this.commentSelector.nativeElement.getBoundingClientRect().height;
-        this.commentRendered.emit(true);
-        if (!this.ref['destroyed']) {
-            this.ref.detectChanges();
-        }
-    }
-
     ngOnDestroy() {
         if (this.commentFocusSub) {
             this.commentFocusSub.unsubscribe();
@@ -271,6 +261,16 @@ export class CommentItemComponent implements OnInit, OnDestroy {
         this.sliceComment = this.comment.content;
         this.setHeight();
     }
+
+  setHeight() {
+    this.renderer.setStyle(this.commentArea.nativeElement, 'height', 'auto');
+    this.renderer.setStyle(this.commentArea.nativeElement, 'height', (this.commentArea.nativeElement.scrollHeight) + 'px');
+    this.commentHeight =  this.commentSelector.nativeElement.getBoundingClientRect().height;
+    this.commentRendered.emit(true);
+    if (!this.ref['destroyed']) {
+      this.ref.detectChanges();
+    }
+  }
 
     getRelativePosition(annotationId: string): number {
         const svgSelector = this.pdfRenderService.getViewerElementRef().nativeElement
