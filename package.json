@@ -30,7 +30,7 @@
     "e2e": "ng e2e"
   },
   "dependencies": {
-    "@angular-devkit/build-ng-packagr": "^0.12.1",
+    "@angular-devkit/build-ng-packagr": "^0.1002.1",
     "@angular/cli": "^6.1.0",
     "@angular/common": "6.1.0",
     "@angular/compiler": "6.1.0",
